@@ -28,12 +28,12 @@ public class DataLoader implements ApplicationRunner {
         if (rolRepository.count() == 0) {
             // Create and save an initial role
             Rol defaultRole = new Rol();
-            defaultRole.setId(1L); // Set the role id
+            defaultRole.setId(1); // Set the role id
             defaultRole.setNombre("Administrador"); // Set the role name
             rolRepository.save(defaultRole);
 
             Rol defaultRole2 = new Rol();
-            defaultRole2.setId(2L); // Set the role id
+            defaultRole2.setId(2); // Set the role id
             defaultRole2.setNombre("Usuario"); // Set the role name
             rolRepository.save(defaultRole2);
 

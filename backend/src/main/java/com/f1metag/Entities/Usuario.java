@@ -29,11 +29,10 @@ public class Usuario {
 
     public Usuario() {
         this.rol = new Rol();
-        this.rol.setId(2L);
+        this.rol.setId(2);
         this.rol.setNombre("Usuario");
         this.estado = true;
     }
-
 
     public Long getId() {
         return id;

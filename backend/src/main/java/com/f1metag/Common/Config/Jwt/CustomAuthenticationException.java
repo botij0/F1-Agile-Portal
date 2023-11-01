@@ -1,4 +1,4 @@
-package com.f1metag.Config.Jwt;
+package com.f1metag.Common.Config.Jwt;
 
 public class CustomAuthenticationException extends Throwable {
     public CustomAuthenticationException(String message) {

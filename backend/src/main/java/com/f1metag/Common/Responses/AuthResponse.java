@@ -1,4 +1,4 @@
-package com.f1metag.Auth;
+package com.f1metag.Common.Responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

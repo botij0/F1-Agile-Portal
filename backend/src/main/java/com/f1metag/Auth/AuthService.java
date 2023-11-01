@@ -1,6 +1,9 @@
 package com.f1metag.Auth;
 
-import com.f1metag.Config.Jwt.JwtService;
+import com.f1metag.Common.Config.Jwt.JwtService;
+import com.f1metag.Common.Requests.LoginRequest;
+import com.f1metag.Common.Requests.SignUpRequest;
+import com.f1metag.Common.Responses.AuthResponse;
 import com.f1metag.Usuario.Models.Rol;
 import com.f1metag.Usuario.Models.Usuario;
 import com.f1metag.Usuario.Repositories.UsuarioRepository;

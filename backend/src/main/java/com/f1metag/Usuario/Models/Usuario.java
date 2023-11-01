@@ -37,7 +37,6 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     Rol rol;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority((rol.name())));

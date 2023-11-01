@@ -1,6 +1,6 @@
-package com.f1metag.Config;
+package com.f1metag.Common.Config;
 
-import com.f1metag.Config.Jwt.JwtAuthenticationFilter;
+import com.f1metag.Common.Config.Jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +20,6 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter JwtAuthenticationFilter;
     private final AuthenticationProvider authProvider;
 
-
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http
@@ -32,8 +29,7 @@ public class SecurityConfig {
                         csrf -> csrf.disable()
                 )
                 .authorizeHttpRequests(authRequest ->
-                        authRequest.
-                                requestMatchers("/auth/**").permitAll()
+                        authRequest.requestMatchers("/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

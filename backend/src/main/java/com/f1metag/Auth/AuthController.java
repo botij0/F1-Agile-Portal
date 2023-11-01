@@ -1,5 +1,8 @@
 package com.f1metag.Auth;
 
+import com.f1metag.Common.Requests.LoginRequest;
+import com.f1metag.Common.Requests.SignUpRequest;
+import com.f1metag.Common.Responses.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +37,6 @@ public class AuthController {
                      .success(false)
                      .message(e.getMessage())
                      .build());
-
        }
     }
 }

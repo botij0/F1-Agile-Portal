@@ -2,6 +2,7 @@ package com.f1metag.Usuario.Controllers;
 
 
 import com.f1metag.Auth.AuthService;
+import com.f1metag.Common.Responses.ApiResponse;
 import com.f1metag.Usuario.Models.Usuario;
 import com.f1metag.Usuario.Services.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/usuarios")
 @RequiredArgsConstructor
 
 public class UsuarioController {
@@ -26,13 +27,13 @@ public class UsuarioController {
     AuthService authService;
 
     @GetMapping
-    public ArrayList<Usuario> getUsers() {
-        return usuarioService.getAllUsers();
+    public ApiResponse getUsuarios() {
+        return ApiResponse.successRequest("Usuarios obtenidos correctamente", usuarioService.getAllUsers()).getBody();
     }
 
     @GetMapping("/me")
-    public Usuario currentUser() {
-        return usuarioService.getAuthenticatedUser();
+    public ApiResponse getAuthenticatedUser() {
+        return ApiResponse.successRequest("Usuario obtenido correctamente", usuarioService.getAuthenticatedUser()).getBody();
     }
 
 }

@@ -23,11 +23,11 @@ const NavbarF: React.FC = () => {
         <div>
           <Link href='/' onClick={handleSmallerScreenNavigation}>
             <img src='logo.png' className='h-8 mr-3' alt='F1 Logo' />
-            <span className='font-extrabold text-3xl md:text-2xl xl:text-3xl uppercase self-center'>f1-agile-portal</span>
+            <span className='font-extrabold text-2xl  md:text-sm xl:text-3xl uppercase self-center'>f1-agile-portal</span>
           </Link>
         </div>
 
-        <ul className='hidden md:flex uppercase font-semibold text-1xl lg:text-[20px] text-[#FFFFFF]'>
+        <ul className='hidden md:flex uppercase font-semibold text-xs xl:text-xl text-[#FFFFFF]'>
           {navLinks.map((link, index) => (
             <li key={index} className={`mr-4 ${index === navLinks.length - 1 ? 'lg:mr-8' : ''}`}>
               <Link href={link.href} className='hover:text-slate-400'>
@@ -40,13 +40,13 @@ const NavbarF: React.FC = () => {
         <div className='hidden md:flex'>
           <div className='flex'>
             <Link href='/Login'>
-              <button className='mr-5 bg-gray-100 text-slate-800 hover:bg-slate-800 hover:text-gray-100 rounded-2xl uppercase font-bold px-8 py-2'>
+              <button className=' border-2 mr-5 bg-gray-100 text-slate-800 hover:bg-slate-800 hover:text-gray-100 rounded-2xl uppercase text-xs xl:text-base font-bold px-8 py-2'>
                 Iniciar Sesion
               </button>
             </Link>
 
             <Link href='/Register'>
-              <button className='border-2 border-gray-100 text-white hover:text-slate-400 hover:border-slate-400 rounded-2xl uppercase font-bold px-8 py-2'>
+              <button className='border-2 border-gray-100 text-white hover:text-slate-400 hover:border-slate-400 rounded-2xl uppercase text-xs xl:text-base font-bold px-8 py-2'>
                 Registrarse
               </button>
             </Link>

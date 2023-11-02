@@ -31,20 +31,18 @@ export default function VotacionesAbiertas() {
     }, []);
     */
     return (
-        <table className='bg-red-700 rounded-2xl mt-5'>
-            <tbody>
+            <div className='bg-red-700 rounded-2xl mt-5'>
                 {votaciones.map((votacion, index) => (
-                    <tr key={index}>
+                    <div className="" key={index}>
                         <Link href="/Votaciones">
-                            <td className='hover:text-slate-300 transition duration-300 ease-in-out hover:scale-105'>
+                            <div className='hover:text-slate-300 transition duration-300 ease-in-out hover:scale-105'>
                                 <h3 className='font-bold text-center text-2xl m-3'>{votacion.title}</h3>
                                 <p className='text-center px-5'>{votacion.description}</p>
-                            </td>
+                            </div>
                         </Link>
-                    </tr>
+                    </div>
                 ))}
-                <tr><td className="text-red-700">a</td></tr>
-            </tbody>
-        </table>
+                <br></br>
+            </div>
     );
 }

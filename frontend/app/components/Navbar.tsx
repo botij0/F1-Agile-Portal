@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image'
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 
 const NavbarF: React.FC = () => {
@@ -22,7 +23,7 @@ const NavbarF: React.FC = () => {
       <nav className='max-w-[1800px] mx-auto h-[80px] flex justify-between items-center p-4'>
         <div>
           <Link href='/' onClick={handleSmallerScreenNavigation}>
-            <img src='logo.png' className='h-8 mr-3' alt='F1 Logo' />
+            <Image src='/logo.png' width={130} height={15} alt='F1 Logo' />
             <span className='font-extrabold text-2xl  md:text-sm xl:text-3xl uppercase self-center'>f1-agile-portal</span>
           </Link>
         </div>

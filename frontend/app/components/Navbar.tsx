@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image'
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import UserIcon from "./UserIcon";
+
 
 const NavbarF: React.FC = () => {
   const [menuIcon, setMenuIcon] = useState(false);
@@ -22,15 +25,15 @@ const NavbarF: React.FC = () => {
     <header className="bg-red-600 text-[#FFFFFF] w-full ease-in duration-300 fixed top-0 left-0 z-10">
       <nav className="max-w-[1800px] mx-auto h-[80px] flex justify-between items-center p-4">
         <div>
-          <Link href="/" onClick={handleSmallerScreenNavigation}>
-            <img src="logo.png" className="h-8 mr-3" alt="F1 Logo" />
-            <span className="font-extrabold text-3xl md:text-2xl xl:text-3xl uppercase self-center">
-              f1-agile-portal
-            </span>
+
+          <Link href='/' onClick={handleSmallerScreenNavigation}>
+            <Image src='/logo.png' width={130} height={15} alt='F1 Logo' />
+            <span className='font-extrabold text-2xl  md:text-sm xl:text-3xl uppercase self-center'>f1-agile-portal</span>
           </Link>
         </div>
 
-        <ul className="hidden md:flex uppercase font-semibold text-1xl lg:text-[20px] text-[#FFFFFF]">
+        <ul className='hidden md:flex uppercase font-semibold text-xs xl:text-xl text-[#FFFFFF]'>
+
           {navLinks.map((link, index) => (
             <li
               key={index}
@@ -44,9 +47,11 @@ const NavbarF: React.FC = () => {
             </li>
           ))}
         </ul>
+
         <div>
           {/*PROVISIONAL HASTA QUE SE PUEDA SACAR INFO DE LA SESION*/}
           <UserIcon name="Gonzalo Romero" />
+
         </div>
 
         <div onClick={handleSmallerScreenNavigation} className="flex md:hidden">

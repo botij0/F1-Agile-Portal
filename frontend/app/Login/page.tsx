@@ -6,19 +6,17 @@ import axios from "axios";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  //const jsonLogin = { username, password };
 
   const handleSubmit = async () => {
-    console.log("----------------------------------------------------------");
-    console.log(username);
-    console.log(password);
+    //POST a API login
     if (username != "" && password != "") {
       const response = await axios.post("http://localhost:8080/auth/login", {
         username: username,
         password: password,
       });
-      console.log(response);
-      //const token = response.data.token;
+
+      //guardamos en localstorage el token devuelto en el login
+      localStorage.setItem("token", response.data.token);
     }
   };
 

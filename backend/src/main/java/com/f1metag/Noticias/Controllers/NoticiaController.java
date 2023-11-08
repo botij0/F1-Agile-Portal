@@ -22,4 +22,9 @@ public class NoticiaController {
     public ArrayList<Noticia> getNoticias(){
         return noticiaService.getAllNoticias();
     }
+
+    @GetMapping("/ultimas")
+    public ArrayList<Noticia> getUltimasNoticias(){
+        return noticiaService.getUltimasNoticias();
+    }
 }

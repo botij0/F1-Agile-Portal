@@ -16,4 +16,8 @@ public class NoticiaService {
     public ArrayList<Noticia> getAllNoticias() {
         return (ArrayList<Noticia>) noticiaRepository.findAll();
     }
+
+    public ArrayList<Noticia> getUltimasNoticias() {
+        return (ArrayList<Noticia>) noticiaRepository.getUltimasNoticias();
+    }
 }

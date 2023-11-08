@@ -1,34 +1,45 @@
-//Componente para mostrar el icono y nombre del usuario si ha iniciado sesión
-//        <div>
-//          <UserIcon name="Usuario" image="public/logo.png"></UserIcon>
-//        </div>
-
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
 
-interface Props {
-  name: string;
-}
+const UserIcon = () => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("token");
 
-const UserIcon = ({ name }: Props) => {
-  if (name.length > 0) {
-    //TODO: cambiar cuando se pueda sacar el nombre de la sesion
-    return (
-      <div className="flex items-center space-x-4">
-        <svg
-          className="w-9 h-9 text-gray-800 dark:text-white"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
-        </svg>
-        <div className="font-medium dark:text-white">
-          <div>{name}</div>
+    let name = "XD";
+    const getName = async () => {
+      const response = await axios.get(
+        "http://localhost:8080/api/v1/usuarios/me",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      name = response.data.nombre;
+      console.log("Name: " + name);
+    };
+    getName();
+    console.log(name);
+    if (token != null) {
+      return (
+        <div className="flex items-center space-x-4">
+          <svg
+            className="w-9 h-9 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
+          </svg>
+          <div className="font-medium dark:text-white">
+            <div>{name}</div>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   } else {
     return (
       <div className="hidden md:flex">

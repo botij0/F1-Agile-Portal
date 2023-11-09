@@ -6,7 +6,7 @@ const UserIcon = () => {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("token");
 
-    let name = "XD";
+    //GET a /me para obtener los datos del usuario
     const getName = async () => {
       const response = await axios.get(
         "http://localhost:8080/api/v1/usuarios/me",
@@ -17,12 +17,15 @@ const UserIcon = () => {
           },
         }
       );
-      name = response.data.nombre;
-      console.log("Name: " + name);
+
+      //Guardo nombre del usuario en localStorage
+      localStorage.setItem("nombre", response.data.data.nombre);
     };
+
     getName();
-    console.log(name);
-    if (token != null) {
+
+    if (token != null && localStorage.getItem("nombre") != null) {
+      //return icono + nombre
       return (
         <div className="flex items-center space-x-4">
           <svg
@@ -35,12 +38,13 @@ const UserIcon = () => {
             <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z" />
           </svg>
           <div className="font-medium dark:text-white">
-            <div>{name}</div>
+            <div>{localStorage.getItem("nombre")}</div>
           </div>
         </div>
       );
     }
   } else {
+    //return botones inicio sesion/registro
     return (
       <div className="hidden md:flex">
         <div className="flex">

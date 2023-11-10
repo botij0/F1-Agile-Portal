@@ -1,27 +1,41 @@
+"use client";
+
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const SeccionUltimasNoticias = () => {
-  const slides = [
-    {
-      url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80",
-    },
+  const NOTICIA_API_BASE_URL = "http://localhost:8080/api/v1/noticias/ultimas";
+  const IMAGEN_BASE_URL = "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/"
+  const LOGO_URL = "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/0d8b4747-e641-4763-a7b4-f7ed168e37b7"
+  const [noticias, setNoticias] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-    {
-      url: "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2253&q=80",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80",
-    },
-  ];
+  useEffect(() => {
+    const getNoticias = async () => {
+      setLoading(true);
+      console.log(noticias)
+      try {
+        const response = await axios.get(NOTICIA_API_BASE_URL, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTQ2MDIxOSwiZXhwIjoxNjk5NTQ2NjE5fQ.rweXdfAOhPiYN_Yo3x7gjIIjprVGBW8MLVkoMSyDrBg", //localStorage.getItem('token'),
+          },
+        });
+        const data = await response.data;
+        setNoticias(data);
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    getNoticias();
+  }, []);
   return (
     <div
       id="carouselExampleCaptions"
-      className="relative max-w-[900px] h-[524px] mt-5 group bg-red-700 rounded-3xl overflow-hidden"
+      className="relative max-w-[900px] h-[524px] mt-5 group bg-black rounded-3xl overflow-hidden"
       data-te-carousel-init
       data-te-ride="carousel"
     >
@@ -66,13 +80,12 @@ export const SeccionUltimasNoticias = () => {
           style={{ backfaceVisibility: "hidden" }}
         >
           <img
-            src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
+            src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[0].imagen}` : LOGO_URL}
             className="block w-full h-[524px] rounded-3xl overflow-hidden"
             alt="..."
           />
           <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl">First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
+            <h5 className="text-xl">{noticias.length > 0 ?  noticias[0].titulo: "First slide label"}</h5>
           </div>
         </div>
         {/*Second item*/}
@@ -82,13 +95,12 @@ export const SeccionUltimasNoticias = () => {
           style={{ backfaceVisibility: "hidden" }}
         >
           <img
-            src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
+            src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[1].imagen}` : LOGO_URL}
             className="block w-full h-[524px] rounded-3xl overflow-hidden"
             alt="..."
           />
           <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl">Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
+            <h5 className="text-xl">{noticias.length > 0 ?  noticias[1].titulo: "Second slide label"}</h5>
           </div>
         </div>
         {/*Third item*/}
@@ -98,13 +110,12 @@ export const SeccionUltimasNoticias = () => {
           style={{ backfaceVisibility: "hidden" }}
         >
           <img
-            src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
+            src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[2].imagen}` : LOGO_URL}
             className="block w-full h-[524px] rounded-3xl overflow-hidden"
             alt="..."
           />
           <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl">Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
+            <h5 className="text-xl">{noticias.length > 0 ?  noticias[2].titulo: "Third slide label"}</h5>
           </div>
         </div>
       </div>

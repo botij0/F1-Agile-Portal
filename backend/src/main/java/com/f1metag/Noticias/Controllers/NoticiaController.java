@@ -25,8 +25,17 @@ public class NoticiaController {
     }
 
     @GetMapping("/ultimas")
-    public ArrayList<Noticia> getUltimasNoticias(){
+    public ArrayList<Noticia> getUltimasNoticias()
+    {
         return noticiaService.getUltimasNoticias();
+    }
+
+    @GetMapping("/principales")
+    public ArrayList<Noticia> getNoticiasPrincipales()
+    {
+        return noticiaService.getNoticiasPrincipales();
+    }
+
     @PostMapping
     public ResponseEntity<ApiResponse> createNoticia(@RequestBody NoticiaRequest noticiaRequest) {
 

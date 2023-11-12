@@ -33,7 +33,7 @@ const FormNoticia = () => {
     const NOTICIA_API_BASE_URL = 'http://localhost:8080/api/v1/noticias';
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTQ0MTYyNywiZXhwIjoxNjk5NTI4MDI3fQ.0iwm-e-YErLQ1Bh1kcuwb8NKRfcrnyh2tD32mNNxP78'         //localStorage.getItem('token'),
+        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTc5MDMyNiwiZXhwIjoxNjk5ODc2NzI2fQ.KDkCZSxFbytHHXYojSsIrVQeEmlVpPPH4HAOhvbIhpU'         //localStorage.getItem('token'),
     };
 
     const onSubmit = handleSubmit((data: any) => {

@@ -20,8 +20,16 @@ public class NoticiaService {
         return (ArrayList<Noticia>) noticiaRepository.findAll();
     }
 
-    public ArrayList<Noticia> getUltimasNoticias() {
+    public ArrayList<Noticia> getUltimasNoticias()
+    {
         return (ArrayList<Noticia>) noticiaRepository.getUltimasNoticias();
+    }
+
+    public ArrayList<Noticia> getNoticiasPrincipales()
+    {
+        return (ArrayList<Noticia>) noticiaRepository.getNoticiasPrincipales();
+    }
+
     public ApiResponse createNoticia(NoticiaRequest noticiaRequest) {
 
         Noticia noticia = Noticia.builder()

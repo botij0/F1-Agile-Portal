@@ -11,8 +11,12 @@ import java.util.Optional;
 @Repository
 public interface NoticiaRepository extends JpaRepository<Noticia, Long>
 {
-    @Query(value = "SELECT * FROM noticias LIMIT 3", nativeQuery = true)
+    @Query(value = "SELECT * FROM noticias order by id desc LIMIT 3", nativeQuery = true)
     ArrayList<Noticia> getUltimasNoticias();
+
+    @Query(value = "SELECT * FROM noticias order by id desc LIMIT 9", nativeQuery = true)
+    ArrayList<Noticia> getNoticiasPrincipales();
+
     Noticia findByTituloContainingIgnoreCase(String titulo);
 
 }

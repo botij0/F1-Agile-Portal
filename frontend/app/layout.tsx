@@ -34,6 +34,8 @@ export default function RootLayout({
         <NavbarF />
         {children}
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
       </body>
     </html>
   );

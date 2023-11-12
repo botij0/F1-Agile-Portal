@@ -20,7 +20,7 @@ export const SeccionUltimasNoticias = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTQ2MDIxOSwiZXhwIjoxNjk5NTQ2NjE5fQ.rweXdfAOhPiYN_Yo3x7gjIIjprVGBW8MLVkoMSyDrBg", //localStorage.getItem('token'),
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTc5MDMyNiwiZXhwIjoxNjk5ODc2NzI2fQ.KDkCZSxFbytHHXYojSsIrVQeEmlVpPPH4HAOhvbIhpU", //localStorage.getItem('token'),
           },
         });
         const data = await response.data;
@@ -35,7 +35,7 @@ export const SeccionUltimasNoticias = () => {
   return (
     <div
       id="carouselExampleCaptions"
-      className="relative max-w-[900px] h-[524px] mt-5 group bg-black rounded-3xl overflow-hidden"
+      className="relative max-w-[900px] h-[524px] mt-5 group bg-black rounded-3xl overflow-hidden border-solid border-8 border-red-700"
       data-te-carousel-init
       data-te-ride="carousel"
     >
@@ -70,11 +70,11 @@ export const SeccionUltimasNoticias = () => {
       </div>
 
       {/*Carousel items*/}
-      <div className="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
+      <div className="relative w-[900px] overflow-hidden after:clear-both after:block after:content-['']">
         {/*First item*/}
         {/* <ImagenCarousel url={slides[0].url}/> */}
         <div
-          className="relative float-left -mr-[100%] w-full transition-transform duration-[400ms] ease-in-out motion-reduce:transition-none"
+          className="relative float-left -mr-[100%] w-full transition-transform duration-[400ms] ease-in-out motion-reduce:transition-none overflow-hidden"
           data-te-carousel-active
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
@@ -85,7 +85,7 @@ export const SeccionUltimasNoticias = () => {
             alt="..."
           />
           <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl">{noticias.length > 0 ?  noticias[0].titulo: "First slide label"}</h5>
+            <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[0].titulo: "First slide label"}</h5>
           </div>
         </div>
         {/*Second item*/}
@@ -100,7 +100,7 @@ export const SeccionUltimasNoticias = () => {
             alt="..."
           />
           <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl">{noticias.length > 0 ?  noticias[1].titulo: "Second slide label"}</h5>
+            <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[1].titulo: "Second slide label"}</h5>
           </div>
         </div>
         {/*Third item*/}
@@ -115,7 +115,7 @@ export const SeccionUltimasNoticias = () => {
             alt="..."
           />
           <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl">{noticias.length > 0 ?  noticias[2].titulo: "Third slide label"}</h5>
+            <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[2].titulo: "Third slide label"}</h5>
           </div>
         </div>
       </div>

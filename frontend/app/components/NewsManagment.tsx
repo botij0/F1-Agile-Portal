@@ -5,12 +5,24 @@ import {IoIosAddCircleOutline} from 'react-icons/io'
 import NoticiaMng from './NoticiaMng'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {paginate} from '../utils/paginate';
+import Pagination from './Pagination';
 
 const NewsManagment = () => {
+
+    const pageSize = 3;
+    const [currentPage, setCurrentPage] = useState<number>(1);
+
     const NOTICIA_API_BASE_URL = 'http://localhost:8080/api/v1/noticias';
     const [noticias, setNoticias] = useState<any[] | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    }
+
+    const paginateNoticias = paginate(noticias, currentPage, pageSize);
+    
     useEffect(() => {
         const getNoticias = async () => {
             setLoading(true);
@@ -19,7 +31,7 @@ const NewsManagment = () => {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTM1NzA1MiwiZXhwIjoxNjk5NDQzNDUyfQ.ZSCs-8uGeQDwnz8y97J6XZFOz3kP0bQ8WgWSY4JjROA'         //localStorage.getItem('token'),
+                        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU'         //localStorage.getItem('token'),
                     },
                 });
                 const data = await response.data;
@@ -31,7 +43,9 @@ const NewsManagment = () => {
             setLoading(false);
         }
         getNoticias();
+        
     }, []);
+
   return (
     <div className="container mx-auto my-8">
 
@@ -61,13 +75,19 @@ const NewsManagment = () => {
                 
                 {!loading && (
                     <tbody className="bg-gray-50">
-                            {noticias?.map((noticia) => (
+                            {paginateNoticias?.map((noticia:{id: number,titulo: string,texto: string, }) => (
                                 <NoticiaMng key={noticia.id} noticia={noticia}/>
                             ))}
                     </tbody>
                 )}
             </table>
         </div>
+        <Pagination
+                items={ noticias == null ? 0 : noticias.length}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
     </div>
   )
 }

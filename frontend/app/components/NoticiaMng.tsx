@@ -1,4 +1,5 @@
 
+import axios from 'axios';
 import Link from 'next/link';
 import React, { useState } from 'react'
 
@@ -9,13 +10,13 @@ interface Noticia{
 }
 
 interface Props{
-    noticia: Noticia
+    noticia: Noticia;
+    deleteNoticia: (e: React.MouseEvent, id: number) => void;
 }
 
 
-const NoticiaMng: React.FC<Props> = ( {noticia }) => {
+const NoticiaMng :React.FC<Props> = ({noticia, deleteNoticia}) => {
 
-    const [isHovered, setIsHovered] = useState(false);
 
   return (
         <tr key={noticia.id} className="border-b hover:bg-orange-100">
@@ -43,9 +44,10 @@ const NoticiaMng: React.FC<Props> = ( {noticia }) => {
                     </button>
                 </Link>
 
-                    <button type="button"className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                <button type="button" onClick={(e) => deleteNoticia(e, noticia.id)}
+                className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                         Eliminar
-                    </button>
+                </button>
 
             </td>
         </tr>

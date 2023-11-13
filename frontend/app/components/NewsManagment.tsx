@@ -3,14 +3,14 @@
 import Link from 'next/link'
 import {IoIosAddCircleOutline} from 'react-icons/io'
 import NoticiaMng from './NoticiaMng'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {paginate} from '../utils/paginate';
 import Pagination from './Pagination';
 
 const NewsManagment = () => {
 
-    const pageSize = 3;
+    const pageSize = 5;
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const NOTICIA_API_BASE_URL = 'http://localhost:8080/api/v1/noticias';
@@ -46,6 +46,25 @@ const NewsManagment = () => {
         
     }, []);
 
+    const deleteNoticia = (e: React.MouseEvent, id:number) => {
+        e.preventDefault();
+        axios.delete(NOTICIA_API_BASE_URL + "/" + id,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU'         //localStorage.getItem('token'),
+            },
+        }).then((res) => {
+          if (noticias) {
+            setNoticias((prevElement) => {
+                if (prevElement == null) 
+                    return null;
+                else
+                    return prevElement.filter((user) => user.id !== id);
+            });
+          }
+        });
+      };
+
   return (
     <div className="container mx-auto my-8">
 
@@ -76,7 +95,7 @@ const NewsManagment = () => {
                 {!loading && (
                     <tbody className="bg-gray-50">
                             {paginateNoticias?.map((noticia:{id: number,titulo: string,texto: string, }) => (
-                                <NoticiaMng key={noticia.id} noticia={noticia}/>
+                                <NoticiaMng key={noticia.id} noticia={noticia} deleteNoticia={deleteNoticia}/>
                             ))}
                     </tbody>
                 )}

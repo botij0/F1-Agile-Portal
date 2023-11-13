@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoticiaRequest {
+    Integer id;
     String titulo;
     String texto;
     String imagen;

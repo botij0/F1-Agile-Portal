@@ -49,4 +49,10 @@ public class NoticiaService {
 
         return ApiResponse.successRequest("Noticia creada correctamente", oldNoticia).getBody();
     }
+
+    public boolean deleteNoticia(Long id)
+    {
+        noticiaRepository.deleteById(id);
+        return true;
+    }
 }

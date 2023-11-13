@@ -29,6 +29,11 @@ public class NoticiaController {
         return noticiaService.getNoticia(id);
     }
 
+    @DeleteMapping("/{id}")
+    public boolean deleteNoticia(@PathVariable("id") Long id){
+        return noticiaService.deleteNoticia(id);
+    }
+
     @PostMapping
     public ResponseEntity<ApiResponse> guardarNoticia(@RequestBody NoticiaRequest noticiaRequest) {
 

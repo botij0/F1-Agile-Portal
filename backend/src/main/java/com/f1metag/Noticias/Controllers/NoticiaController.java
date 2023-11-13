@@ -24,11 +24,19 @@ public class NoticiaController {
         return noticiaService.getAllNoticias();
     }
 
+    @GetMapping("/{id}")
+    public Noticia getNoticia(@PathVariable("id") Long id){
+        return noticiaService.getNoticia(id);
+    }
+
     @PostMapping
-    public ResponseEntity<ApiResponse> createNoticia(@RequestBody NoticiaRequest noticiaRequest) {
+    public ResponseEntity<ApiResponse> guardarNoticia(@RequestBody NoticiaRequest noticiaRequest) {
 
         try {
-            return ResponseEntity.ok(noticiaService.createNoticia(noticiaRequest));
+            if(noticiaRequest.getId() == 0)
+                return ResponseEntity.ok(noticiaService.createNoticia(noticiaRequest));
+            else
+                return ResponseEntity.ok(noticiaService.updateNoticia(noticiaRequest));
         } catch (IllegalArgumentException e) {
             return ApiResponse.badRequest();
         }

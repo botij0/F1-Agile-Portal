@@ -44,15 +44,15 @@ export default function Noticias() {
   getNoticiaParams();
 
   return (
-    <div className="mt-[100px]">
-      <div className="content-center mx-96 my-5">
-        <h1 className="font-bold text-center text-4xl text-black">{titular}</h1>
+    <div className="mt-[100px] bg-red-600 rounded-2xl text-white w-[75%] mx-auto">
+      <div className="content-center mx-auto my-5 pt-2">
+        <h1 className="font-bold text-center text-4xl mx-5">{titular}</h1>
       </div>
-      <div className="mx-96 my-5">
-        <img src={IMAGEN_BASE_URL + imagen}></img>
+      <div className="my-5">
+        <img className="mx-auto max-w-2xl" src={IMAGEN_BASE_URL + imagen}></img>
       </div>
-      <div className="mx-96">
-        <p className="text-left text-black">{cuerpo}</p>
+      <div className="mx-auto w-[45%] pb-5">
+        <p className="text-left  ">{cuerpo}</p>
       </div>
     </div>
   );

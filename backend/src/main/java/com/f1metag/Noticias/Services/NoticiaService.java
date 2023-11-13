@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class NoticiaService {
@@ -15,5 +16,12 @@ public class NoticiaService {
 
     public ArrayList<Noticia> getAllNoticias() {
         return (ArrayList<Noticia>) noticiaRepository.findAll();
+    }
+    public Noticia getNoticiaById(Long id){
+        Optional<Noticia> optional = noticiaRepository.findById(id);
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        return null;
     }
 }

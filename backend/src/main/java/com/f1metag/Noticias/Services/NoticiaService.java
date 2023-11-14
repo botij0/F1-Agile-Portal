@@ -7,6 +7,9 @@ import com.f1metag.Noticias.Models.Noticia;
 import com.f1metag.Noticias.Repository.NoticiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -25,10 +28,15 @@ public class NoticiaService {
         return (ArrayList<Noticia>) noticiaRepository.getUltimasNoticias();
     }
 
-    public ArrayList<Noticia> getNoticiasPrincipales()
+    public Page<Noticia> getNoticias(Pageable pageable)
+    {
+        return noticiaRepository.findAll(pageable);
+    }
+
+    /*public ArrayList<Noticia> getNoticiasPrincipales()
     {
         return (ArrayList<Noticia>) noticiaRepository.getNoticiasPrincipales();
-    }
+    }*/
 
     public ApiResponse createNoticia(NoticiaRequest noticiaRequest) {
 

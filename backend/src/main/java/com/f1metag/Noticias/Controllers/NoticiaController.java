@@ -56,4 +56,9 @@ public class NoticiaController {
             return ApiResponse.badRequest();
         }
     }
+    @GetMapping("/{id}")
+    public Noticia getNoticiaById(@PathVariable("id") Long id){
+        return noticiaService.getNoticiaById(id);
+    }
+
 }

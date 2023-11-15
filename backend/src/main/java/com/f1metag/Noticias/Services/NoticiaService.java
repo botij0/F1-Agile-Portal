@@ -52,4 +52,11 @@ public class NoticiaService {
         noticiaRepository.save(noticia);
         return ApiResponse.successRequest("Noticia creada correctamente", noticia).getBody();
     }
+    public Noticia getNoticiaById(Long id){
+        Optional<Noticia> optional = noticiaRepository.findById(id);
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        return null;
+    }
 }

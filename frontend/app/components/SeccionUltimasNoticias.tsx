@@ -20,7 +20,7 @@ export const SeccionUltimasNoticias = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTQ2MDIxOSwiZXhwIjoxNjk5NTQ2NjE5fQ.rweXdfAOhPiYN_Yo3x7gjIIjprVGBW8MLVkoMSyDrBg", //localStorage.getItem('token'),
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwMDA3MzM2MSwiZXhwIjoxNzAwMTU5NzYxfQ.BpyEDIAeI18Sk8DwY3FOVaSG9RNMTU-jqEpGPyuJknI", //localStorage.getItem('token'),
           },
         });
         const data = await response.data;

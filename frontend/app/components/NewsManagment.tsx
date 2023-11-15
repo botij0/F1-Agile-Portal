@@ -19,7 +19,7 @@ const NewsManagment = () => {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTM1NzA1MiwiZXhwIjoxNjk5NDQzNDUyfQ.ZSCs-8uGeQDwnz8y97J6XZFOz3kP0bQ8WgWSY4JjROA'         //localStorage.getItem('token'),
+                        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwMDA3MzM2MSwiZXhwIjoxNzAwMTU5NzYxfQ.BpyEDIAeI18Sk8DwY3FOVaSG9RNMTU-jqEpGPyuJknI'         //localStorage.getItem('token'),
                     },
                 });
                 const data = await response.data;

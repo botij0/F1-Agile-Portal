@@ -10,13 +10,17 @@ export default function Login() {
   const handleSubmit = async () => {
     //POST a API login
     if (username != "" && password != "") {
-      const response = await axios.post("http://localhost:8080/auth/login", {
-        username: username,
-        password: password,
-      });
-
-      //guardamos en localstorage el token devuelto en el login
-      localStorage.setItem("token", response.data.token);
+      try {
+        const response = await axios.post("http://localhost:8080/auth/login", {
+          username: username,
+          password: password,
+        });
+        //guardamos en localstorage el token devuelto en el login
+        if (!response.data.success) throw new Error(response.data.message)
+        localStorage.setItem("token", response.data.token);
+      } catch (error) {
+        console.log("error");
+      }
     }
   };
 
@@ -72,7 +76,6 @@ export default function Login() {
           <a href="/Login/RecuperarContrasena">¿Has olvidado la contraseña?</a>
         </div>
       </form>
-
     </div>
   );
 }

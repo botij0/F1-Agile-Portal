@@ -79,14 +79,16 @@ export const SeccionUltimasNoticias = () => {
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
         >
-          <img
-            src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[0].imagen}` : LOGO_URL}
-            className="block w-full h-[524px] rounded-3xl overflow-hidden"
-            alt="..."
-          />
-          <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[0].titulo: "First slide label"}</h5>
-          </div>
+          <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[0].id : 0}`}>
+            <img
+              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[0].imagen}` : LOGO_URL}
+              className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
+              alt="..."
+            />
+            <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
+              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[0].titulo: "First slide label"}</h5>
+            </div>
+          </a>
         </div>
         {/*Second item*/}
         <div
@@ -94,14 +96,16 @@ export const SeccionUltimasNoticias = () => {
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
         >
-          <img
-            src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[1].imagen}` : LOGO_URL}
-            className="block w-full h-[524px] rounded-3xl overflow-hidden"
-            alt="..."
-          />
-          <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[1].titulo: "Second slide label"}</h5>
-          </div>
+          <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[1].id : 0}`}>
+            <img
+              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[1].imagen}` : LOGO_URL}
+              className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
+              alt="..."
+            />
+            <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
+              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[1].titulo: "Second slide label"}</h5>
+            </div>
+          </a>
         </div>
         {/*Third item*/}
         <div
@@ -109,14 +113,16 @@ export const SeccionUltimasNoticias = () => {
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
         >
-          <img
-            src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[2].imagen}` : LOGO_URL}
-            className="block w-full h-[524px] rounded-3xl overflow-hidden"
-            alt="..."
-          />
-          <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-            <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[2].titulo: "Third slide label"}</h5>
-          </div>
+          <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[2].id : 0}`}>
+            <img
+              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[2].imagen}` : LOGO_URL}
+              className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
+              alt="..."
+            />
+            <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
+              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[2].titulo: "Third slide label"}</h5>
+            </div>
+          </a>
         </div>
       </div>
 

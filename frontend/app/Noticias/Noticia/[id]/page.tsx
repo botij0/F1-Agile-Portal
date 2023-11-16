@@ -28,6 +28,7 @@ export default function Noticias() {
     if (typeof window !== "undefined") {
       if (localStorage.getItem("token") != null) {
         const token = localStorage.getItem("token") || "";
+        console.log(token);
         const response = await axios.get(NOTICIA_API_URL_BASE + urlId(), {
           headers: {
             "Content-Type": "application/json",

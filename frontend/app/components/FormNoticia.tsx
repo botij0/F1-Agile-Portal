@@ -49,7 +49,7 @@ const FormNoticia = () => {
     const NOTICIA_API_BASE_URL = 'http://localhost:8080/api/v1/noticias';
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTkwNDM2NCwiZXhwIjoxNjk5OTkwNzY0fQ.mMo-NhaWYLqo8EqaPsgdV1TkNOSu654XTzrr_VKvHBM'         //localStorage.getItem('token'),
+        'Authorization' : 'Bearer ' + localStorage.getItem('token'),
     };
 
     const onSubmit = handleSubmit((data: any) => {

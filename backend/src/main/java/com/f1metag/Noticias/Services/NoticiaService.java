@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -37,6 +39,7 @@ public class NoticiaService {
     {
         return (ArrayList<Noticia>) noticiaRepository.getNoticiasPrincipales();
     }*/
+    public Noticia getNoticia(Long id) { return (Noticia) noticiaRepository.findById(id).get(); }
 
     public ApiResponse createNoticia(NoticiaRequest noticiaRequest) {
 
@@ -58,5 +61,21 @@ public class NoticiaService {
             return optional.get();
         }
         return null;
+
+    public ApiResponse updateNoticia(NoticiaRequest noticiaRequest)
+    {
+        Noticia oldNoticia = noticiaRepository.findNoticiaById(noticiaRequest.getId());
+        oldNoticia.setImagen(noticiaRequest.getImagen());
+        oldNoticia.setTitulo(noticiaRequest.getTitulo());
+        oldNoticia.setTexto(noticiaRequest.getTexto());
+        noticiaRepository.save(oldNoticia);
+
+        return ApiResponse.successRequest("Noticia creada correctamente", oldNoticia).getBody();
+    }
+
+    public boolean deleteNoticia(Long id)
+    {
+        noticiaRepository.deleteById(id);
+        return true;
     }
 }

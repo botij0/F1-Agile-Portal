@@ -1,4 +1,6 @@
 
+import axios from 'axios';
+import Link from 'next/link';
 import React, { useState } from 'react'
 
 interface Noticia{
@@ -8,13 +10,13 @@ interface Noticia{
 }
 
 interface Props{
-    noticia: Noticia
+    noticia: Noticia;
+    deleteNoticia: (e: React.MouseEvent, id: number) => void;
 }
 
 
-const NoticiaMng: React.FC<Props> = ( {noticia }) => {
+const NoticiaMng :React.FC<Props> = ({noticia, deleteNoticia}) => {
 
-    const [isHovered, setIsHovered] = useState(false);
 
   return (
         <tr key={noticia.id} className="border-b hover:bg-orange-100">
@@ -36,12 +38,17 @@ const NoticiaMng: React.FC<Props> = ( {noticia }) => {
             </td>
 
             <td className="text-right px-2 py-4 whitespace-nowrap justify-end">
-                <button type="button"className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    Editar
+                <Link href={`/Noticias/Editar/${noticia.id}`} title='Editar Noticia' >
+                    <button type="button"className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        Editar
+                    </button>
+                </Link>
+
+                <button type="button" onClick={(e) => deleteNoticia(e, noticia.id)}
+                className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        Eliminar
                 </button>
-                <button type="button"className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    Eliminar
-                </button>
+
             </td>
         </tr>
   )

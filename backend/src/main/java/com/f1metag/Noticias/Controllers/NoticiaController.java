@@ -41,17 +41,26 @@ public class NoticiaController {
         return noticiaService.getNoticiasPrincipales();
     }*/
 
+    @DeleteMapping("/{id}")
+    public boolean deleteNoticia(@PathVariable("id") Long id){
+        return noticiaService.deleteNoticia(id);
+    }
+
     @GetMapping("portal")
     public Page<Noticia> getNoticias(@RequestParam Optional<String> sortBy, @RequestParam Optional<Integer> page)
     {
         return noticiaService.getNoticias(PageRequest.of(page.orElse(0),10,Sort.Direction.DESC, sortBy.orElse("id")));
+
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> createNoticia(@RequestBody NoticiaRequest noticiaRequest) {
+    public ResponseEntity<ApiResponse> guardarNoticia(@RequestBody NoticiaRequest noticiaRequest) {
 
         try {
-            return ResponseEntity.ok(noticiaService.createNoticia(noticiaRequest));
+            if(noticiaRequest.getId() == 0)
+                return ResponseEntity.ok(noticiaService.createNoticia(noticiaRequest));
+            else
+                return ResponseEntity.ok(noticiaService.updateNoticia(noticiaRequest));
         } catch (IllegalArgumentException e) {
             return ApiResponse.badRequest();
         }

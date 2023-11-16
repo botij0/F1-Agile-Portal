@@ -25,5 +25,5 @@ public interface NoticiaRepository extends JpaRepository<Noticia, Long>
     ArrayList<Noticia> getNoticiasPrincipales();*/
 
     Noticia findByTituloContainingIgnoreCase(String titulo);
-
+    Noticia findNoticiaById(Integer id);
 }

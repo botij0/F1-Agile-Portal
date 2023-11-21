@@ -34,4 +34,9 @@ public class UsuarioController {
         return ApiResponse.successRequest("Usuario obtenido correctamente", usuarioService.getAuthenticatedUser()).getBody();
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteNoticia(@PathVariable("id") Long id){
+        usuarioService.deleteUser(id) ;
+    }
+
 }

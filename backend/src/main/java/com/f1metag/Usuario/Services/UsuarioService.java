@@ -25,5 +25,9 @@ public class UsuarioService {
         return usuarioRepository.findByUsername(username).orElseThrow();
     }
 
+    public void deleteUser (long id){
+        usuarioRepository.deleteById(id);
+    }
+
 
 }

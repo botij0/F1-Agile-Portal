@@ -45,7 +45,7 @@ export default function Noticias() {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwMDA3MzM2MSwiZXhwIjoxNzAwMTU5NzYxfQ.BpyEDIAeI18Sk8DwY3FOVaSG9RNMTU-jqEpGPyuJknI", //localStorage.getItem('token'),
+              "Bearer " + localStorage.getItem('token'),
           },
         });
         const data = await response.data;

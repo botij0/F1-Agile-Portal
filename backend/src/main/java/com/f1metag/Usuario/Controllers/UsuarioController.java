@@ -2,6 +2,8 @@ package com.f1metag.Usuario.Controllers;
 
 
 import com.f1metag.Auth.AuthService;
+import com.f1metag.Common.Requests.NoticiaRequest;
+import com.f1metag.Common.Requests.UserRequest;
 import com.f1metag.Common.Responses.ApiResponse;
 import com.f1metag.Usuario.Models.Usuario;
 import com.f1metag.Usuario.Services.UsuarioService;
@@ -29,13 +31,23 @@ public class UsuarioController {
         return ApiResponse.successRequest("Usuarios obtenidos correctamente", usuarioService.getAllUsers()).getBody();
     }
 
+    @GetMapping("/{id}")
+    public ApiResponse getUsuario(@PathVariable("id") Long id) {
+        return ApiResponse.successRequest("Usuario obtenido correctamente", usuarioService.getUsuario(id)).getBody();
+    }
+
     @GetMapping("/me")
     public ApiResponse getAuthenticatedUser() {
         return ApiResponse.successRequest("Usuario obtenido correctamente", usuarioService.getAuthenticatedUser()).getBody();
     }
 
+    @PutMapping
+    public ApiResponse updateUser(@RequestBody UserRequest userRequest){
+        return ApiResponse.successRequest("Usuario actualizado correctamente", usuarioService.updateUser(userRequest)).getBody();
+    }
+
     @DeleteMapping("/{id}")
-    public void deleteNoticia(@PathVariable("id") Long id){
+    public void deleteUsuario(@PathVariable("id") Long id){
         usuarioService.deleteUser(id) ;
     }
 

@@ -46,7 +46,7 @@ const UserMng :React.FC<Props> = ({usuario, deleteUser}) => {
             </td>
 
             <td className="text-right px-2 py-4 whitespace-nowrap justify-end">
-                <Link href={`/Noticias/Editar/${usuario.id}`} title='Editar Usuario' >
+                <Link href={`/Users/Editar/${usuario.id}`} title='Editar Usuario' >
                     <button type="button"className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                         Editar
                     </button>

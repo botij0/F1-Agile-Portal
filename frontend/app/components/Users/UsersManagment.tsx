@@ -4,8 +4,8 @@ import Link from 'next/link'
 import {IoIosAddCircleOutline} from 'react-icons/io'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {paginate} from '../utils/paginate';
-import Pagination from './Pagination';
+import {paginate} from '../../utils/paginate';
+import Pagination from '../Pagination';
 import UserMng from './UserMng';
 
 const UsuariosMng = () => {

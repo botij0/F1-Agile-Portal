@@ -1,5 +1,5 @@
 import React from "react";
-import UsersManagment from "@/app/components/UsersManagment";
+import UsersManagment from "@/app/components/Users/UsersManagment";
 
 export default function DefaultTable(){ 
     

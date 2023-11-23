@@ -67,7 +67,6 @@ const FormNoticia = () => {
                     headers: headers
                 })
                 .then(data => {
-                    console.log(data);
                     window.location.href = '/Noticias/Gestion';
                 })
                 .catch(error => {
@@ -80,7 +79,6 @@ const FormNoticia = () => {
 
     const params = useParams();
     const id = params.id;
-    console.log(params.id);
 
 
         if (id != undefined) {

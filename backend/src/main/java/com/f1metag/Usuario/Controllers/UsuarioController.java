@@ -34,4 +34,9 @@ public class UsuarioController {
         return ApiResponse.successRequest("Usuario obtenido correctamente", usuarioService.getAuthenticatedUser()).getBody();
     }
 
+    @GetMapping("/solicitudes")
+    public ApiResponse getUsuariosNoValidados(){
+        return ApiResponse.successRequest("Usuarios no validados obtenidos correctamente", usuarioService.getNotValidatedUsers()).getBody();
+    }
+
 }

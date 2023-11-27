@@ -10,7 +10,8 @@ const TablaSolicitudes = () => {
   const pageSize = 5;
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const USUARIOS_API_BASE_URL = "http://localhost:8080/api/v1/usuarios";
+  const USUARIOS_API_BASE_URL =
+    "http://localhost:8080/api/v1/usuarios/solicitudes";
   const [usuarios, setUsuarios] = useState<any[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 

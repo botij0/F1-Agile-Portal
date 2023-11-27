@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -25,5 +26,13 @@ public class UsuarioService {
         return usuarioRepository.findByUsername(username).orElseThrow();
     }
 
+    public ArrayList<Usuario> getNotValidatedUsers(){
+        Optional<ArrayList<Usuario>> optional = usuarioRepository.findByEstadoFalse();
+        ArrayList<Usuario> noValidados = new ArrayList<Usuario>();
+        if (optional.isPresent()){
+            noValidados = optional.get();
+        }
+        return noValidados;
+    }
 
 }

@@ -42,7 +42,66 @@ const TablaSolicitudes = () => {
     getUsuarios();
   }, []);
 
-  console.log(usuarios);
+  const rechazarSolicitud = (e: React.MouseEvent, id: number) => {
+    e.preventDefault();
+    axios
+      .put(USUARIOS_API_BASE_URL + "/" + id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU", //localStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        if (usuarios) {
+          setUsuarios((prevElement) => {
+            if (prevElement == null) return null;
+            else return prevElement.filter((user) => user.id !== id);
+          });
+        }
+      });
+  };
+
+  const updateResponsable = (e: React.MouseEvent, id: number) => {
+    e.preventDefault();
+    axios
+      .put(USUARIOS_API_BASE_URL + "/responsable/" + id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU", //localStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        if (usuarios) {
+          setUsuarios((prevElement) => {
+            if (prevElement == null) return null;
+            else return prevElement.filter((user) => user.id !== id);
+          });
+        }
+      });
+  };
+
+  const updateAdmin = (e: React.MouseEvent, id: number) => {
+    e.preventDefault();
+    axios
+      .put(USUARIOS_API_BASE_URL + "/admin/" + id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU", //localStorage.getItem('token'),
+        },
+      })
+      .then((res) => {
+        if (usuarios) {
+          setUsuarios((prevElement) => {
+            if (prevElement == null) return null;
+            else return prevElement.filter((user) => user.id !== id);
+          });
+        }
+      });
+  };
+
   return (
     <>
       <div className="container mx-auto my-8">
@@ -79,7 +138,13 @@ const TablaSolicitudes = () => {
                     email: string;
                     nombre: string;
                   }) => (
-                    <FilaSolicitud key={usuario.id} usuario={usuario} />
+                    <FilaSolicitud
+                      key={usuario.id}
+                      usuario={usuario}
+                      rechazarSolicitud={rechazarSolicitud}
+                      updateResponsable={updateResponsable}
+                      updateAdmin={updateAdmin}
+                    />
                   )
                 )}
               </tbody>

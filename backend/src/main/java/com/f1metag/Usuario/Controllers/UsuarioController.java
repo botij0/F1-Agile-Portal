@@ -39,4 +39,14 @@ public class UsuarioController {
         return ApiResponse.successRequest("Usuarios no validados obtenidos correctamente", usuarioService.getNotValidatedUsers()).getBody();
     }
 
+    @PutMapping("/solicitudes/responsable/{id}")
+    public ApiResponse aceptarSolicitudResponsable(@PathVariable("id") Long id){
+        return ApiResponse.successRequest("Usuario validado con rol de Responsable", usuarioService.actualizarResponsable(id)).getBody();
+    }
+
+    @PutMapping("/solicitudes/admin/{id}")
+    public ApiResponse aceptarSolicitudAdmin(@PathVariable("id") Long id){
+        return ApiResponse.successRequest("Usuario validado con rol de Administrador", usuarioService.actualizarAdmin(id)).getBody();
+    }
+
 }

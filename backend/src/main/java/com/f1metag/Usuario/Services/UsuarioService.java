@@ -1,5 +1,7 @@
 package com.f1metag.Usuario.Services;
 
+import com.f1metag.Common.Responses.ApiResponse;
+import com.f1metag.Usuario.Models.Rol;
 import com.f1metag.Usuario.Models.Usuario;
 import com.f1metag.Usuario.Repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,34 @@ public class UsuarioService {
             noValidados = optional.get();
         }
         return noValidados;
+    }
+
+    public ApiResponse actualizarResponsable(Long id){
+
+        Optional<Usuario> optional = usuarioRepository.findById(id);
+        if(optional.isPresent()) {
+            Usuario usuario = optional.get();
+            usuario.setEstado(false);
+            usuario.setRol(Rol.RESPONSABLE);
+            usuarioRepository.save(usuario);
+            return ApiResponse.successRequest("Responsable actualizado correctamente en la base de datos", usuario).getBody();
+        }
+        return ApiResponse.successRequest("Responsable no se ha actualizado correctamente en la base de datos", optional.get()).getBody();
+
+    }
+
+    public ApiResponse actualizarAdmin(Long id){
+
+        Optional<Usuario> optional = usuarioRepository.findById(id);
+        if(optional.isPresent()) {
+            Usuario usuario = optional.get();
+            usuario.setEstado(false);
+            usuario.setRol(Rol.ADMIN);
+            usuarioRepository.save(usuario);
+            return ApiResponse.successRequest("Administrador actualizado correctamente en la base de datos", usuario).getBody();
+        }
+        return ApiResponse.successRequest("Administrador no se ha actualizado correctamente en la base de datos", optional.get()).getBody();
+
     }
 
 }

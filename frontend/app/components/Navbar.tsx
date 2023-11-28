@@ -48,7 +48,7 @@ const NavbarF: React.FC = () => {
 
         <div>
           {/*PROVISIONAL HASTA QUE SE PUEDA SACAR INFO DE LA SESION*/}
-          {/* <UserIcon />*/ }
+          <UserIcon />
         </div>
 
         <div onClick={handleSmallerScreenNavigation} className="flex md:hidden">

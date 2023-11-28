@@ -58,9 +58,7 @@ public class AuthService {
             throw new IllegalArgumentException("La contraseña debe tener al menos + " + MIN_PASSWORD_LENGTH + " caracteres.");
         }
 
-
         usuarioRepository.save(usuario);
-
 
         return AuthResponse.succesSignup(jwtService.getToken(usuario)).getBody();
 
@@ -70,9 +68,15 @@ public class AuthService {
     public AuthResponse login(LoginRequest loginRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        UserDetails usuario = usuarioRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
-        String token = jwtService.getToken(usuario);
-        return AuthResponse.successLogin(token).getBody();
+        Usuario usuario = usuarioRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
+
+        if (usuario.getEstado()){
+            String token = jwtService.getToken(usuario);
+            return AuthResponse.successLogin(token).getBody();
+        }else{
+            throw new IllegalArgumentException("El Usuario aún no ha sido validado por el Administrador");
+        }
+
     }
 
 

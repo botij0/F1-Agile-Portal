@@ -22,8 +22,15 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         try {
             return ResponseEntity.ok(authService.login(loginRequest));
-        } catch (BadCredentialsException e) {
+        }
+       catch (BadCredentialsException e) {
             return AuthResponse.badCredentials();
+        }
+        catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.OK).body(AuthResponse.builder()
+                    .success(false)
+                    .message(e.getMessage())
+                    .build());
         }
     }
 

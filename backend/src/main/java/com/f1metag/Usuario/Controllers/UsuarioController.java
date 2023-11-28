@@ -49,4 +49,8 @@ public class UsuarioController {
         return ApiResponse.successRequest("Usuario validado con rol de Administrador", usuarioService.actualizarAdmin(id)).getBody();
     }
 
+    @DeleteMapping("/solicitudes/{id}")
+    public ApiResponse rechazarSolicitud(@PathVariable("id") Long id){
+        return ApiResponse.successRequest("Solicitud del usuario rechazada", usuarioService.rechazarSolicitud(id)).getBody();
+    }
 }

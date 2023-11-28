@@ -42,7 +42,7 @@ public class UsuarioService {
         Optional<Usuario> optional = usuarioRepository.findById(id);
         if(optional.isPresent()) {
             Usuario usuario = optional.get();
-            usuario.setEstado(false);
+            usuario.setEstado(true);
             usuario.setRol(Rol.RESPONSABLE);
             usuarioRepository.save(usuario);
             return ApiResponse.successRequest("Responsable actualizado correctamente en la base de datos", usuario).getBody();
@@ -56,13 +56,18 @@ public class UsuarioService {
         Optional<Usuario> optional = usuarioRepository.findById(id);
         if(optional.isPresent()) {
             Usuario usuario = optional.get();
-            usuario.setEstado(false);
+            usuario.setEstado(true);
             usuario.setRol(Rol.ADMIN);
             usuarioRepository.save(usuario);
             return ApiResponse.successRequest("Administrador actualizado correctamente en la base de datos", usuario).getBody();
         }
         return ApiResponse.successRequest("Administrador no se ha actualizado correctamente en la base de datos", optional.get()).getBody();
 
+    }
+
+    public ApiResponse rechazarSolicitud(Long id){
+        usuarioRepository.deleteById(id);
+        return ApiResponse.successRequest("Solicitud rechazada correctamente, usuario eliminado",id).getBody();
     }
 
 }

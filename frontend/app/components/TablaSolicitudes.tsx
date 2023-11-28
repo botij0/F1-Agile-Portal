@@ -45,11 +45,12 @@ const TablaSolicitudes = () => {
   const rechazarSolicitud = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
     axios
-      .put(USUARIOS_API_BASE_URL + "/" + id, {
+      .delete(USUARIOS_API_BASE_URL + "/" + id, {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU", //localStorage.getItem('token'),
+            "Bearer " +
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwMTE2MTk0MSwiZXhwIjoxNzAxMjQ4MzQxfQ.lWLLErYIUC0eh1ArOhsF8Ty5xjj-NluD6m_Av5_4Pw0", //localStorage.getItem("token"),
         },
       })
       .then((res) => {
@@ -69,7 +70,8 @@ const TablaSolicitudes = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU", //localStorage.getItem('token'),
+            "Bearer " +
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwMTE2MTk0MSwiZXhwIjoxNzAxMjQ4MzQxfQ.lWLLErYIUC0eh1ArOhsF8Ty5xjj-NluD6m_Av5_4Pw0", //localStorage.getItem("token"),
         },
       })
       .then((res) => {
@@ -84,12 +86,13 @@ const TablaSolicitudes = () => {
 
   const updateAdmin = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
+    console.log(USUARIOS_API_BASE_URL + "/admin/" + id);
     axios
       .put(USUARIOS_API_BASE_URL + "/admin/" + id, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU", //localStorage.getItem('token'),
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((res) => {
@@ -101,7 +104,6 @@ const TablaSolicitudes = () => {
         }
       });
   };
-
   return (
     <>
       <div className="container mx-auto my-8">

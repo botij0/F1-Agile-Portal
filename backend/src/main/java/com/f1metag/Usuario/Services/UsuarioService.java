@@ -43,7 +43,9 @@ public class UsuarioService {
         if(optional.isPresent()) {
             Usuario usuario = optional.get();
             usuario.setEstado(true);
-            usuario.setRol(Rol.RESPONSABLE);
+            //usuario.setRol(Rol.RESPONSABLE);
+            //El rol de responsable no se puede almacenar en BBDD ahora mismo, ponemos MIEMBRO
+            usuario.setRol(Rol.MIEMBRO);
             usuarioRepository.save(usuario);
             return ApiResponse.successRequest("Responsable actualizado correctamente en la base de datos", usuario).getBody();
         }

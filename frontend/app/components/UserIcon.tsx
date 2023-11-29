@@ -30,12 +30,19 @@ const UserIcon = () => {
     };
     getName();
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("nombre");
+    setNombre("");
+  }
   
   return (
     <>
       {(nombre != "") ? 
-      <div>
-        <button className="flex items-center space-x-4 border-2 rounded-3xl hover:text-slate-400 hover:border-slate-400"
+      <div className="hidden md:flex relative">
+        <button className="flex bg-red-700 items-center space-x-4
+                           hover:text-slate-400 border-2 rounded-2xl px-3 py-2"
         onClick={() => setIsOpen((prev) => !prev)}>
           <div className="font-medium pl-3 ">
             <div>{nombre}</div>
@@ -53,18 +60,27 @@ const UserIcon = () => {
           {!isOpen ?(
             <AiOutlineCaretDown className="w-5 h-5" />
           ) :(
-            <AiOutlineCaretUp className="w-6 h-6" />
+            <AiOutlineCaretUp className="w-5 h-5" />
           )}
 
         </button>
         {isOpen && (
-          <div className="absolute right-0 mt-2 py-2 w-48 bg-red-500 rounded-lg shadow-xl">
-            <Link href="/Perfil">
-                Perfil
-            </Link>
-            <Link href="/Login">
-                Cerrar Sesion
-            </Link>
+          <div className="absolute py-2 w-[100%] bg-red-700 shadow-xl border-2 border-t-0 rounded-b-2xl mt-[25%]">
+            <ul>
+              {
+              /*<Link href="/Perfil">
+                <li className="px-4 py-2 hover:bg-red-800 hover:text-slate-400">
+                  Perfil
+                </li>
+              </Link>
+              */
+              }
+              <Link onClick={handleLogout} href="/Login">
+                <li className="px-4 py-2 hover:bg-red-800 hover:text-slate-400">
+                  Cerrar Sesion
+                </li>
+              </Link>
+            </ul>
           </div>
           )}
       </div>

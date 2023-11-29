@@ -31,7 +31,7 @@ export default function VotacionesAbiertas() {
     }, []);
     */
     return (
-            <div className='bg-red-700 rounded-2xl mt-5 items-center h-[524px]'>
+            <div className='bg-red-700 rounded-2xl mt-5 h-auto'>
                 {votaciones.map((votacion, index) => (
                     <div className="" key={index}>
                         <Link href="/Votaciones">

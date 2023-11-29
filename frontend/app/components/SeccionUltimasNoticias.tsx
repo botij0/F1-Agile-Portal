@@ -35,7 +35,7 @@ export const SeccionUltimasNoticias = () => {
   return (
     <div
       id="carouselExampleCaptions"
-      className="relative max-w-[900px] h-[524px] mt-5 group bg-black rounded-3xl overflow-hidden border-solid border-8 border-red-700"
+      className="relative max-w-[900px] h-[524px] mt-5 group bg-black rounded-3xl overflow-hidden border-solid border-8 border-red-700 mx-auto"
       data-te-carousel-init
       data-te-ride="carousel"
     >

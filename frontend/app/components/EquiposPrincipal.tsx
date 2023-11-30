@@ -32,7 +32,9 @@ export const EquiposPrincipal = () => {
   console.log(equipos);
 
   return (
-    <>
+    <div className="w-[80%] mx-auto">
+      <h2 className="text-black text-2xl">Equipos</h2>
+      <hr className="border-black w-[100%] mb-5 m-auto"/>
       {
         //tarda un rato en cargar le he metido esto
         loading && (
@@ -60,12 +62,12 @@ export const EquiposPrincipal = () => {
         )
       }
       {!loading && equipos && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 p-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 mx-auto mt-5">
           {equipos.map((equipo) => (
             <EquipoCard equipo={equipo} />
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };

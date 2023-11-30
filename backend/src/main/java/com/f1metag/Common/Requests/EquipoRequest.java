@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EquipoRequest {
+    Long id;
     String nombre;
     String logo;
     String twitter;

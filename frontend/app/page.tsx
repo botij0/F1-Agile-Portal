@@ -1,9 +1,6 @@
 "use client";
-
 import Image from "next/image";
-import Link from "next/link";
 import VotacionesAbiertas from "./components/VotacionesAbiertas";
-import { UltimasNoticias } from "./components/UltimasNoticias";
 import { SeccionUltimasNoticias } from "./components/SeccionUltimasNoticias";
 
 export default function Home() {

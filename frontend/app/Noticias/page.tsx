@@ -29,7 +29,9 @@ export default function Noticias() {
     },
   });
 
-  const cambiarPagina = (event: React.ChangeEvent<any>, page: number) => {setCurrentPage(page-1)};
+  const cambiarPagina = (event: React.ChangeEvent<any>, page: number) => {
+    setCurrentPage(page - 1);
+  };
 
   useEffect(() => {
     const getNoticias = async () => {
@@ -44,8 +46,7 @@ export default function Noticias() {
           },
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwMDA3MzM2MSwiZXhwIjoxNzAwMTU5NzYxfQ.BpyEDIAeI18Sk8DwY3FOVaSG9RNMTU-jqEpGPyuJknI", //localStorage.getItem('token'),
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         });
         const data = await response.data;
@@ -74,7 +75,11 @@ export default function Noticias() {
             data-te-carousel-item
             style={{ backfaceVisibility: "hidden" }}
           >
-            <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[0].id : 0}`}>
+            <a
+              href={`/Noticias/Noticia/${
+                noticias.length > 0 ? noticias[0].id : 0
+              }`}
+            >
               <img
                 src={
                   noticias.length > 0
@@ -89,7 +94,9 @@ export default function Noticias() {
                   className="text-xl"
                   style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}
                 >
-                  {noticias.length > 0 ? noticias[0].titulo : "First slide label"}
+                  {noticias.length > 0
+                    ? noticias[0].titulo
+                    : "First slide label"}
                 </h5>
               </div>
             </a>
@@ -126,7 +133,9 @@ export default function Noticias() {
                     ? `${IMAGEN_BASE_URL}${noticia.imagen}`
                     : LOGO_URL
                 }
-                titulo={noticias.length > 0 ? noticia.titulo : "Título de prueba"}
+                titulo={
+                  noticias.length > 0 ? noticia.titulo : "Título de prueba"
+                }
               />
             </div>
           </a>
@@ -135,7 +144,12 @@ export default function Noticias() {
       <div className="flex items-center justify-center mt-2">
         {totalPages > 1 && (
           <ThemeProvider theme={theme}>
-            <Pagination count={totalPages} shape="rounded" color="primary" onChange={cambiarPagina}/>
+            <Pagination
+              count={totalPages}
+              shape="rounded"
+              color="primary"
+              onChange={cambiarPagina}
+            />
           </ThemeProvider>
         )}
       </div>

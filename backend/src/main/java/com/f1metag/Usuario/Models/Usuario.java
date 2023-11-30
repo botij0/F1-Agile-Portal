@@ -33,6 +33,7 @@ public class Usuario implements UserDetails {
     String email;
     @Column(nullable = false)
     String password;
+    @Column
     Boolean estado;
     @Enumerated(EnumType.STRING)
     Rol rol;

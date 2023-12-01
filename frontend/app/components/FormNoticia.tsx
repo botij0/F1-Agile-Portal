@@ -2,17 +2,18 @@
 import axios from 'axios';
 import Link from 'next/link'
 import Image from 'next/image';
-import React, { use, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {useForm} from 'react-hook-form'
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuid } from 'uuid';
-import { useParams, usePathname, useRouter } from 'next/navigation';
-import Noticias from '../Noticias/page';
+import { useParams} from 'next/navigation';
 
 const supabase = createClient("https://pxfvrkflonlookyusxtb.supabase.co", 
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4ZnZya2Zsb25sb29reXVzeHRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODYyNTUsImV4cCI6MjAxMzY2MjI1NX0.I3v1fYevo3rzWOT8KvkIVDrZ0LbyvABN6YaynXIYE4I");
 
 const BASE_URL = 'https://pxfvrkflonlookyusxtb.supabase.in/storage/v1/object/public/Images/';
+
+const appearanceInputs = "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white";
 
 async function uploadImage(img: any) {
     let file = img;
@@ -67,7 +68,6 @@ const FormNoticia = () => {
                     headers: headers
                 })
                 .then(data => {
-                    console.log(data);
                     window.location.href = '/Noticias/Gestion';
                 })
                 .catch(error => {
@@ -80,27 +80,23 @@ const FormNoticia = () => {
 
     const params = useParams();
     const id = params.id;
-    console.log(params.id);
 
-
-        if (id != undefined) {
-            useEffect(() => {
-                (async () => {
-                    try{
-                        const response = await axios.get('http://localhost:8080/api/v1/noticias/'+id , {
-                            headers: headers
-                        });
-                        console.log(response.data);
-                        setNoticias(response.data);
-                        setValue('titulo', response.data.titulo);
-                        setValue('texto', response.data.texto);
-                    } catch (error) {
-                        console.log(error);
-                    }
-                })();
-            }, []);
-        }
-
+    if (id != undefined) {
+        useEffect(() => {
+            (async () => {
+                try{
+                    const response = await axios.get(NOTICIA_API_BASE_URL + '/' + id , {
+                        headers: headers
+                    });
+                    setNoticias(response.data);
+                    setValue('titulo', response.data.titulo);
+                    setValue('texto', response.data.texto);
+                } catch (error) {
+                    console.log(error);
+                }
+            })();
+        }, []);
+    }
 
   return (
 
@@ -126,8 +122,7 @@ const FormNoticia = () => {
                         )
                     }
 
-                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
-                                    py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                    <input className={appearanceInputs}
                                     id="titulo" type="text" placeholder="Titulo de la noticia" {...register("titulo",{
                                         required:{
                                             value: true,
@@ -153,8 +148,7 @@ const FormNoticia = () => {
                             <span className="text-red-500 text-xs italic">{errors.texto.message as string}</span>
                         )
                     }
-                    <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
-                                            py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
+                    <textarea className={appearanceInputs}
                                             id="texto" placeholder="Texto de la noticia" {...register("texto",{
                                                 required:{
                                                     value: true,
@@ -170,13 +164,12 @@ const FormNoticia = () => {
                                                  }                                            
                                             })}
                     />
-
                     <p className="text-gray-600 text-xs italic">Texto de la noticia</p>
                 </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="titulo">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="imagen">
                         Imagen
                     </label>
                     {
@@ -188,23 +181,20 @@ const FormNoticia = () => {
                                     focus:border-red-500 focus:ring-red-500 disabled:opacity-50 disabled:pointer-events-none 
                                     file:border-0 bg-gray-50 file:me-4 file:py-2 file:px-4 file:text-gray-600 file:italic 
                                     file:bg-gray-200 file:hover:bg-gray-300 hover:bg-gray-200"
-                                    id="titulo" type="file" placeholder="Imagen" {...register("imagen", {
+                                    id="imagen" type="file" placeholder="Imagen" {...register("imagen", {
                                         required:{
                                             value: noticias?.imagen == '' ? true : false,
                                             message: 'Este campo es obligatorio'
                                         },                                                                        
                                     })}
-                    />
-                    
+                    />                    
 
                     <p className="text-gray-600 text-xs italic">Imagen</p>
                     {
                         noticias?.imagen != '' ? 
                             <Image src={BASE_URL + noticias?.imagen} alt="Imagen de la noticia" width={250} height={250}/> : <p></p>
 
-                    }
-
-                    
+                    }                    
                 </div>
             </div>
             <div className="flex flex-wrap mb-6 items-center ">
@@ -223,7 +213,6 @@ const FormNoticia = () => {
             </div>
         </form>
     </div>
-
   )
 }
 

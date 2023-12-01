@@ -22,6 +22,11 @@ const NewsManagment = () => {
     }
 
     const paginateNoticias = paginate(noticias, currentPage, pageSize);
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer ' + localStorage.getItem('token'),
+    }
     
     useEffect(() => {
         const getNoticias = async () => {
@@ -29,10 +34,7 @@ const NewsManagment = () => {
             try{
                 const response = await axios.get(NOTICIA_API_BASE_URL, {
                     method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization' : 'Bearer ' + localStorage.getItem('token'),
-                    },
+                    headers: headers
                 });
                 const data = await response.data;
                 setNoticias(data);
@@ -49,10 +51,7 @@ const NewsManagment = () => {
     const deleteNoticia = (e: React.MouseEvent, id:number) => {
         e.preventDefault();
         axios.delete(NOTICIA_API_BASE_URL + "/" + id,{
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY5OTg1NzQ1NCwiZXhwIjoxNjk5OTQzODU0fQ.IoFI63xH52Mxrs0XbJ7AtkGMQS1BJSdSp1AF5lXf9DU'         //localStorage.getItem('token'),
-            },
+            headers: headers
         }).then((res) => {
           if (noticias) {
             setNoticias((prevElement) => {

@@ -28,13 +28,12 @@ const NoticiaMng :React.FC<Props> = ({noticia, deleteNoticia}) => {
             </td>
 
             <td className="text-left px-6 py-4 whitespace-nowrap ">
-            <div className="text-sm text-gray-500"
-            >
-                <span title={noticia.texto}>
-                        {noticia.texto.slice(0, 50) + '...'}
-                </span>
-            </div>
-
+                <div className="text-sm text-gray-500"
+                >
+                    <span title={noticia.texto}>
+                            {noticia.texto.slice(0, 50) + '...'}
+                    </span>
+                </div>
             </td>
 
             <td className="text-right px-2 py-4 whitespace-nowrap justify-end">
@@ -48,7 +47,6 @@ const NoticiaMng :React.FC<Props> = ({noticia, deleteNoticia}) => {
                 className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                         Eliminar
                 </button>
-
             </td>
         </tr>
   )

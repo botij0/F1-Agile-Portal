@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
@@ -8,6 +8,12 @@ import UserIcon from "./UserIcon";
 
 const NavbarF: React.FC = () => {
   const [menuIcon, setMenuIcon] = useState(false);
+  const [nombre, setNombre] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("nombre") == null) return;
+    setNombre(localStorage.getItem("nombre") as string);
+  }, []);
 
   const handleSmallerScreenNavigation = () => setMenuIcon(!menuIcon);
 
@@ -18,6 +24,12 @@ const NavbarF: React.FC = () => {
     { text: "Equipos", href: "/Equipos" },
     { text: "Circuitos", href: "/Circuitos" },
   ];
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("nombre");
+    setNombre("");
+  }
 
   return (
     <header className="bg-red-600 text-[#FFFFFF] w-full ease-in duration-300 fixed top-0 left-0 z-10">
@@ -48,7 +60,7 @@ const NavbarF: React.FC = () => {
 
         <div>
           {/*PROVISIONAL HASTA QUE SE PUEDA SACAR INFO DE LA SESION*/}
-          {/* <UserIcon />*/ }
+          <UserIcon />
         </div>
 
         <div onClick={handleSmallerScreenNavigation} className="flex md:hidden">
@@ -66,7 +78,7 @@ const NavbarF: React.FC = () => {
             menuIcon ? "-[#FFFFFF]" : "-white"
           } text-center ease-in duration-300`}
         >
-          <div className="w-full">
+          <div className="w-full mt-[-30%]">
             <ul className="uppercase font-bold text-2xl text-center">
               {navLinks.map((link, index) => (
                 <li
@@ -77,20 +89,32 @@ const NavbarF: React.FC = () => {
                   <Link href={link.href}>{link.text}</Link>
                 </li>
               ))}
+              {nombre != "" ? (
+                <>
+                  <li
+                    onClick={handleSmallerScreenNavigation}
+                    className="py-5 hover:text-slate-400 cursor-pointer border-2 bg-red-700 hover:bg-red-800 mx-[10%] rounded-2xl mt-5"
+                  >
+                    <Link onClick={handleLogout} href="/Login">Cerrar Sesión</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li
+                    onClick={handleSmallerScreenNavigation}
+                    className="py-5 bg-gray-100 text-slate-800 hover:bg-slate-800 hover:text-gray-100 rounded-2xl uppercase font-bold px-8 mx-[10%] mt-5 mb-5"
+                  >
+                    <Link href="/Login">Iniciar Sesion</Link>
+                  </li>
+                  <li
+                  onClick={handleSmallerScreenNavigation}
+                  className="py-5 border-2 border-gray-100 text-white hover:text-slate-400 hover:border-slate-400 rounded-2xl uppercase font-bold px-8 mx-[10%]"
+                  >
+                    <Link href="/Login">Registrarse</Link>
+                  </li>
+                </>
+              )}
             </ul>
-            <div className="flex flex-col justify-center items-center mt-16">
-              <Link href="/Login" onClick={handleSmallerScreenNavigation}>
-                <button className="bg-gray-100 text-slate-800 rounded-2xl uppercase font-bold py-3 w-[250px] mb-5 hover:bg-slate-800 hover:text-gray-100">
-                  Iniciar Sesion
-                </button>
-              </Link>
-
-              <Link href="/Register" onClick={handleSmallerScreenNavigation}>
-                <button className="border-2 border-gray-100 text-white hover:text-slate-400 hover:border-slate-400 rounded-2xl uppercase font-bold py-3 w-[250px] mb-5">
-                  Registrarse
-                </button>
-              </Link>
-            </div>
           </div>
         </div>
       </nav>

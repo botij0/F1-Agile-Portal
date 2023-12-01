@@ -1,5 +1,7 @@
 package com.f1metag.Common.Requests;
 
+
+import com.f1metag.Usuario.Models.Rol;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EquipoRequest {
+public class UserRequest {
     Long id;
     String nombre;
-    String logo;
-    String twitter;
+    String username;
+    String email;
+    Rol rol;
 }

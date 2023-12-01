@@ -12,17 +12,16 @@ const CheckUser = () => {
 
     const {register, handleSubmit, formState:{errors}, setValue} = useForm();
 
-    const USUARIOS_API_BASE_URL = 'http://localhost:8080/api/v1/usuarios';
+    const USUARIOS_API_BASE_URL = 'http://localhost:8080/auth/checkuser';
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization' : 'Bearer ' + localStorage.getItem('token'),
     };
 
     const onSubmit = handleSubmit((data: any) => {
 
         try {
             const request = {username: data.usuario};
-            axios.put(USUARIOS_API_BASE_URL, request, {headers: headers})
+            axios.put(USUARIOS_API_BASE_URL, data.usuario, {headers: headers})
             .then(response => {
               if (!response.data.success)
               {
@@ -30,7 +29,8 @@ const CheckUser = () => {
               }
               else
               {
-                toast.success(response.data.message, {duration: 4000})           
+                toast.success(response.data.message, {duration: 4000}) 
+                console.log(response.data)          
                 window.location.href = "/Login/RecuperarPsw/" + response.data.id;
               }
             })

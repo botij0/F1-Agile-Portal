@@ -16,7 +16,7 @@ public class AuthResponse {
     String token;
 
     public static ResponseEntity<AuthResponse> badCredentials() {
-        return ResponseEntity.status(401).body(AuthResponse.builder()
+        return ResponseEntity.status(200).body(AuthResponse.builder()
                 .success(false)
                 .message("Username or password is incorrect")
                 .build());

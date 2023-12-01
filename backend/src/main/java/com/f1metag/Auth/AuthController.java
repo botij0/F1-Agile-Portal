@@ -33,7 +33,7 @@ public class AuthController {
        try {
            return ResponseEntity.ok(authService.signup(signUpRequest));
          } catch (IllegalArgumentException e) {
-              return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(AuthResponse.builder()
+              return ResponseEntity.status(HttpStatus.OK).body(AuthResponse.builder()
                      .success(false)
                      .message(e.getMessage())
                      .build());

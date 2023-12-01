@@ -1,71 +1,96 @@
 "use client";
 
-import { useState } from "react";
+import axios from "axios";
+import toast, {Toaster} from 'react-hot-toast'
+import {useForm} from 'react-hook-form'
 
 export default function Login() {
 
+  const {register, handleSubmit, formState:{errors}} = useForm();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const jsonLogin = { username, password };
-
-  /*
-  const [values, setValues] = useState({
-    username: "",
-    password: "",
-  });
-  */
-
-  //Funcion para enviar los datos del login al server
-  const handleSubmit = async () => {
-    //console.log("Username: " + username);
-    //console.log("Password: " + password);
-    //console.log(jsonLogin);
-    if (username != "" && password != "") {
-      try {
-        const res = await fetch("http://localhost:8080/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(jsonLogin),
-          mode: "no-cors",
-        }).then((response) => {
-          response.json();
-          console.log(response);
-        });
-
-        //const data = await res.json();
-      } catch (err) {
-        console.log(err);
-      }
+  const onSubmit = handleSubmit((data: any) => {
+    try {
+      const request = {username: data.username, password: data.password}
+      axios.post("http://localhost:8080/auth/login", request)
+      .then(response => {
+        if (!response.data.success)
+        {
+          toast.error(response.data.message)
+        }
+        else
+        {
+          toast.success(response.data.message, {duration: 4000})           
+          localStorage.setItem('token', response.data.token)
+          window.location.href = '/'
+        }
+      })
+    } catch (err) {
+      console.log(err);
     }
-  };
+  });
 
   return (
     <div className="mt-[100px]">
-      <form className="mx-4 max-w-xs">
+      <Toaster />
+      <h2 className="text-black text-2xl w-[50%] m-auto">Iniciar Sesión</h2>
+      <hr className="border-black w-[50%] mb-5 m-auto"/>
+      <form className="mx-auto max-w-xs" onSubmit={onSubmit}>
         <div className="mb-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          <label className="block mb-2 text-sm font-medium text-gray-900">
             Nombre de usuario
           </label>
+          {
+            errors.username && (
+                <span className="text-red-500 text-xs italic">{errors.username.message as string}</span>
+            )
+          }
           <input
             type="username"
             id="username"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
+                       focus:border-red-500 block w-full p-2.5 "
             placeholder="name@example.com"
-            required
-            onChange={(e) => setUsername(e.target.value)}
+            {...register("username",{
+                required:{
+                  value: true,
+                  message: 'Este campo es obligatorio'
+              },
+              maxLength:{
+                value: 50,
+                message: 'El Usuario no puede tener mas de 50 caracteres'
+              },
+            })}
           />
         </div>
         <div className="mb-6">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          <label className="block mb-2 text-sm font-medium text-gray-900">
             Contraseña
           </label>
+          {
+            errors.password && (
+                <span className="text-red-500 text-xs italic">{errors.password.message as string}</span>
+            )
+          }
           <input
             type="password"
             id="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-            onChange={(e) => setPassword(e.target.value)}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
+                       focus:border-red-500 block w-full p-2.5 "
+            placeholder="********"
+            {...register("password",{
+                required:{
+                  value: true,
+                  message: 'Este campo es obligatorio'
+              },
+              maxLength:{
+                value: 50,
+                message: 'La Contraseña no puede tener mas de 50 caracteres'
+              },
+              minLength:{
+                value: 5,
+                message: 'La Contraseña no puede tener menos de 5 caracteres'
+              }
+            })}
           />
         </div>
         <div className="flex items-start mb-6">
@@ -74,17 +99,17 @@ export default function Login() {
               id="remember"
               type="checkbox"
               value=""
-              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-red-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-red-600 dark:ring-offset-red-800 dark:focus:ring-offset-red-800"
+              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-red-300 accent-red-700"
             />
           </div>
-          <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label className="ml-2 text-sm font-medium text-gray-900">
             Recuérdame
           </label>
         </div>
         <button
           type="submit"
-          className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-          onClick={handleSubmit}
+          className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium 
+          rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
         >
           Iniciar sesión
         </button>
@@ -92,7 +117,6 @@ export default function Login() {
           <a href="/Login/RecuperarContrasena">¿Has olvidado la contraseña?</a>
         </div>
       </form>
-
     </div>
   );
 }

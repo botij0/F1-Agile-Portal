@@ -3,6 +3,7 @@
 import axios from "axios";
 import toast, {Toaster} from 'react-hot-toast'
 import {useForm} from 'react-hook-form'
+import Link from "next/link";
 
 export default function Login() {
 
@@ -114,7 +115,9 @@ export default function Login() {
           Iniciar sesión
         </button>
         <div className="py-6 text-sm font-medium text-red-600 hover:text-red-700">
-          <a href="/Login/RecuperarContrasena">¿Has olvidado la contraseña?</a>
+          <Link href="/Login/ComprobarUser">
+            ¿Has olvidado la contraseña?
+          </Link>
         </div>
       </form>
     </div>

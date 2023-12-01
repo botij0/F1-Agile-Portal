@@ -36,7 +36,7 @@ const NewsManagment = () => {
     <div className="container mx-auto my-8">
 
         <h2 className="text-black text-2xl">Gestión de Noticias</h2>
-        <hr className="border-black w-[100%] mb-5 m-auto"/>
+        <hr className="border-black w-[100%] mb-5 mx-auto"/>
 
         <Link href="/Noticias/Crear" title='Crear Noticia' className='flex w-7 ml-auto' >
             <IoIosAddCircleOutline className="text-gray-500 hover:text-gray-800 w-7 h-7 mb-0.5"/>

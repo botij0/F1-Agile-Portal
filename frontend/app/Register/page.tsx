@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import axios from 'axios'
-import toast, {Toaster} from 'react-hot-toast'
-import {useForm} from 'react-hook-form'
+import toast, { Toaster } from 'react-hot-toast'
+import { useForm } from 'react-hook-form'
 
 const registerURL = process.env.REGISTER_URL || 'http://localhost:8080/auth/signup'
 
@@ -26,24 +26,22 @@ const fieldsConfig =
 
 export default function Register() {
 
-  const {register, handleSubmit, formState:{errors}, watch} = useForm();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
   const onSubmit = handleSubmit((data: any) => {
     try {
-      const request = {name: data.name, username: data.username, email: data.email, password: data.password1}
+      const request = { name: data.name, username: data.username, email: data.email, password: data.password1 }
       axios.post<AuthResponse>(registerURL, request)
-      .then(response => {
-        if (!response.data.success)
-        {
-          toast.error(response.data.message)
-        }
-        else
-        {
-          toast.success(response.data.message)          
-          localStorage.setItem('token', response.data.token)
-          window.location.href = '/'
-        }
-      })
+        .then(response => {
+          if (!response.data.success) {
+            toast.error(response.data.message)
+          }
+          else {
+            toast.success(response.data.message)
+            localStorage.setItem('token', response.data.token)
+            window.location.href = '/'
+          }
+        })
     } catch (err) {
       console.log(err);
     }
@@ -51,16 +49,15 @@ export default function Register() {
 
   return (
     <div className='mt-[100px] text-black'>
-      <Toaster />
       <h2 className="text-black text-2xl w-[50%] m-auto">Crear Cuenta</h2>
-      <hr className="border-black w-[50%] mb-5 m-auto"/>
+      <hr className="border-black w-[50%] mb-5 m-auto" />
       <form className='mx-auto max-w-xs' onSubmit={onSubmit}>
         <div className='mb-6'>
           <label className={labelConfig}>Nombre de visualización</label>
 
           {
             errors.name && (
-                <span className="text-red-500 text-xs italic">{errors.name.message as string}</span>
+              <span className="text-red-500 text-xs italic">{errors.name.message as string}</span>
             )
           }
 
@@ -69,16 +66,16 @@ export default function Register() {
             type='text'
             placeholder='Introduce tu nombre de visualización'
             className={fieldsConfig}
-            {...register("name",{
-                required:{
-                  value: true,
-                  message: 'Este campo es obligatorio'
+            {...register("name", {
+              required: {
+                value: true,
+                message: 'Este campo es obligatorio'
               },
-              maxLength:{
+              maxLength: {
                 value: 50,
                 message: 'El Nombre no puede tener mas de 50 caracteres'
               },
-              pattern:{
+              pattern: {
                 value: PERSON_NAME_REG_EX,
                 message: 'El Nombre no es valido'
               }
@@ -89,7 +86,7 @@ export default function Register() {
           <label className={labelConfig}>Nombre de usuario</label>
           {
             errors.username && (
-                <span className="text-red-500 text-xs italic">{errors.username.message as string}</span>
+              <span className="text-red-500 text-xs italic">{errors.username.message as string}</span>
             )
           }
           <input
@@ -97,16 +94,16 @@ export default function Register() {
             type='text'
             placeholder='Introduce tu nombre de usuario'
             className={fieldsConfig}
-            {...register("username",{
-                required:{
-                  value: true,
-                  message: 'Este campo es obligatorio'
+            {...register("username", {
+              required: {
+                value: true,
+                message: 'Este campo es obligatorio'
               },
-              maxLength:{
+              maxLength: {
                 value: 50,
                 message: 'El Usuario no puede tener mas de 50 caracteres'
               },
-              pattern:{
+              pattern: {
                 value: USERNAME_REG_EX,
                 message: 'El Usuario no es valido'
               }
@@ -115,10 +112,10 @@ export default function Register() {
         </div>
         <div className='mb-6'>
           <label className={labelConfig}>Correo Electrónico</label>
-          
+
           {
             errors.email && (
-                <span className="text-red-500 text-xs italic">{errors.email.message as string}</span>
+              <span className="text-red-500 text-xs italic">{errors.email.message as string}</span>
             )
           }
           <input
@@ -126,30 +123,30 @@ export default function Register() {
             type='email'
             placeholder='Introduce tu Email'
             className={fieldsConfig}
-            {...register("email",{
-                required:{
-                  value: true,
-                  message: 'Este campo es obligatorio'
-                },
-                maxLength:{
-                  value: 256,
-                  message: 'El Email no puede tener mas de 256 caracteres'
-                },
-                pattern:{
-                  value: EMAIL_REG_EX,
-                  message: 'El Email no es valido'
-                }
-              })
+            {...register("email", {
+              required: {
+                value: true,
+                message: 'Este campo es obligatorio'
+              },
+              maxLength: {
+                value: 256,
+                message: 'El Email no puede tener mas de 256 caracteres'
+              },
+              pattern: {
+                value: EMAIL_REG_EX,
+                message: 'El Email no es valido'
+              }
+            })
 
             }
           />
         </div>
         <div className='mb-6'>
           <label className={labelConfig}>Contraseña</label>
-          
+
           {
             errors.password1 && (
-                <span className="text-red-500 text-xs italic">{errors.password1.message as string}</span>
+              <span className="text-red-500 text-xs italic">{errors.password1.message as string}</span>
             )
           }
           <input
@@ -157,19 +154,19 @@ export default function Register() {
             type='password'
             placeholder='Introduce tu contraseña'
             className={fieldsConfig}
-            {...register("password1",{
-                required:{
-                  value: true,
-                  message: 'Este campo es obligatorio'
-                },
-                maxLength:{
-                  value: 50,
-                  message: 'La contraseña no puede tener mas de 50 caracteres'
-                },
-                minLength:{
-                  value: 5,
-                  message: 'La Contraseña debe tener al menos 5 caracteres'
-                }
+            {...register("password1", {
+              required: {
+                value: true,
+                message: 'Este campo es obligatorio'
+              },
+              maxLength: {
+                value: 50,
+                message: 'La contraseña no puede tener mas de 50 caracteres'
+              },
+              minLength: {
+                value: 5,
+                message: 'La Contraseña debe tener al menos 5 caracteres'
+              }
             })}
           />
         </div>
@@ -177,7 +174,7 @@ export default function Register() {
           <label className={labelConfig}>Confirmar contraseña</label>
           {
             errors.password2 && (
-                <span className="text-red-500 text-xs italic">{errors.password2.message as string}</span>
+              <span className="text-red-500 text-xs italic">{errors.password2.message as string}</span>
             )
           }
           <input
@@ -185,18 +182,18 @@ export default function Register() {
             type='password'
             placeholder='Introduce tu contraseña de nuevo'
             className={fieldsConfig}
-            {...register("password2",{
-                required:{
-                  value: true,
-                  message: 'Este campo es obligatorio'
-                },
-                validate: (value) => {
-                  if (value === watch('password1')) {
-                    return true
-                  } else {
-                    return 'Las contraseñas no coinciden'
-                  }
+            {...register("password2", {
+              required: {
+                value: true,
+                message: 'Este campo es obligatorio'
+              },
+              validate: (value) => {
+                if (value === watch('password1')) {
+                  return true
+                } else {
+                  return 'Las contraseñas no coinciden'
                 }
+              }
             })
             }
           />

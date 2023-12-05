@@ -20,7 +20,7 @@ export const SeccionUltimasNoticias = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwMDA3MzM2MSwiZXhwIjoxNzAwMTU5NzYxfQ.BpyEDIAeI18Sk8DwY3FOVaSG9RNMTU-jqEpGPyuJknI", //localStorage.getItem('token'),
+              "Bearer " + localStorage.getItem("token"),
           },
         });
         const data = await response.data;
@@ -81,12 +81,12 @@ export const SeccionUltimasNoticias = () => {
         >
           <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[0].id : 0}`}>
             <img
-              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[0].imagen}` : LOGO_URL}
+              src={noticias.length > 0 ? `${IMAGEN_BASE_URL}${noticias[0].imagen}` : LOGO_URL}
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[0].titulo: "First slide label"}</h5>
+              <h5 className="text-xl" style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}>{noticias.length > 0 ? noticias[0].titulo : "First slide label"}</h5>
             </div>
           </a>
         </div>
@@ -98,12 +98,12 @@ export const SeccionUltimasNoticias = () => {
         >
           <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[1].id : 0}`}>
             <img
-              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[1].imagen}` : LOGO_URL}
+              src={noticias.length > 0 ? `${IMAGEN_BASE_URL}${noticias[1].imagen}` : LOGO_URL}
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[1].titulo: "Second slide label"}</h5>
+              <h5 className="text-xl" style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}>{noticias.length > 0 ? noticias[1].titulo : "Second slide label"}</h5>
             </div>
           </a>
         </div>
@@ -115,12 +115,12 @@ export const SeccionUltimasNoticias = () => {
         >
           <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[2].id : 0}`}>
             <img
-              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[2].imagen}` : LOGO_URL}
+              src={noticias.length > 0 ? `${IMAGEN_BASE_URL}${noticias[2].imagen}` : LOGO_URL}
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[2].titulo: "Third slide label"}</h5>
+              <h5 className="text-xl" style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}>{noticias.length > 0 ? noticias[2].titulo : "Third slide label"}</h5>
             </div>
           </a>
         </div>

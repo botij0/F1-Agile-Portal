@@ -28,13 +28,6 @@ public class Equipo {
     String logo;
     String twitter;
 
-    @ManyToMany
-    @JoinTable(
-            name = "equipos_circuitos",
-            joinColumns = @JoinColumn(name = "equipo_id"),
-            inverseJoinColumns = @JoinColumn(name = "circuito_id"))
-    Set<Circuito> circuitos;
-
 
     @OneToMany(mappedBy = "equipo", fetch = FetchType.EAGER)
             @JsonManagedReference

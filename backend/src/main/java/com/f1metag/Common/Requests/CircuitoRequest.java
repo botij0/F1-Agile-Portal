@@ -22,5 +22,7 @@ public class CircuitoRequest {
     Integer curvasLentas;
     Integer curvasMedias;
     Integer curvasRapidas;
-    Date fecha;
+    String granPremio;
+
+
 }

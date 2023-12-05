@@ -8,14 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/circuitos")
 public class CircuitoController {
     @Autowired
     CircuitoService circuitoService;
-
     @GetMapping
     public ResponseEntity<ApiResponse> getCircuitos() {
         try {
@@ -24,7 +22,6 @@ public class CircuitoController {
             return ApiResponse.badRequest();
         }
     }
-
     @PostMapping
     public ResponseEntity<ApiResponse> createCircuito(@RequestBody CircuitoRequest circuitoRequest) {
         try {
@@ -34,10 +31,28 @@ public class CircuitoController {
         }
     }
 
-    @PutMapping("/agregarEquipo/{id}")
-    public ResponseEntity<ApiResponse> addEquipo(@PathVariable Long id, @RequestBody Map<String, Long> request) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse> getCircuito(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.ok(circuitoService.addEquipo(id, request.get("equipo")));
+            return ResponseEntity.ok(circuitoService.getCircuito(id));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse> updateCircuito(@PathVariable("id") Long id, @RequestBody CircuitoRequest circuitoRequest) {
+        try {
+            return ResponseEntity.ok(circuitoService.updateCircuito(id, circuitoRequest));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteCircuito(@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(circuitoService.deleteCircuito(id));
         } catch (IllegalArgumentException e) {
             return ApiResponse.badRequest();
         }

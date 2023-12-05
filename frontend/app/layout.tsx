@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavbarF from "./components/Navbar";
 import './globals.css'
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,8 +32,11 @@ export default function RootLayout({
         <script src="https://cdn.tailwindcss.com/3.3.0"></script>
       </head>
       <body suppressHydrationWarning={true}>
+        <Toaster />
+
         <NavbarF />
-        {children}
+        <div className="relative overflow-x-auto mt-[80px] text-black"
+        >{children}</div>
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script src="https://unpkg.com/@supabase/supabase-js@2"></script>

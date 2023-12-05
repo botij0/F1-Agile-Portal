@@ -20,7 +20,7 @@ export const SeccionUltimasNoticias = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization:
-              "Bearer " + localStorage.getItem("token"),
+              "Bearer " + localStorage.getItem('token'),
           },
         });
         const data = await response.data;
@@ -35,7 +35,7 @@ export const SeccionUltimasNoticias = () => {
   return (
     <div
       id="carouselExampleCaptions"
-      className="relative max-w-[900px] h-[524px] mt-5 group bg-black rounded-3xl overflow-hidden border-solid border-8 border-red-700"
+      className="relative max-w-[900px] h-[524px] mt-5 group bg-black rounded-3xl overflow-hidden border-solid border-8 border-red-700 mx-auto"
       data-te-carousel-init
       data-te-ride="carousel"
     >
@@ -49,7 +49,8 @@ export const SeccionUltimasNoticias = () => {
           data-te-target="#carouselExampleCaptions"
           data-te-slide-to="0"
           data-te-carousel-active=""
-          className="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none !opacity-100"
+          className="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 
+                      -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
           aria-current="true"
           aria-label="Slide 1"
         ></button>
@@ -57,14 +58,16 @@ export const SeccionUltimasNoticias = () => {
           type="button"
           data-te-target="#carouselExampleCaptions"
           data-te-slide-to="1"
-          className="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none !opacity-100"
+          className="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0
+                     -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
           aria-label="Slide 2"
         ></button>
         <button
           type="button"
           data-te-target="#carouselExampleCaptions"
           data-te-slide-to="2"
-          className="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none !opacity-100"
+          className="mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 
+                    -indent-[999px] opacity-50 transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none"
           aria-label="Slide 3"
         ></button>
       </div>
@@ -74,19 +77,20 @@ export const SeccionUltimasNoticias = () => {
         {/*First item*/}
         {/* <ImagenCarousel url={slides[0].url}/> */}
         <div
-          className="relative float-left -mr-[100%] w-full transition-transform duration-[400ms] ease-in-out motion-reduce:transition-none overflow-hidden hidden !block data-[te-carousel-fade]:opacity-100 data-[te-carousel-fade]:z-[1]"
+          className="relative float-left -mr-[100%] w-full transition-transform duration-[400ms] ease-in-out motion-reduce:transition-none overflow-hidden hidden 
+                    data-[te-carousel-fade]:opacity-100 data-[te-carousel-fade]:z-[1]"
           data-te-carousel-active
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
         >
           <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[0].id : 0}`}>
             <img
-              src={noticias.length > 0 ? `${IMAGEN_BASE_URL}${noticias[0].imagen}` : LOGO_URL}
+              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[0].imagen}` : LOGO_URL}
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}>{noticias.length > 0 ? noticias[0].titulo : "First slide label"}</h5>
+              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[0].titulo: "First slide label"}</h5>
             </div>
           </a>
         </div>
@@ -98,12 +102,12 @@ export const SeccionUltimasNoticias = () => {
         >
           <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[1].id : 0}`}>
             <img
-              src={noticias.length > 0 ? `${IMAGEN_BASE_URL}${noticias[1].imagen}` : LOGO_URL}
+              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[1].imagen}` : LOGO_URL}
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}>{noticias.length > 0 ? noticias[1].titulo : "Second slide label"}</h5>
+              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[1].titulo: "Second slide label"}</h5>
             </div>
           </a>
         </div>
@@ -115,12 +119,12 @@ export const SeccionUltimasNoticias = () => {
         >
           <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[2].id : 0}`}>
             <img
-              src={noticias.length > 0 ? `${IMAGEN_BASE_URL}${noticias[2].imagen}` : LOGO_URL}
+              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[2].imagen}` : LOGO_URL}
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}>{noticias.length > 0 ? noticias[2].titulo : "Third slide label"}</h5>
+              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[2].titulo: "Third slide label"}</h5>
             </div>
           </a>
         </div>
@@ -128,7 +132,9 @@ export const SeccionUltimasNoticias = () => {
 
       {/*Carousel controls - prev item*/}
       <button
-        className="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+        className="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 
+                  transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none
+                focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
         type="button"
         data-te-target="#carouselExampleCaptions"
         data-te-slide="prev"
@@ -155,7 +161,9 @@ export const SeccionUltimasNoticias = () => {
       </button>
       {/*Carousel controls - next item*/}
       <button
-        className="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+        className="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity
+                   duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline 
+                   focus:opacity-90 focus:outline-none motion-reduce:transition-none"
         type="button"
         data-te-target="#carouselExampleCaptions"
         data-te-slide="next"

@@ -1,6 +1,7 @@
 package com.f1metag.Equipo.Services;
 
 import com.f1metag.Common.Requests.EquipoRequest;
+import com.f1metag.Common.Requests.NoticiaRequest;
 import com.f1metag.Common.Responses.ApiResponse;
 import com.f1metag.Equipo.Models.Equipo;
 import com.f1metag.Equipo.Repository.EquipoRepository;
@@ -33,5 +34,20 @@ public class EquipoService {
             return ApiResponse.errorRequest("Equipo no encontrado").getBody();
         }
         return ApiResponse.successRequest("Equipo obtenido correctamente", equipoRepository.findById(id)).getBody();
+    }
+
+    public ApiResponse updateEquipo(EquipoRequest equipoRequest){
+        Equipo oldEquipo = equipoRepository.findById(equipoRequest.getId()).orElseThrow();
+        oldEquipo.setNombre(equipoRequest.getNombre());
+        oldEquipo.setTwitter(equipoRequest.getTwitter());
+        oldEquipo.setLogo(equipoRequest.getLogo());
+        equipoRepository.save(oldEquipo);
+
+        return ApiResponse.successRequest("Equipo actualizado correctamente", oldEquipo).getBody();
+    }
+
+    public boolean deleteEquipo(Long id){
+        equipoRepository.deleteById(id);
+        return true;
     }
 }

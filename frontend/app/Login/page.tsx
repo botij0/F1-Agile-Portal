@@ -1,27 +1,30 @@
 "use client";
 
 import axios from "axios";
-import toast, { Toaster } from 'react-hot-toast'
-import { useForm } from 'react-hook-form'
+import toast, {Toaster} from 'react-hot-toast'
+import {useForm} from 'react-hook-form'
+import Link from "next/link";
 
 export default function Login() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {register, handleSubmit, formState:{errors}} = useForm();
 
   const onSubmit = handleSubmit((data: any) => {
     try {
-      const request = { username: data.username, password: data.password }
+      const request = {username: data.username, password: data.password}
       axios.post("http://localhost:8080/auth/login", request)
-        .then(response => {
-          if (!response.data.success) {
-            toast.error(response.data.message)
-          }
-          else {
-            toast.success(response.data.message, { duration: 4000 })
-            localStorage.setItem('token', response.data.token)
-            window.location.href = '/'
-          }
-        })
+      .then(response => {
+        if (!response.data.success)
+        {
+          toast.error(response.data.message)
+        }
+        else
+        {
+          toast.success(response.data.message, {duration: 4000})           
+          localStorage.setItem('token', response.data.token)
+          window.location.href = '/'
+        }
+      })
     } catch (err) {
       console.log(err);
     }
@@ -29,8 +32,9 @@ export default function Login() {
 
   return (
     <div className="mt-[100px]">
+      <Toaster />
       <h2 className="text-black text-2xl w-[50%] m-auto">Iniciar Sesión</h2>
-      <hr className="border-black w-[50%] mb-5 m-auto" />
+      <hr className="border-black w-[50%] mb-5 m-auto"/>
       <form className="mx-auto max-w-xs" onSubmit={onSubmit}>
         <div className="mb-6">
           <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -38,7 +42,7 @@ export default function Login() {
           </label>
           {
             errors.username && (
-              <span className="text-red-500 text-xs italic">{errors.username.message as string}</span>
+                <span className="text-red-500 text-xs italic">{errors.username.message as string}</span>
             )
           }
           <input
@@ -47,12 +51,12 @@ export default function Login() {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
                        focus:border-red-500 block w-full p-2.5 "
             placeholder="name@example.com"
-            {...register("username", {
-              required: {
-                value: true,
-                message: 'Este campo es obligatorio'
+            {...register("username",{
+                required:{
+                  value: true,
+                  message: 'Este campo es obligatorio'
               },
-              maxLength: {
+              maxLength:{
                 value: 50,
                 message: 'El Usuario no puede tener mas de 50 caracteres'
               },
@@ -65,7 +69,7 @@ export default function Login() {
           </label>
           {
             errors.password && (
-              <span className="text-red-500 text-xs italic">{errors.password.message as string}</span>
+                <span className="text-red-500 text-xs italic">{errors.password.message as string}</span>
             )
           }
           <input
@@ -74,16 +78,16 @@ export default function Login() {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
                        focus:border-red-500 block w-full p-2.5 "
             placeholder="********"
-            {...register("password", {
-              required: {
-                value: true,
-                message: 'Este campo es obligatorio'
+            {...register("password",{
+                required:{
+                  value: true,
+                  message: 'Este campo es obligatorio'
               },
-              maxLength: {
+              maxLength:{
                 value: 50,
                 message: 'La Contraseña no puede tener mas de 50 caracteres'
               },
-              minLength: {
+              minLength:{
                 value: 5,
                 message: 'La Contraseña no puede tener menos de 5 caracteres'
               }
@@ -111,7 +115,9 @@ export default function Login() {
           Iniciar sesión
         </button>
         <div className="py-6 text-sm font-medium text-red-600 hover:text-red-700">
-          <a href="/Login/RecuperarContrasena">¿Has olvidado la contraseña?</a>
+          <Link href="/Login/ComprobarUser">
+            ¿Has olvidado la contraseña?
+          </Link>
         </div>
       </form>
     </div>

@@ -67,14 +67,13 @@ const UserIcon = () => {
         {isOpen && (
           <div className="absolute py-2 w-[100%] bg-red-700 shadow-xl border-2 border-t-0 rounded-b-2xl mt-[25%]">
             <ul>
-              {
-              /*<Link href="/Perfil">
+              
+              <Link href="/Perfil">
                 <li className="px-4 py-2 hover:bg-red-800 hover:text-slate-400">
                   Perfil
                 </li>
-              </Link>
-              */
-              }
+              </Link>              
+              
               <Link onClick={handleLogout} href="/Login">
                 <li className="px-4 py-2 hover:bg-red-800 hover:text-slate-400">
                   Cerrar Sesion

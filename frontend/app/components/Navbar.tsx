@@ -93,6 +93,13 @@ const NavbarF: React.FC = () => {
                 <>
                   <li
                     onClick={handleSmallerScreenNavigation}
+                    className="py-5 hover:text-slate-400 cursor-pointer"
+                  >
+                    <Link onClick={handleLogout} href="/Perfil">Perfil</Link>
+                  </li>
+
+                  <li
+                    onClick={handleSmallerScreenNavigation}
                     className="py-5 hover:text-slate-400 cursor-pointer border-2 bg-red-700 hover:bg-red-800 mx-[10%] rounded-2xl mt-5"
                   >
                     <Link onClick={handleLogout} href="/Login">Cerrar Sesión</Link>

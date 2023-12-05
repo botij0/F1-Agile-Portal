@@ -19,7 +19,7 @@ const EquipoCard: React.FC<Props> = ({ equipo }) => {
   return (
     <div className="w-64 rounded overflow-hidden shadow-lg hover:shadow-2xl mx-auto border-2">
       {/** FALTA REDIRIGIR AL EQUIPO, PERO NO ESTABAN ACABADOS CUANDO LO IMPLEMENTÉ */}
-      <a href="http://localhost:3000">
+      <a href={"/Equipos/Detalles/" + equipo.id}>
         <div className="flex items-center justify-center h-32 ">
           <img
             className="w-20 h-auto"

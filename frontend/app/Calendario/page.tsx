@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 import { getRequest } from "../(utils)/api";
-import { ItemCalendario } from "./components/itemCalendario";
+import { ItemCalendario } from "./components/ItemCalendario";
 
 const CalendarioPage = () => {
   type elementoCalendario = {

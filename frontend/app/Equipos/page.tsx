@@ -1,4 +1,4 @@
-import { EquiposPrincipal } from "../components/EquiposPrincipal";
+import { EquiposPrincipal } from "@/app/components/Equipos/EquiposPrincipal";
 
 export default function Equipos() {
   return (

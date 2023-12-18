@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import VotacionesAbiertas from "./components/VotacionesAbiertas";
-import { SeccionUltimasNoticias } from "./components/SeccionUltimasNoticias";
+import VotacionesAbiertas from "@/app/components/Votaciones/VotacionesAbiertas";
+import { SeccionUltimasNoticias } from "@/app/components/Noticias/SeccionUltimasNoticias";
 
 export default function Home() {
   return (

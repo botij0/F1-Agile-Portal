@@ -1,5 +1,5 @@
 import React from "react";
-import MiPerfil from "../components/MiPerfil";
+import MiPerfil from "@/app/components/Users/MiPerfil";
 
 export default function DefaultTable() {
   return (

@@ -115,7 +115,7 @@ export default function Login() {
           Iniciar sesión
         </button>
         <div className="py-6 text-sm font-medium text-red-600 hover:text-red-700">
-          <Link href="/Login/ComprobarUser">
+          <Link href="/Users/Login/ComprobarUser">
             ¿Has olvidado la contraseña?
           </Link>
         </div>

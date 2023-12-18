@@ -1,5 +1,5 @@
 
-import FormNoticia from "@/app/components/FormNoticia"
+import FormNoticia from "@/app/components/Noticias/FormNoticia"
 
 const page = () => {
   return (

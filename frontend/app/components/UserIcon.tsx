@@ -68,13 +68,13 @@ const UserIcon = () => {
           <div className="absolute py-2 w-[100%] bg-red-700 shadow-xl border-2 border-t-0 rounded-b-2xl mt-[25%]">
             <ul>
               
-              <Link href="/Perfil">
+              <Link href="/Users/Perfil">
                 <li className="px-4 py-2 hover:bg-red-800 hover:text-slate-400">
                   Perfil
                 </li>
               </Link>              
               
-              <Link onClick={handleLogout} href="/Login">
+              <Link onClick={handleLogout} href="/Users/Login">
                 <li className="px-4 py-2 hover:bg-red-800 hover:text-slate-400">
                   Cerrar Sesion
                 </li>
@@ -86,13 +86,13 @@ const UserIcon = () => {
        : 
         <div className="hidden md:flex">
           <div className="flex">
-            <Link href="/Login">
+            <Link href="/Users/Login">
               <button className="mr-5 bg-gray-100 text-slate-800 hover:bg-slate-800 hover:text-gray-100 rounded-2xl uppercase font-bold px-8 py-2">
                 Iniciar Sesion
               </button>
             </Link>
 
-            <Link href="/Register">
+            <Link href="/Users/Register">
               <button className="border-2 border-gray-100 text-white hover:text-slate-400 hover:border-slate-400 rounded-2xl uppercase font-bold px-8 py-2">
                 Registrarse
               </button>

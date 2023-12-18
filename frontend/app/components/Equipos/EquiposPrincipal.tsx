@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import EquipoCard from "./EquipoCard";
+import EquipoCard from "@/app/components/Equipos/EquipoCard";
 
 export const EquiposPrincipal = () => {
   const EQUIPOS_API_BASE_URL = "http://localhost:8080/api/v1/equipos";

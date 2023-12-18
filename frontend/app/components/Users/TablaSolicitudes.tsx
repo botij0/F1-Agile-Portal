@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { paginate } from "../utils/paginate";
-import Pagination from "./Pagination";
-import FilaSolicitud from "./FilaSolicitud";
+import { paginate } from "../../utils/paginate";
+import Pagination from "../Pagination";
+import FilaSolicitud from "../FilaSolicitud";
 
 const TablaSolicitudes = () => {
   const pageSize = 5;

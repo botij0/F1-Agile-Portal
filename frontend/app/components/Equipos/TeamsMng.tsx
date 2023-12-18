@@ -10,7 +10,7 @@ import TeamRow from './TeamRow';
 
 
 
-const NewsManagment = () => {
+const TeamsMng = () => {
 
     const pageSize = 5;
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -147,4 +147,4 @@ const NewsManagment = () => {
   )
 }
 
-export default NewsManagment
+export default TeamsMng

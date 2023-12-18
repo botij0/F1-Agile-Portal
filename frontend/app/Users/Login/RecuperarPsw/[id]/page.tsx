@@ -1,10 +1,10 @@
-import CheckUser from '@/app/components/CheckUser'
+import RecoverPsw from '@/app/components/Users/RecoverPsw'
 import React from 'react'
 
 const page = () => {
   return (
     <div className="relative overflow-x-auto mt-[80px]">
-        <CheckUser/>
+        <RecoverPsw/>
     </div>
   )
 }

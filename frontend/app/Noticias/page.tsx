@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { SeccionUltimasNoticias } from "../components/SeccionUltimasNoticias";
+import { SeccionUltimasNoticias } from "@/app/components/Noticias/SeccionUltimasNoticias";
 import { Noticia } from "./components/Noticia";
 import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

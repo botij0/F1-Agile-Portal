@@ -1,4 +1,4 @@
-import NewsManagment from "@/app/components/NewsManagment";
+import NewsManagment from "@/app/components/Noticias/NewsManagment";
 import React from "react";
 
 export default function DefaultTable(){ 

@@ -1,4 +1,4 @@
-import TablaSolicitudes from "@/app/components/TablaSolicitudes";
+import TablaSolicitudes from "@/app/components/Users/TablaSolicitudes";
 
 export default function Solicitudes() {
   return (

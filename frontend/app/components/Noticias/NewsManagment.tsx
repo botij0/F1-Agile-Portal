@@ -2,11 +2,11 @@
 
 import Link from 'next/link'
 import {IoIosAddCircleOutline} from 'react-icons/io'
-import NoticiaMng from './NoticiaMng'
+import NoticiaMng from '@/app/components/Noticias/NoticiaMng'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {paginate} from '../utils/paginate';
-import Pagination from './Pagination';
+import {paginate} from '../../utils/paginate';
+import Pagination from '../Pagination';
 
 const NewsManagment = () => {
 

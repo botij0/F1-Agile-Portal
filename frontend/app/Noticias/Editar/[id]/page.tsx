@@ -1,4 +1,4 @@
-import FormNoticia from '@/app/components/FormNoticia'
+import FormNoticia from '@/app/components/Noticias/FormNoticia'
 import React from 'react'
 
 const page = () => {

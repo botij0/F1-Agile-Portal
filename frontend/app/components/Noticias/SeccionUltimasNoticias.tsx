@@ -2,27 +2,22 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { getRequest } from "@/app/(utils)/api";
 
 export const SeccionUltimasNoticias = () => {
-  const NOTICIA_API_BASE_URL = "http://localhost:8080/api/v1/noticias/ultimas";
-  const IMAGEN_BASE_URL = "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/"
-  const LOGO_URL = "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/0d8b4747-e641-4763-a7b4-f7ed168e37b7"
+  const IMAGEN_BASE_URL =
+    "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/";
+  const LOGO_URL =
+    "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/0d8b4747-e641-4763-a7b4-f7ed168e37b7";
   const [noticias, setNoticias] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const getNoticias = async () => {
       setLoading(true);
-      console.log(noticias)
+      console.log(noticias);
       try {
-        const response = await axios.get(NOTICIA_API_BASE_URL, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer " + localStorage.getItem('token'),
-          },
-        });
+        const response = await getRequest("noticias/ultimas");
         const data = await response.data;
         setNoticias(data);
       } catch (error) {
@@ -83,14 +78,27 @@ export const SeccionUltimasNoticias = () => {
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
         >
-          <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[0].id : 0}`}>
+          <a
+            href={`/Noticias/Noticia/${
+              noticias.length > 0 ? noticias[0].id : 0
+            }`}
+          >
             <img
-              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[0].imagen}` : LOGO_URL}
+              src={
+                noticias.length > 0
+                  ? `${IMAGEN_BASE_URL}${noticias[0].imagen}`
+                  : LOGO_URL
+              }
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[0].titulo: "First slide label"}</h5>
+              <h5
+                className="text-xl"
+                style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}
+              >
+                {noticias.length > 0 ? noticias[0].titulo : "First slide label"}
+              </h5>
             </div>
           </a>
         </div>
@@ -100,14 +108,29 @@ export const SeccionUltimasNoticias = () => {
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
         >
-          <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[1].id : 0}`}>
+          <a
+            href={`/Noticias/Noticia/${
+              noticias.length > 0 ? noticias[1].id : 0
+            }`}
+          >
             <img
-              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[1].imagen}` : LOGO_URL}
+              src={
+                noticias.length > 0
+                  ? `${IMAGEN_BASE_URL}${noticias[1].imagen}`
+                  : LOGO_URL
+              }
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[1].titulo: "Second slide label"}</h5>
+              <h5
+                className="text-xl"
+                style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}
+              >
+                {noticias.length > 0
+                  ? noticias[1].titulo
+                  : "Second slide label"}
+              </h5>
             </div>
           </a>
         </div>
@@ -117,14 +140,27 @@ export const SeccionUltimasNoticias = () => {
           data-te-carousel-item
           style={{ backfaceVisibility: "hidden" }}
         >
-          <a href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[2].id : 0}`}>
+          <a
+            href={`/Noticias/Noticia/${
+              noticias.length > 0 ? noticias[2].id : 0
+            }`}
+          >
             <img
-              src={noticias.length > 0 ?  `${IMAGEN_BASE_URL}${noticias[2].imagen}` : LOGO_URL}
+              src={
+                noticias.length > 0
+                  ? `${IMAGEN_BASE_URL}${noticias[2].imagen}`
+                  : LOGO_URL
+              }
               className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
               alt="..."
             />
             <div className="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-              <h5 className="text-xl" style={{fontWeight:"bold",background:"rgba(255,0,0,.5)"}}>{noticias.length > 0 ?  noticias[2].titulo: "Third slide label"}</h5>
+              <h5
+                className="text-xl"
+                style={{ fontWeight: "bold", background: "rgba(255,0,0,.5)" }}
+              >
+                {noticias.length > 0 ? noticias[2].titulo : "Third slide label"}
+              </h5>
             </div>
           </a>
         </div>

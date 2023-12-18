@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import Constantes from "@/app/(utils)/constantes";
 
 interface Equipo {
   id: number;
@@ -10,11 +11,8 @@ interface Props {
   equipo: Equipo;
 }
 
-const IMGS_BASE_URL =
-  "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/";
-
 const EquipoCard: React.FC<Props> = ({ equipo }) => {
-  const imagenUrl = IMGS_BASE_URL + equipo.logo;
+  const imagenUrl = Constantes.IMAGE_BASE_URL + equipo.logo;
 
   return (
     <div className="w-64 rounded overflow-hidden shadow-lg hover:shadow-2xl mx-auto border-2">

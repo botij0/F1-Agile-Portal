@@ -1,15 +1,12 @@
 "use client";
 
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { SeccionUltimasNoticias } from "@/app/components/Noticias/SeccionUltimasNoticias";
 import { Noticia } from "./components/Noticia";
 import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Link from "next/link";
+import { getRequest } from "@/app/(utils)/api";
 
 export default function Noticias() {
-  const NOTICIA_API_BASE_URL = "http://localhost:8080/api/v1/noticias/portal";
   const IMAGEN_BASE_URL =
     "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/";
   const LOGO_URL =
@@ -38,18 +35,7 @@ export default function Noticias() {
       setLoading(true);
       console.log(noticias);
       try {
-        const response = await axios.get(NOTICIA_API_BASE_URL, {
-          method: "GET",
-          params: {
-            page: currentPage, // página deseada
-            size: 10, // cantidad de elementos por página
-          },
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer " + localStorage.getItem('token'),
-          },
-        });
+        const response = await getRequest("noticias/portal");
         const data = await response.data;
         setNoticias(data.content);
         setTotalPages(data.totalPages);

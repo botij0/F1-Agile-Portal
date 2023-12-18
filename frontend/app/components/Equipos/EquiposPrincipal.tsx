@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import EquipoCard from "@/app/components/Equipos/EquipoCard";
+import { getRequest, putRequest } from "@/app/(utils)/api";
 
 export const EquiposPrincipal = () => {
-  const EQUIPOS_API_BASE_URL = "http://localhost:8080/api/v1/equipos";
   const [equipos, setEquipos] = useState<any[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -13,13 +12,7 @@ export const EquiposPrincipal = () => {
     const getEquipos = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(EQUIPOS_API_BASE_URL, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
+        const response = await getRequest("equipos");
         const data = await response.data;
         setEquipos(data.data);
       } catch (error) {
@@ -34,7 +27,7 @@ export const EquiposPrincipal = () => {
   return (
     <div className="w-[80%] mx-auto">
       <h2 className="text-black text-2xl">Equipos</h2>
-      <hr className="border-black w-[100%] mb-5 m-auto"/>
+      <hr className="border-black w-[100%] mb-5 m-auto" />
       {
         //tarda un rato en cargar le he metido esto
         loading && (

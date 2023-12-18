@@ -2,16 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { paginate } from "../../utils/paginate";
-import Pagination from "../Pagination";
-import FilaSolicitud from "../FilaSolicitud";
+import { paginate } from "@/app/utils/paginate";
+import Pagination from "@/app/components/Pagination";
+import FilaSolicitud from "@/app/components/FilaSolicitud";
+import { getRequest, deleteRequest, putRequest } from "@/app/(utils)/api";
 
 const TablaSolicitudes = () => {
   const pageSize = 5;
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const USUARIOS_API_BASE_URL =
-    "http://localhost:8080/api/v1/usuarios/solicitudes";
   const [usuarios, setUsuarios] = useState<any[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -25,13 +24,7 @@ const TablaSolicitudes = () => {
     const getUsuarios = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(USUARIOS_API_BASE_URL, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
+        const response = await getRequest("usuarios/solicitudes");
         const data = await response.data;
         setUsuarios(data.data);
       } catch (error) {
@@ -44,27 +37,20 @@ const TablaSolicitudes = () => {
 
   const rechazarSolicitud = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
-    axios
-      .delete(USUARIOS_API_BASE_URL + "/" + id, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        if (usuarios) {
-          setUsuarios((prevElement) => {
-            if (prevElement == null) return null;
-            else return prevElement.filter((user) => user.id !== id);
-          });
-        }
-      });
+    deleteRequest("usuarios/" + id).then((res) => {
+      if (usuarios) {
+        setUsuarios((prevElement) => {
+          if (prevElement == null) return null;
+          else return prevElement.filter((user) => user.id !== id);
+        });
+      }
+    });
   };
 
   const updateResponsable = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
     axios
-      .put(USUARIOS_API_BASE_URL + "/responsable/" + id, id, {
+      .put("usuarios/solicitudes/responsable/" + id, id, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -82,23 +68,14 @@ const TablaSolicitudes = () => {
 
   const updateAdmin = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
-    console.log(USUARIOS_API_BASE_URL + "/admin/" + id);
-    axios
-      .put(USUARIOS_API_BASE_URL + "/admin/" + id, id, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        if (usuarios) {
-          setUsuarios((prevElement) => {
-            if (prevElement == null) return null;
-            else return prevElement.filter((user) => user.id !== id);
-          });
-        }
-      });
+    putRequest("usuarios/solicitudes/admin/" + id, id).then((res) => {
+      if (usuarios) {
+        setUsuarios((prevElement) => {
+          if (prevElement == null) return null;
+          else return prevElement.filter((user) => user.id !== id);
+        });
+      }
+    });
   };
   return (
     <>

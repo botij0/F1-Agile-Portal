@@ -15,6 +15,6 @@ const circuitoSchema = z.object({
     temporadas: z.any().optional(),
     carreras: z.any().optional(),
     temporadasInterv: z.any().optional(),
-})
+});
 
 export default circuitoSchema;

@@ -19,7 +19,7 @@ const CircuitoVerPage = () => {
     const getCircuito = async (id: string) => {
         try {
             setLoading(true);
-            const response = await getRequest('circuitos/' + id);
+            const response = await getRequest("circuitos/" + id);
             const data = await response.data;
 
             if (data.success == true) {
@@ -36,32 +36,43 @@ const CircuitoVerPage = () => {
                     curvasMedias: circuito.curvasMedias,
                     curvasRapidas: circuito.curvasRapidas,
                     granPremio: circuito.granPremio,
-                    trazado: circuito.trazado ? Constantes.IMAGE_BASE_URL + circuito.trazado : null,
+                    trazado: circuito.trazado
+                        ? Constantes.IMAGE_BASE_URL + circuito.trazado
+                        : null,
                     carreras: circuito.carreras,
                     temporadas: circuito.temporadas,
                     temporadasInterv: circuito.temporadasInterv,
-                })
+                });
             } else {
                 toast.error(data.message);
-                router.push('/Circuitos');
+                router.push("/Circuitos");
             }
             setLoading(false);
         } catch (error) {
-            toast.error('Error al obtener el circuito');
+            toast.error("Error al obtener el circuito");
         }
-    }
+    };
     useEffect(() => {
         getCircuito(id);
     }, []);
 
-    return (
-        loading ? <Loading /> :
-            circuito &&
+    return loading ? (
+        <Loading />
+    ) : (
+        circuito && (
             <div className="w-full h-screen">
-                <div className="flex flex-col items-center justify-center w-full h-60 bg-red-500" style={{ backgroundImage: `url(${circuito?.trazado})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+                <div
+                    className="flex flex-col items-center justify-center w-full h-60 bg-red-500"
+                    style={{
+                        backgroundImage: `url(${circuito?.trazado})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                    }}
+                >
                     <div className="flex flex-col justify-center items-center h-60 bg-black bg-opacity-50 w-full">
-                        <h1 className="text-5xl font-bold text-white">{circuito?.nombre}</h1>
-
+                        <h1 className="text-5xl font-bold text-white">
+                            {circuito?.nombre}
+                        </h1>
                     </div>
                 </div>
                 <div className="mx-24">
@@ -69,63 +80,131 @@ const CircuitoVerPage = () => {
                         <div className="rounded-lg overflow-hidden border-red-500 border">
                             <table>
                                 <thead className="">
-                                    <td className="w-fit "><p className="p-2 font-bold">Nombre del circuito</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.nombre}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Nombre del circuito
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.nombre}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">País</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.paisNombre}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">País</p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.paisNombre}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Ciudad</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.ciudad}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">Ciudad</p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.ciudad}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Inauguración</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.carreras[0]?.fecha}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Inauguración
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.carreras[0]?.fecha}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Número de vueltas</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.numeroVueltas}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Número de vueltas
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.numeroVueltas}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Longitud</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.longitud} metros</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Longitud
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.longitud} metros
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Curvas Lentas</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.curvasLentas}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Curvas Lentas
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.curvasLentas}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Curvas Medias</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.curvasMedias}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Curvas Medias
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.curvasMedias}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Curvas Rapidas</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.curvasRapidas}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Curvas Rapidas
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.curvasRapidas}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Temporadas</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.temporadas}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Temporadas
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.temporadas}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Años</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.temporadasInterv}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">Años</p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.temporadasInterv}
+                                    </td>
                                 </thead>
                                 <thead className="border-red-500 border-t">
-                                    <td className="w-fit "><p className="p-2 font-bold">Gran Premio</p></td>
-                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">{circuito?.granPremio}</td>
+                                    <td className="w-fit ">
+                                        <p className="p-2 font-bold">
+                                            Gran Premio
+                                        </p>
+                                    </td>
+                                    <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                        {circuito?.granPremio}
+                                    </td>
                                 </thead>
-
                             </table>
                         </div>
-                        <img src={circuito?.trazado} alt="Trazado" className="w-96 rounded-lg h-96 object-cover" />
-
-
+                        <img
+                            src={circuito?.trazado}
+                            alt="Trazado"
+                            className="w-96 rounded-lg h-96 object-cover"
+                        />
                     </div>
                 </div>
             </div>
+        )
     );
-}
+};
 
 export default CircuitoVerPage;

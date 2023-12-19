@@ -13,7 +13,6 @@ import AgregarCarreras from "./agregar_carreras";
 type Carreras = typeof carrerasSchema;
 
 const FormCarreras = () => {
-
     const [loading, setLoading] = useState(false);
     const [carreras, setCarreras] = useState<Carreras[]>([]);
     const params = useParams();
@@ -21,7 +20,7 @@ const FormCarreras = () => {
     const getCarreras = async () => {
         setLoading(true);
         try {
-            const response = await getRequest('carreras/circuito/' + params.id);
+            const response = await getRequest("carreras/circuito/" + params.id);
 
             if (response.data.success) {
                 setCarreras(response.data.data);
@@ -33,21 +32,20 @@ const FormCarreras = () => {
         } catch (error) {
             setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         getCarreras();
     }, []);
 
-
-    return (
-        loading ? <Loading /> :
-            <div>
-                <AgregarCarreras getCarreras={getCarreras} />
-                <ListaCarreras carreras={carreras} getCarreras={getCarreras} />
-
-            </div>
+    return loading ? (
+        <Loading />
+    ) : (
+        <div>
+            <AgregarCarreras getCarreras={getCarreras} />
+            <ListaCarreras carreras={carreras} getCarreras={getCarreras} />
+        </div>
     );
-}
+};
 
 export default FormCarreras;

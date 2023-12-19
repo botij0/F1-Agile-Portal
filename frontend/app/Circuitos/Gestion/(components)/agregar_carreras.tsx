@@ -4,9 +4,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const AgregarCarreras = (
-    { getCarreras }: { getCarreras: Function }
-) => {
+const AgregarCarreras = ({ getCarreras }: { getCarreras: Function }) => {
     const [loading, setLoading] = useState(false);
     const [carreras, setCarreras] = useState<string[]>([]);
     const [inputValue, setInputValue] = useState("");
@@ -45,17 +43,17 @@ const AgregarCarreras = (
             return;
         }
 
-        postRequest(`carreras/circuito/bulk/${params.id}`, carreras)
-            .then(response => {
+        postRequest(`carreras/circuito/bulk/${params.id}`, carreras).then(
+            (response) => {
                 if (response.data.success) {
                     getCarreras();
                     toast.success(response.data.message, { duration: 4000 });
                 } else {
                     toast.error(response.data.message);
                 }
-            });
-    }
-
+            }
+        );
+    };
 
     return (
         <div className="p-4 font-sans bg-gray-50 m-5 rounded-lg">
@@ -73,11 +71,15 @@ const AgregarCarreras = (
             </div>
             <div className="">
                 <div>
-                    <h1 className="text-2xl  mt-5 font-bold" >Añadir carreras</h1>
-                    <p className="text-sm text-gray-500">Añade la fecha de las carreras que se disputarán o se han disputado en este circuito</p>
+                    <h1 className="text-2xl  mt-5 font-bold">
+                        Añadir carreras
+                    </h1>
+                    <p className="text-sm text-gray-500">
+                        Añade la fecha de las carreras que se disputarán o se
+                        han disputado en este circuito
+                    </p>
                 </div>
                 <br className="mt-5" />
-
             </div>
             <div className="flex gap-2 items-center mb-4 p-5 bg-gray-100 rounded-lg border">
                 <div>
@@ -99,17 +101,13 @@ const AgregarCarreras = (
                 >
                     Agregar
                 </button>
-
             </div>
 
             <div className="flex flex-col p-5 bg-gray-50 border rounded-lg">
                 <h2 className="text-lg font-bold"> </h2>
                 <hr className=" w-[100%] mb-5 m-auto mt-3" />
                 {carreras.map((carrera, index) => (
-                    <div
-                        key={index}
-                        className="flex items-center mb-2"
-                    >
+                    <div key={index} className="flex items-center mb-2">
                         <input
                             type="date"
                             value={carrera}

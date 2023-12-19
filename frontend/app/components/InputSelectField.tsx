@@ -4,13 +4,20 @@
     TODO --> Hacer que las opciones del select puedan recibir cualquier propiedad
 */
 
-const InputSelectField = ({ label, register, name, errors, loading, options }: {
-    label: string,
-    register: any,
-    name: string,
-    errors: any,
-    loading: boolean,
-    options: any
+const InputSelectField = ({
+    label,
+    register,
+    name,
+    errors,
+    loading,
+    options,
+}: {
+    label: string;
+    register: any;
+    name: string;
+    errors: any;
+    loading: boolean;
+    options: any;
 }) => {
     return (
         <div className="flex flex-col">
@@ -27,16 +34,18 @@ const InputSelectField = ({ label, register, name, errors, loading, options }: {
             >
                 <option value="">Selecciona una opción</option>
                 {options.map((option: any) => (
-                    <option key={option.code} value={option.code}>{option.name}</option>
+                    <option key={option.code} value={option.code}>
+                        {option.name}
+                    </option>
                 ))}
             </select>
-            {
-                errors[name] && (
-                    <span className="text-red-500 text-xs italic">{errors[name].message as string}</span>
-                )
-            }
+            {errors[name] && (
+                <span className="text-red-500 text-xs italic">
+                    {errors[name].message as string}
+                </span>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default InputSelectField;

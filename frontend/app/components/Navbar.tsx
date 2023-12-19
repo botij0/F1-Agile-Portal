@@ -23,6 +23,7 @@ const NavbarF: React.FC = () => {
         { text: "Votaciones", href: "/Votaciones" },
         { text: "Equipos", href: "/Equipos" },
         { text: "Circuitos", href: "/Circuitos" },
+        { text: "Panel de Control", href: "/PanelControl" },
     ];
 
     const handleLogout = () => {

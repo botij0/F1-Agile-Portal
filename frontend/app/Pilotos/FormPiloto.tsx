@@ -2,9 +2,10 @@
 import axios from "axios";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import { CountryDropdown } from "../components/CountryDropdown";
 
 const FormPiloto = () => {
   const {
@@ -18,11 +19,13 @@ const FormPiloto = () => {
     //TODO
   });
 
+  const [country, setCountry] = useState<number>(1);
+
   return (
     //TODO
     <div className="container mx-auto my-8">
       <Toaster />
-      <h2 className="text-black text-2xl">Editar Usuario</h2>
+      <h2 className="text-black text-2xl">Crear Piloto</h2>
       <hr className="border-black w-[100%] mb-5 m-auto" />
 
       <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
@@ -59,16 +62,16 @@ const FormPiloto = () => {
               })}
             />
 
-            <p className="text-gray-600 text-xs italic">Nombre personal</p>
+            <p className="text-gray-600 text-xs italic">Nombre del piloto</p>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="usuario"
+              htmlFor="apellidos"
             >
-              Usuario
+              Apellidos
             </label>
             {errors.usuario && (
               <span className="text-red-500 text-xs italic">
@@ -78,56 +81,59 @@ const FormPiloto = () => {
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
-              id="usuario"
+              id="apellidos"
               type="text"
-              placeholder="Usuario"
-              {...register("usuario", {
+              placeholder="Apellidos"
+              {...register("apellidos", {
                 required: {
                   value: true,
                   message: "Este campo es obligatorio",
                 },
                 maxLength: {
                   value: 50,
-                  message: "El usuario no puede tener mas de 50 caracteres",
+                  message: "Los apellidos no pueden tener mas de 50 caracteres",
                 },
               })}
             />
 
-            <p className="text-gray-600 text-xs italic">Nombre de Usuario</p>
+            <p className="text-gray-600 text-xs italic">Apellidos del piloto</p>
           </div>
         </div>
+
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="email"
+              htmlFor="dorsal"
             >
-              Email
+              Dorsal
             </label>
-            {errors.email && (
+            {errors.usuario && (
               <span className="text-red-500 text-xs italic">
-                {errors.email.message as string}
+                {errors.usuario.message as string}
               </span>
             )}
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
-              id="email"
-              type="email"
-              placeholder="email@email.com"
-              {...register("email", {
+              id="dorsal"
+              type="number"
+              min="0"
+              max="999"
+              placeholder="Dorsal"
+              {...register("dorsal", {
                 required: {
                   value: true,
                   message: "Este campo es obligatorio",
                 },
                 maxLength: {
-                  value: 256,
-                  message: "El email no puede tener mas de 256 caracteres",
+                  value: 50,
+                  message: "El dorsal no puede tener mas de 50 caracteres",
                 },
               })}
             />
 
-            <p className="text-gray-600 text-xs italic">Email</p>
+            <p className="text-gray-600 text-xs italic">Dorsal del piloto</p>
           </div>
         </div>
 
@@ -137,25 +143,189 @@ const FormPiloto = () => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="rol"
             >
-              Rol
+              País
             </label>
+            <CountryDropdown />
+            <p className="text-gray-600 text-xs italic">
+              País de nacimiento del piloto
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="siglas"
+            >
+              Siglas
+            </label>
+            {errors.usuario && (
+              <span className="text-red-500 text-xs italic">
+                {errors.usuario.message as string}
+              </span>
+            )}
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                     p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white uppercase"
+              id="siglas"
+              type="text"
+              placeholder="AAA"
+              size={3}
+              {...register("siglas", {
+                required: {
+                  value: true,
+                  message: "Este campo es obligatorio",
+                },
+                maxLength: {
+                  value: 3,
+                  message: "Las siglas no pueden tener más de 3 letras",
+                },
+              })}
+            />
+
+            <p className="text-gray-600 text-xs italic">Siglas del piloto</p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="siglas"
+            >
+              Twitter
+            </label>
+            {errors.usuario && (
+              <span className="text-red-500 text-xs italic">
+                {errors.usuario.message as string}
+              </span>
+            )}
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                     p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
+              id="twitter"
+              type="text"
+              placeholder="Twitter"
+              {...register("twitter", {
+                required: {
+                  value: true,
+                  message: "Este campo es obligatorio",
+                },
+                maxLength: {
+                  value: 15,
+                  message:
+                    "La cuenta de twitter del piloto no puede tener más de 15 caracteres",
+                },
+              })}
+            />
+
+            <p className="text-gray-600 text-xs italic">
+              Cuenta de twitter del piloto
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="siglas"
+            >
+              Coche del piloto
+            </label>
+            {errors.usuario && (
+              <span className="text-red-500 text-xs italic">
+                {errors.usuario.message as string}
+              </span>
+            )}
             <select
               className=" block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
                                     p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
-              id="rol"
-              {...register("rol", {
+              id="coche"
+              {...register("coche", {
                 required: {
                   value: true,
                   message: "Este campo es obligatorio",
                 },
               })}
             >
-              <option value="MIEMBRO">MIEMBRO</option>
-              <option value="USUARIO">USUARIO</option>
-              <option value="ADMIN">ADMIN</option>
+              <option value="" disabled selected hidden>
+                Seleccione el coche del piloto
+              </option>
+              <option value="Coche1">Coche</option>
             </select>
 
-            <p className="text-gray-600 text-xs italic">Rol</p>
+            <p className="text-gray-600 text-xs italic">
+              Coche que utiliza el piloto
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="equipo"
+            >
+              Equipo del piloto
+            </label>
+            {errors.usuario && (
+              <span className="text-red-500 text-xs italic">
+                {errors.usuario.message as string}
+              </span>
+            )}
+            <select
+              className=" block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                    p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
+              id="equipo"
+              {...register("equipo", {
+                required: {
+                  value: true,
+                  message: "Este campo es obligatorio",
+                },
+              })}
+            >
+              <option value="" disabled selected hidden>
+                Seleccione el equipo del piloto
+              </option>
+              <option value="Equipo1">Equipo</option>
+            </select>
+
+            <p className="text-gray-600 text-xs italic">
+              Equipo al que pertenece el piloto
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="foto"
+            >
+              Foto
+            </label>
+            {errors.usuario && (
+              <span className="text-red-500 text-xs italic">
+                {errors.usuario.message as string}
+              </span>
+            )}
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                     p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
+              id="foto"
+              type="file"
+              placeholder=""
+              {...register("foto", {
+                required: {
+                  value: true,
+                  message: "Este campo es obligatorio",
+                },
+              })}
+            />
+
+            <p className="text-gray-600 text-xs italic">Foto del piloto</p>
           </div>
         </div>
 

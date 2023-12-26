@@ -17,8 +17,8 @@ public class CocheService {
     @Autowired
     EquipoRepository equipoRepository;
 
-    public ArrayList<Coche> getAllCoches(){
-        return (ArrayList<Coche>) cocheRepository.findAll();
+    public ApiResponse getAllCoches(){
+        return ApiResponse.successRequest("Coches obtenidos correctamente", cocheRepository.findAll()).getBody();
     }
 
     public ApiResponse createCoche(CocheRequest cocheRequest) {
@@ -36,6 +36,7 @@ public class CocheService {
            Coche coche = Coche.builder()
                    .nombre(cocheRequest.getNombre())
                    .codigo(cocheRequest.getCodigo())
+                   .imagen(cocheRequest.getImagen())
                    .ERSCurvaLenta(cocheRequest.getErs_curva_lenta())
                    .ERSCurvaMedia(cocheRequest.getErs_curva_media())
                    .ERSCurvaRapida(cocheRequest.getErs_curva_rapida())

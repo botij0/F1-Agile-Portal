@@ -34,8 +34,8 @@ const InputSelectField = ({
             >
                 <option value="">Selecciona una opción</option>
                 {options.map((option: any) => (
-                    <option key={option.code} value={option.code}>
-                        {option.name}
+                    <option key={option.id} value={option.id}>
+                        {option.nombre}
                     </option>
                 ))}
             </select>

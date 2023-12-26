@@ -1,0 +1,340 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { createClient } from "@supabase/supabase-js";
+import { v4 as uuid } from "uuid";
+import { useParams, useRouter } from "next/navigation";
+import Constantes from "@/app/(utils)/constantes";
+import { getRequest, postRequest } from "@/app/(utils)/api";
+import toast from "react-hot-toast";
+import InputSelectField from "@/app/components/InputSelectField";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import cocheSchema from "@/app/schemas/coche";
+import InputTextField from "../InputTextField";
+import Loading from "@/app/components/Loading";
+import { set } from "lodash";
+
+const supabase = createClient(
+    "https://pxfvrkflonlookyusxtb.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4ZnZya2Zsb25sb29reXVzeHRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODYyNTUsImV4cCI6MjAxMzY2MjI1NX0.I3v1fYevo3rzWOT8KvkIVDrZ0LbyvABN6YaynXIYE4I"
+);
+
+type CocheFormValues = z.infer<typeof cocheSchema>;
+
+const FormCoche = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+        setValue,
+    } = useForm<CocheFormValues>({
+        resolver: zodResolver(cocheSchema),
+        defaultValues: {
+            nombre: "",
+            equipo: "",
+            codigo: "",
+            consumo: "",
+            erscurvaMedia: "",
+            erscurvaRapida: "",
+            erscurvaLenta: "",
+            imagen: "",
+        },
+    });
+
+    const [equipos, setEquipos] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingImagen, setEditingImagen] = useState("");
+
+    const router = useRouter();
+    const params = useParams();
+    const id = params.id;
+
+    async function uploadImage(img: any) {
+        let file = img;
+
+        if (file == undefined) {
+            return { path: editingImagen };
+        } else {
+            const { data, error } = await supabase.storage
+                .from("Images")
+                .upload("" + uuid(), file);
+
+            if (data) {
+                return data;
+            } else {
+                return -1;
+            }
+        }
+    }
+
+    const getCoche = async (id: string) => {
+        try {
+            const response = await getRequest("coches/" + id);
+            const data = await response.data;
+
+            if (data.success == true) {
+                const coche = data.data;
+                console.log(coche);
+                setValue("nombre", coche.nombre);
+                setValue("equipo", coche.equipo.id);
+                setValue("codigo", coche.codigo.toString());
+                setValue("consumo", coche.consumo.toString());
+                setValue("erscurvaLenta", coche.erscurvaLenta.toString());
+                setValue("erscurvaMedia", coche.erscurvaMedia.toString());
+                setValue("erscurvaRapida", coche.erscurvaRapida.toString());
+                setValue("imagen", coche.imagen);
+                setEditingImagen(coche.imagen);
+            } else {
+                toast.error(data.message);
+                router.push("/Equipos/Coches");
+            }
+        } catch {
+            toast.error("Error al cargar el coche");
+            router.push("/Equipos/Coches");
+        }
+    };
+
+    const onSubmit = handleSubmit((data: any) => {
+        let img_Name = uploadImage(data.imagen[0]);
+
+        img_Name.then((value) => {
+            if (value != -1) {
+                postRequest("coches", {
+                    id: id != undefined ? id : 0,
+                    nombre: data.nombre,
+                    equipo_id: data.equipo,
+                    codigo: data.codigo,
+                    consumo: data.consumo,
+                    ers_curva_media: data.erscurvaMedia,
+                    ers_curva_rapida: data.erscurvaRapida,
+                    ers_curva_lenta: data.erscurvaLenta,
+                    imagen: value.path,
+                })
+                    .then((data) => {
+                        window.location.href = "/Equipos/Gestion";
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        });
+    });
+
+    const getEquipos = async () => {
+        try {
+            setLoading(true);
+            const response = await getRequest("equipos");
+            const data = await response.data;
+            if (data.success == true) {
+                const responseJson = data;
+                const equipos = responseJson.data;
+
+                setEquipos(equipos);
+                setLoading(false);
+            } else {
+                toast.error("Error al cargar los equipos");
+            }
+        } catch (error) {
+            toast.error("Error al cargar los equipos");
+        }
+    };
+
+    useEffect(() => {
+        if (params.id) {
+            setIsEditing(true);
+            getEquipos().then(() => {
+                getCoche(params.id as string);
+            });
+        } else {
+            getEquipos();
+        }
+    }, [params.id]);
+
+    return (
+        <div className="container mx-auto my-8">
+            {loading ? (
+                <Loading />
+            ) : (
+                <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
+                    <div className="grid grid-cols-2 gap-10 mb-6">
+                        <div className="w-full px-3">
+                            <InputTextField
+                                label="Nombre"
+                                register={register}
+                                name="nombre"
+                                errors={errors}
+                                loading={loading}
+                            />
+
+                            <p className="text-gray-600 text-xs italic">
+                                Nombre del Coche
+                            </p>
+                        </div>
+
+                        <div className="w-full px-3">
+                            <InputSelectField
+                                label="Equipo"
+                                register={register}
+                                name="equipo"
+                                errors={errors}
+                                loading={loading}
+                                options={equipos}
+                            />
+                            <p className="text-gray-600 text-xs italic">
+                                Equipo al que pertenece el coche
+                            </p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-10 mb-6">
+                        <div className="w-full px-3">
+                            <InputTextField
+                                label="Código"
+                                register={register}
+                                name="codigo"
+                                errors={errors}
+                                loading={loading}
+                                isNumber={true}
+                            />
+
+                            <p className="text-gray-600 text-xs italic">
+                                Código interno que se le dé al vehículo
+                            </p>
+                        </div>
+
+                        <div className="w-full px-3">
+                            <InputTextField
+                                label="Consumo"
+                                register={register}
+                                name="consumo"
+                                errors={errors}
+                                loading={loading}
+                                isNumber={true}
+                            />
+
+                            <p className="text-gray-600 text-xs italic">
+                                Consumo de combustible, expresado en litros cada
+                                100 kilómetros (L/100km)
+                            </p>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-10 mb-2">
+                        <div className="w-full px-3">
+                            <InputTextField
+                                label="erscurvaLenta"
+                                register={register}
+                                name="erscurvaLenta"
+                                errors={errors}
+                                loading={loading}
+                                isNumber={true}
+                            />
+                        </div>
+
+                        <div className="w-full px-3">
+                            <InputTextField
+                                label="erscurvaMedia"
+                                register={register}
+                                name="erscurvaMedia"
+                                errors={errors}
+                                loading={loading}
+                                isNumber={true}
+                            />
+                        </div>
+
+                        <div className="w-full px-3">
+                            <InputTextField
+                                label="erscurvaRapida"
+                                register={register}
+                                name="erscurvaRapida"
+                                errors={errors}
+                                loading={loading}
+                                isNumber={true}
+                            />
+                        </div>
+                    </div>
+                    <div className="mb-8 ms-2">
+                        <p className="text-gray-600 text-xs italic">
+                            Ganancia de potencia (en Kilovatios hora, kW/h o
+                            kWh) que consigue recuperar el vehículo en frenada
+                            con el sistema MGU-K (Motor Generator Unit -
+                            Kinetic), para almacenar en baterías. La energía
+                            almacenada está disponible para el piloto
+                        </p>
+                    </div>
+
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full px-3">
+                            <label
+                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                htmlFor="imagen"
+                            >
+                                Imagen
+                            </label>
+                            {errors.imagen && (
+                                <span className="text-red-500 text-xs italic">
+                                    {errors.imagen.message as string}
+                                </span>
+                            )}
+                            <input
+                                className="cursor-pointer file:cursor-pointer text-gray-700 w-full text-sm border border-gray-200 shadow-sm rounded-lg focus:z-10 
+                                    focus:border-red-500 focus:ring-red-500 disabled:opacity-50 disabled:pointer-events-none 
+                                    file:border-0 bg-gray-50 file:me-4 file:py-2 file:px-4 file:text-gray-600 file:italic 
+                                    file:bg-gray-200 file:hover:bg-gray-300 hover:bg-gray-200"
+                                id="imagen"
+                                type="file"
+                                placeholder="Imagen"
+                                {...register("imagen", {
+                                    required: {
+                                        value:
+                                            editingImagen == "" ? true : false,
+                                        message: "Este campo es obligatorio",
+                                    },
+                                })}
+                            />
+
+                            <p className="text-gray-600 text-xs italic">
+                                Imagen del Coche
+                            </p>
+                            {editingImagen != "" ? (
+                                <Image
+                                    src={
+                                        Constantes.IMAGE_BASE_URL +
+                                        editingImagen
+                                    }
+                                    alt="Logo del Equipo"
+                                    width={80}
+                                    height={80}
+                                />
+                            ) : (
+                                <p></p>
+                            )}
+                        </div>
+                    </div>
+                    <div className="flex flex-wrap mb-6 items-center ">
+                        <div className="w-full px-3 flex justify-center">
+                            <button
+                                className="bg-red-500 hover:bg-red-700 mr-5 text-white font-bold py-2 px-4 rounded"
+                                type="submit"
+                            >
+                                Guardar
+                            </button>
+
+                            <Link href="/Equipos/Gestion">
+                                <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
+                                    Volver
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                </form>
+            )}
+        </div>
+    );
+};
+
+export default FormCoche;

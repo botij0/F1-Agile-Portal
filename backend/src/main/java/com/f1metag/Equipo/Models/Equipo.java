@@ -33,7 +33,7 @@ public class Equipo {
             @JsonManagedReference
     List<Piloto> pilotos;
 
-    @OneToMany(mappedBy = "equipo")
+    @OneToMany(cascade = CascadeType.ALL)
              @JsonManagedReference
     List<Coche> coches;
 }

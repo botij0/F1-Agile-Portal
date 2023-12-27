@@ -21,8 +21,12 @@ public class CocheController {
     CocheService cocheService;
 
     @GetMapping
-    public ArrayList<Coche> getCoches() {
-        return cocheService.getAllCoches();
+    public ResponseEntity<ApiResponse> getCoches() {
+        try {
+            return ResponseEntity.ok(cocheService.getAllCoches());
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
     }
 
     @PostMapping

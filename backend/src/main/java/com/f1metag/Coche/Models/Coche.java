@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Data
 @Builder
@@ -24,6 +26,7 @@ public class Coche {
      String nombre;
      @Column(nullable = false)
      Integer codigo;
+     String imagen;
      @Column( name = "ers_curva_lenta")
      Float ERSCurvaLenta;
      @Column( name = "ers_curva_media")
@@ -31,14 +34,10 @@ public class Coche {
         @Column( name = "ers_curva_rapida")
      Float ERSCurvaRapida;
      Integer Consumo;
-     @Enumerated(EnumType.STRING)
 
-        @ManyToOne
-        @JoinColumn(name = "equipo_id")
-             @JsonBackReference
-        Equipo equipo;
-
-     @OneToOne(mappedBy = "coche")
-     Piloto piloto;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "equipo_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Equipo equipo;
 
 }

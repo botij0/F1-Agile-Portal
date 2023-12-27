@@ -11,6 +11,20 @@ export function getRequest(path: string) {
     });
 }
 
+export function getRequestPaginada(path: string,currentPage:number,elementosPorPagina:number) {
+    const token = localStorage.getItem("token");
+    return axios.get(Constantes.API_URL + path, {
+        params: {
+            page: currentPage, // página deseada
+            size: elementosPorPagina, // cantidad de elementos por página
+        },
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+        },
+    });
+}
+
 export function postRequest(path: string, data: any) {
     const token = localStorage.getItem("token");
     return axios.post(Constantes.API_URL + path, data, {

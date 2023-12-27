@@ -36,7 +36,9 @@ public class SecurityConfig {
                         csrf -> csrf.disable()
                 )
                 .authorizeHttpRequests(authRequest ->
-                        authRequest.requestMatchers("/auth/**").permitAll()
+                        authRequest
+                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/api/v1/votaciones/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

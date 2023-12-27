@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Noticia } from "./components/Noticia";
 import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getRequest } from "@/app/(utils)/api";
+import { getRequestPaginada } from "@/app/(utils)/api";
 
 export default function Noticias() {
     const IMAGEN_BASE_URL =
@@ -27,6 +27,7 @@ export default function Noticias() {
     });
 
     const cambiarPagina = (event: React.ChangeEvent<any>, page: number) => {
+        debugger;
         setCurrentPage(page - 1);
     };
 
@@ -35,7 +36,7 @@ export default function Noticias() {
             setLoading(true);
             console.log(noticias);
             try {
-                const response = await getRequest("noticias/portal");
+                const response = await getRequestPaginada("noticias/portal",currentPage,noticiasPorPagina);
                 const data = await response.data;
                 setNoticias(data.content);
                 setTotalPages(data.totalPages);

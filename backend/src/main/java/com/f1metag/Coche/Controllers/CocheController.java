@@ -28,6 +28,14 @@ public class CocheController {
             return ApiResponse.badRequest();
         }
     }
+    @GetMapping("/equipo/{id}")
+    public ResponseEntity<ApiResponse> getCochesEquipo(@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(cocheService.getCochesEquipo(id));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
 
     @PostMapping
     public ResponseEntity<ApiResponse> createCoche(@RequestBody CocheRequest cocheRequest) {
@@ -39,10 +47,28 @@ public class CocheController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse> updateCoche(@PathVariable("id") Long id, @RequestBody CocheRequest cocheRequest){
+        try {
+            return ResponseEntity.ok(cocheService.updateCoche(id,cocheRequest));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse> getCoche(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse> getCoche(@PathVariable("id") Long id) {
         try {
             return ResponseEntity.ok(cocheService.getCoche(id));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteCoche(@PathVariable("id") Long id){
+        try {
+            return ResponseEntity.ok(cocheService.deleteCoche(id));
         } catch (IllegalArgumentException e) {
             return ApiResponse.badRequest();
         }

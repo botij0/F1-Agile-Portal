@@ -4,6 +4,7 @@ import com.f1metag.Circuitos.Models.Circuito;
 import com.f1metag.Coche.Models.Coche;
 import com.f1metag.Piloto.Models.Piloto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,11 +30,9 @@ public class Equipo {
     String twitter;
 
 
-    @OneToMany(mappedBy = "equipo", fetch = FetchType.EAGER)
-            @JsonManagedReference
-    List<Piloto> pilotos;
+    //@OneToMany(cascade = CascadeType.ALL)
+    //List<Piloto> pilotos;
 
-    @OneToMany(cascade = CascadeType.ALL)
-             @JsonManagedReference
-    List<Coche> coches;
+    //@OneToMany(cascade = CascadeType.ALL)
+    //List<Coche> coches;
 }

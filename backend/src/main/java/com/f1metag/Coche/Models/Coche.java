@@ -3,6 +3,7 @@ package com.f1metag.Coche.Models;
 import com.f1metag.Equipo.Models.Equipo;
 import com.f1metag.Piloto.Models.Piloto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +38,7 @@ public class Coche {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "equipo_id", nullable = false)
+    @JsonIgnoreProperties({"coches", "pilotos"})
     @OnDelete(action = OnDeleteAction.CASCADE)
     Equipo equipo;
 

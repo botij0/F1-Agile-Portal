@@ -80,7 +80,7 @@ function TableComponent({
 }) {
     const handleDelete = async (id: number) => {
         if (confirm("¿Estás seguro de que quieres eliminar este coche?")) {
-            const response = await deleteRequest(`coche/${id}`);
+            const response = await deleteRequest(`coches/${id}`);
 
             if (response.data.success) {
                 toast.success(response.data.message, { duration: 4000 });

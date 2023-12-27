@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,7 +7,7 @@ import { createClient } from "@supabase/supabase-js";
 import { v4 as uuid } from "uuid";
 import { useParams, useRouter } from "next/navigation";
 import Constantes from "@/app/(utils)/constantes";
-import { getRequest, postRequest } from "@/app/(utils)/api";
+import { getRequest, postRequest, putRequest } from "@/app/(utils)/api";
 import toast from "react-hot-toast";
 import InputSelectField from "@/app/components/InputSelectField";
 import * as z from "zod";
@@ -16,7 +15,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import cocheSchema from "@/app/schemas/coche";
 import InputTextField from "../InputTextField";
 import Loading from "@/app/components/Loading";
-import { set } from "lodash";
 
 const supabase = createClient(
     "https://pxfvrkflonlookyusxtb.supabase.co",
@@ -57,6 +55,7 @@ const FormCoche = () => {
 
     async function uploadImage(img: any) {
         let file = img;
+        console.log(file);
 
         if (file == undefined) {
             return { path: editingImagen };
@@ -82,30 +81,32 @@ const FormCoche = () => {
                 const coche = data.data;
                 console.log(coche);
                 setValue("nombre", coche.nombre);
-                setValue("equipo", coche.equipo.id);
+                setValue("equipo", coche.equipo.id.toString());
                 setValue("codigo", coche.codigo.toString());
                 setValue("consumo", coche.consumo.toString());
                 setValue("erscurvaLenta", coche.erscurvaLenta.toString());
                 setValue("erscurvaMedia", coche.erscurvaMedia.toString());
                 setValue("erscurvaRapida", coche.erscurvaRapida.toString());
-                setValue("imagen", coche.imagen);
                 setEditingImagen(coche.imagen);
             } else {
                 toast.error(data.message);
-                router.push("/Equipos/Coches");
+                router.back();
             }
         } catch {
             toast.error("Error al cargar el coche");
-            router.push("/Equipos/Coches");
+            router.back();
         }
     };
 
     const onSubmit = handleSubmit((data: any) => {
         let img_Name = uploadImage(data.imagen[0]);
 
+        const method = isEditing ? putRequest : postRequest;
+        const url = isEditing ? "coches/" + params.id : "coches";
+
         img_Name.then((value) => {
             if (value != -1) {
-                postRequest("coches", {
+                method(url, {
                     id: id != undefined ? id : 0,
                     nombre: data.nombre,
                     equipo_id: data.equipo,
@@ -117,7 +118,7 @@ const FormCoche = () => {
                     imagen: value.path,
                 })
                     .then((data) => {
-                        window.location.href = "/Equipos/Gestion";
+                        router.back();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -125,6 +126,10 @@ const FormCoche = () => {
             }
         });
     });
+
+    const handleClickVolver = () => {
+        router.back();
+    };
 
     const getEquipos = async () => {
         try {
@@ -324,11 +329,13 @@ const FormCoche = () => {
                                 Guardar
                             </button>
 
-                            <Link href="/Equipos/Gestion">
-                                <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
-                                    Volver
-                                </button>
-                            </Link>
+                            <button
+                                onClick={handleClickVolver}
+                                className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 
+                                    uppercase text-xs xl:text-base font-bold py-2 px-4 rounded"
+                            >
+                                Volver
+                            </button>
                         </div>
                     </div>
                 </form>

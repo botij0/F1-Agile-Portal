@@ -34,11 +34,12 @@ public class PilotoController {
     }
 
 
-    @PutMapping
-    public ResponseEntity<ApiResponse> updatePiloto(@RequestBody PilotoRequest pilotoRequest)
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse> updatePiloto(@RequestBody PilotoRequest pilotoRequest,
+                                                    @PathVariable("id") Long id)
     {
         try{
-            return ResponseEntity.ok(pilotoService.updatePiloto(pilotoRequest));
+            return ResponseEntity.ok(pilotoService.updatePiloto(pilotoRequest,id));
         }catch (IllegalArgumentException e){
             return ApiResponse.badRequest();
         }

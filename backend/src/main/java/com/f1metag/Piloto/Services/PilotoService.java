@@ -45,20 +45,26 @@ public class PilotoService {
             return ApiResponse.successRequest("Pilotos obtenidos correctamente", pilotoRepository.findAll()).getBody();
     }
 
-    public ApiResponse updatePiloto(PilotoRequest pilotoRequest){
-        Piloto piloto = Piloto.builder()
-                .nombre(pilotoRequest.getNombre())
-                .apellidos(pilotoRequest.getApellidos())
-                .siglas(pilotoRequest.getSiglas())
-                .dorsal(pilotoRequest.getDorsal())
-                .foto(pilotoRequest.getFoto())
-                .twitter(pilotoRequest.getTwitter())
-                .pais(pilotoRequest.getPais())
-                .equipo(equipoRepository.findById(pilotoRequest.getEquipo_id()).get())
-                .activo(true)
-                .build();
-        pilotoRepository.save(piloto);
-        return ApiResponse.successRequest("Piloto editado correctamente", piloto).getBody();
+    public ApiResponse updatePiloto(PilotoRequest pilotoRequest,Long id){
+        Optional<Piloto> optional = pilotoRepository.findById(id);
+        if(optional.isPresent()){
+            Piloto piloto = optional.get();
+
+            piloto.setNombre(pilotoRequest.getNombre());
+            piloto.setApellidos(pilotoRequest.getApellidos());
+            piloto.setSiglas(pilotoRequest.getSiglas());
+            piloto.setDorsal(pilotoRequest.getDorsal());
+            piloto.setFoto(pilotoRequest.getFoto());
+            piloto.setTwitter(pilotoRequest.getTwitter());
+            piloto.setPais(pilotoRequest.getPais());
+            piloto.setEquipo(equipoRepository.findById(pilotoRequest.getEquipo_id()).get());
+
+            pilotoRepository.save(piloto);
+            return ApiResponse.successRequest("Piloto editado correctamente", piloto).getBody();
+
+        }
+
+        return ApiResponse.badRequest().getBody();
 
     }
 

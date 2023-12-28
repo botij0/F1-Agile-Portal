@@ -5,7 +5,7 @@ import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { paginate } from "../utils/paginate";
 import Pagination from "./Pagination";
-import { getRequest, postRequest } from "../(utils)/api";
+import { getRequest, deleteRequest } from "../(utils)/api";
 import FilaPiloto from "./FilaPiloto";
 
 export const GestionPilotos = () => {
@@ -35,14 +35,16 @@ export const GestionPilotos = () => {
     getPilotos();
   }, []);
 
-  const editarPiloto = (e: React.MouseEvent, id: number) => {
-    e.preventDefault();
-    //TODO
-  };
-
   const borrarPiloto = (e: React.MouseEvent, id: number) => {
-    //TODO
     e.preventDefault();
+    deleteRequest("pilotos/" + id).then((res) => {
+      if (pilotos) {
+        setPilotos((prevElement) => {
+          if (prevElement == null) return null;
+          else return prevElement.filter((user) => user.id !== id);
+        });
+      }
+    });
   };
 
   return (
@@ -83,12 +85,17 @@ export const GestionPilotos = () => {
               <th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
                 Twitter
               </th>
-              <th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
-                Coche
-              </th>
-              <th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
-                Equipo
-              </th>
+              {
+                //<th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
+                //  Coche
+                //</th>
+              }
+              {
+                //<th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
+                //  Equipo
+                //</th>
+              }
+
               <th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
                 Foto
               </th>
@@ -115,7 +122,6 @@ export const GestionPilotos = () => {
                   <FilaPiloto
                     key={piloto.id}
                     piloto={piloto}
-                    editarPiloto={editarPiloto}
                     borrarPiloto={borrarPiloto}
                   />
                 )

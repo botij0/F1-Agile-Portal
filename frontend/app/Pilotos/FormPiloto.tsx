@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { CountryDropdown } from "../components/CountryDropdown";
+import { getRequest, postRequest } from "@/app/(utils)/api";
 
 const FormPiloto = () => {
   const {
@@ -19,13 +20,16 @@ const FormPiloto = () => {
     //TODO
   });
 
-  const [country, setCountry] = useState<number>(1);
+  const params = useParams();
+  const id = params.id;
 
   return (
     //TODO
     <div className="container mx-auto my-8">
       <Toaster />
-      <h2 className="text-black text-2xl">Crear Piloto</h2>
+      <h2 className="text-black text-2xl">
+        {id != undefined ? "Editar Piloto" : "Añadir Piloto"}
+      </h2>
       <hr className="border-black w-[100%] mb-5 m-auto" />
 
       <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
@@ -141,7 +145,7 @@ const FormPiloto = () => {
           <div className="w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="rol"
+              htmlFor="pais"
             >
               País
             </label>
@@ -192,7 +196,7 @@ const FormPiloto = () => {
           <div className="w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="siglas"
+              htmlFor="twitter"
             >
               Twitter
             </label>
@@ -226,11 +230,12 @@ const FormPiloto = () => {
           </div>
         </div>
 
+        {/** 
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="siglas"
+              htmlFor="coche"
             >
               Coche del piloto
             </label>
@@ -261,42 +266,45 @@ const FormPiloto = () => {
             </p>
           </div>
         </div>
+        */}
 
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full px-3">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              htmlFor="equipo"
-            >
-              Equipo del piloto
-            </label>
-            {errors.usuario && (
-              <span className="text-red-500 text-xs italic">
-                {errors.usuario.message as string}
-              </span>
-            )}
-            <select
-              className=" block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+        {/** 
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="equipo"
+              >
+                Equipo del piloto
+              </label>
+              {errors.usuario && (
+                <span className="text-red-500 text-xs italic">
+                  {errors.usuario.message as string}
+                </span>
+              )}
+              <select
+                className=" block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
                                     p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
-              id="equipo"
-              {...register("equipo", {
-                required: {
-                  value: true,
-                  message: "Este campo es obligatorio",
-                },
-              })}
-            >
-              <option value="" disabled selected hidden>
-                Seleccione el equipo del piloto
-              </option>
-              <option value="Equipo1">Equipo</option>
-            </select>
+                id="equipo"
+                {...register("equipo", {
+                  required: {
+                    value: true,
+                    message: "Este campo es obligatorio",
+                  },
+                })}
+              >
+                <option value="" disabled selected hidden>
+                  Seleccione el equipo del piloto
+                </option>
+                <option value="Equipo1">Equipo</option>
+              </select>
 
-            <p className="text-gray-600 text-xs italic">
-              Equipo al que pertenece el piloto
-            </p>
+              <p className="text-gray-600 text-xs italic">
+                Equipo al que pertenece el piloto
+              </p>
+            </div>
           </div>
-        </div>
+              */}
 
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
@@ -317,6 +325,7 @@ const FormPiloto = () => {
               id="foto"
               type="file"
               placeholder=""
+              accept="image/png, image/jpeg"
               {...register("foto", {
                 required: {
                   value: true,
@@ -329,10 +338,6 @@ const FormPiloto = () => {
           </div>
         </div>
 
-        <div className="mb-5 text-sm font-medium text-red-600 hover:text-red-700">
-          <a href="/Login/RecuperarContrasena">¿Has olvidado la contraseña?</a>
-        </div>
-
         <div className="flex flex-wrap mb-6 items-center ">
           <div className="w-full px-3 flex justify-center">
             <button
@@ -342,7 +347,7 @@ const FormPiloto = () => {
               Guardar
             </button>
 
-            <Link href="/Users">
+            <Link href="/Pilotos">
               <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
                 Volver
               </button>

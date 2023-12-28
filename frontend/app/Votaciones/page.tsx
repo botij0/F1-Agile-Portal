@@ -5,6 +5,7 @@ import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getRequestPaginada, getRequest } from "@/app/(utils)/api";
 import { Votacion } from "./components/votacion";
+import Cabecera from "../components/Cabecera";
 
 export default function Votaciones() {
   const IMAGEN_BASE_URL =
@@ -56,9 +57,10 @@ export default function Votaciones() {
 
   return (
     <div className="mt-[20px]  max-w-[90%] mx-auto">
-      <h1 className="font-bold text-center uppercase text-3xl text-black">
-        VOTACIONES
-      </h1>
+      <Cabecera
+        titulo="Votaciones"
+        subtitulo="Bienvenido a la página de votaciones"
+      />
       {
         //tarda un rato en cargar le he metido esto
         loading && (
@@ -89,14 +91,12 @@ export default function Votaciones() {
         <div>
           <div>
             {votaciones.map((votacion: any, index: any) => (
-              <div key={index} className="hover:opacity-80 mt-2">
-                <a href="#">
-                  <Votacion
-                    titulo={votacion.titulo}
-                    descripcion={votacion.descripcion}
-                    limite={votacion.limite}
-                  />
-                </a>
+              <div key={index} className="hover:hue-rotate-180 mt-2 justify-center flex">
+                <Votacion
+                  titulo={votacion.titulo}
+                  descripcion={votacion.descripcion}
+                  limite={votacion.limite}
+                />
               </div>
             ))}
           </div>

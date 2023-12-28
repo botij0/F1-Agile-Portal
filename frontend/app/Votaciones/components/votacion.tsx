@@ -1,6 +1,6 @@
 export const Votacion = (props: any) => {
     return (
-        <div className="grid rounded-2xl overflow-hidden border-solid border-[5px] border-red-700 w-[50%] m-auto p-2 bg-red-100">
+        <a href="#" className="grid rounded-2xl overflow-hidden border-solid border-[5px] border-red-700 w-[50%] p-2 bg-[#fef2f2]">
               <h6 className="font-bold text-xl text-red-700">
                 {props.titulo}
               </h6>
@@ -10,7 +10,7 @@ export const Votacion = (props: any) => {
               <p className="text-gray-600 text-sm">
                 {"La votación finalizará el " + formatearFecha(props.limite)}
               </p>
-            </div>
+            </a>
     );
 };
 

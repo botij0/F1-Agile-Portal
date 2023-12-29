@@ -58,12 +58,12 @@ const FormPiloto = () => {
 
   const onSubmit = handleSubmit((data: any) => {
     imgPiloto = piloto.foto;
-    let img_Name = uploadImage(data.imagen);
-    console.log(piloto);
+    let img_Name = uploadImage(data.foto[0]);
     img_Name.then((value) => {
       if (value != -1) {
+        console.log(value);
         if (id != undefined) {
-          console.log("PUT  " + data.nombre + value.path);
+          //Modificar piloto
           putRequest("pilotos/" + id, {
             nombre: data.nombre,
             apellidos: data.apellidos,
@@ -71,8 +71,8 @@ const FormPiloto = () => {
             pais: data.pais,
             siglas: data.siglas.toUpperCase(),
             twitter: data.twitter,
-            imagen: "png",
-            equipo_id: 102,
+            foto: value.path,
+            equipo_id: 102, //HARDCODEADO HASTA TENER ROLES Y PONER EL EQUIPO DEL RESPONSABLE
           })
             .then((data) => {
               window.location.href = "/Pilotos";
@@ -81,6 +81,7 @@ const FormPiloto = () => {
               console.log(error);
             });
         } else {
+          //Nuevo piloto
           console.log(
             "POST  " +
               "nombre:" +
@@ -106,8 +107,8 @@ const FormPiloto = () => {
             pais: data.pais,
             siglas: data.siglas.toUpperCase(),
             twitter: data.twitter,
-            foto: "png",
-            equipo_id: 102,
+            foto: value.path,
+            equipo_id: 102, //HARDCODEADO HASTA TENER ROLES Y PONER EL EQUIPO DEL RESPONSABLE
           })
             .then((data) => {
               window.location.href = "/Pilotos";

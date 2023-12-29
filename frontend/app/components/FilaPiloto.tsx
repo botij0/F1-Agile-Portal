@@ -57,7 +57,7 @@ const FilaPiloto: React.FC<Props> = ({ piloto, borrarPiloto }) => {
       }
       <td className="text-left px-6 py-4 whitespace-nowrap ">
         <div className="text-sm text-gray-500 w-12">
-          <img src={Constantes.IMAGE_BASE_URL + piloto.foto + ".png"} />
+          <img src={Constantes.IMAGE_BASE_URL + piloto.foto} />
         </div>
       </td>
 

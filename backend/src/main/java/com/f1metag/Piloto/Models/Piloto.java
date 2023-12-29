@@ -6,10 +6,7 @@ import com.f1metag.Pais.Models.Pais;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
@@ -33,6 +30,8 @@ public class Piloto {
 
     @ManyToOne(fetch = FetchType.EAGER)
             @JsonBackReference
+            //Si no pongo esto salta una excepcion al hacer un post en pilotos desde la interfaz
+            @ToString.Exclude
     Equipo equipo;
 
     @OneToOne

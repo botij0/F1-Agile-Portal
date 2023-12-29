@@ -26,7 +26,7 @@ export const GestionPilotos = () => {
         const response = await getRequest("pilotos");
         const data = await response.data;
         setPilotos(data.data);
-        console.log(data.data);
+        //        console.log(data.data);
       } catch (error) {
         console.log(error);
       }

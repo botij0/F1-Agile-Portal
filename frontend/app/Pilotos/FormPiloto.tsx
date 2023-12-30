@@ -1,16 +1,13 @@
 "use client";
-import axios from "axios";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { CountryDropdown } from "../components/CountryDropdown";
 import { getRequest, postRequest, putRequest } from "@/app/(utils)/api";
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuid } from "uuid";
 import Constantes from "@/app/(utils)/constantes";
-import Image from "next/image";
 
 const supabase = createClient(
   "https://pxfvrkflonlookyusxtb.supabase.co",
@@ -75,30 +72,15 @@ const FormPiloto = () => {
             equipo_id: 102, //HARDCODEADO HASTA TENER ROLES Y PONER EL EQUIPO DEL RESPONSABLE
           })
             .then((data) => {
+              toast.success(data.data.message, { duration: 4000 });
               window.location.href = "/Pilotos";
             })
             .catch((error) => {
               console.log(error);
+              toast.error(error);
             });
         } else {
           //Nuevo piloto
-          console.log(
-            "POST  " +
-              "nombre:" +
-              data.nombre +
-              " apellidos:" +
-              data.apellidos +
-              " dorsal:" +
-              data.dorsal +
-              " pais:" +
-              data.pais +
-              " siglas:" +
-              data.siglas +
-              " twitter:" +
-              data.twitter +
-              " foto:" +
-              0
-          );
 
           postRequest("pilotos", {
             nombre: data.nombre,
@@ -111,10 +93,12 @@ const FormPiloto = () => {
             equipo_id: 102, //HARDCODEADO HASTA TENER ROLES Y PONER EL EQUIPO DEL RESPONSABLE
           })
             .then((data) => {
+              toast.success(data.data.message, { duration: 4000 });
               window.location.href = "/Pilotos";
             })
             .catch((error) => {
               console.log(error);
+              toast.error(error);
             });
         }
       }
@@ -183,7 +167,7 @@ const FormPiloto = () => {
                 },
                 maxLength: {
                   value: 50,
-                  message: "El nombre no puede tener mas de 50 caracteres",
+                  message: "El nombre no puede tener más de 50 caracteres",
                 },
               })}
             />
@@ -191,6 +175,7 @@ const FormPiloto = () => {
             <p className="text-gray-600 text-xs italic">Nombre del piloto</p>
           </div>
         </div>
+
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label
@@ -199,9 +184,9 @@ const FormPiloto = () => {
             >
               Apellidos
             </label>
-            {errors.usuario && (
+            {errors.apellidos && (
               <span className="text-red-500 text-xs italic">
-                {errors.usuario.message as string}
+                {errors.apellidos.message as string}
               </span>
             )}
             <input
@@ -217,7 +202,7 @@ const FormPiloto = () => {
                 },
                 maxLength: {
                   value: 50,
-                  message: "Los apellidos no pueden tener mas de 50 caracteres",
+                  message: "Los apellidos no pueden tener más de 50 caracteres",
                 },
               })}
             />
@@ -234,9 +219,9 @@ const FormPiloto = () => {
             >
               Dorsal
             </label>
-            {errors.usuario && (
+            {errors.dorsal && (
               <span className="text-red-500 text-xs italic">
-                {errors.usuario.message as string}
+                {errors.dorsal.message as string}
               </span>
             )}
             <input
@@ -253,12 +238,11 @@ const FormPiloto = () => {
                   message: "Este campo es obligatorio",
                 },
                 maxLength: {
-                  value: 50,
-                  message: "El dorsal no puede tener mas de 50 caracteres",
+                  value: 3,
+                  message: "El dorsal debe de estar entre 0 y 999",
                 },
               })}
             />
-
             <p className="text-gray-600 text-xs italic">Dorsal del piloto</p>
           </div>
         </div>
@@ -285,9 +269,6 @@ const FormPiloto = () => {
                 },
               })}
             >
-              <option value="0" disabled hidden>
-                Seleccione el país
-              </option>
               <option value="af">Afghanistan</option>
               <option value="al">Albania</option>
               <option value="dz">Algeria</option>
@@ -535,9 +516,9 @@ const FormPiloto = () => {
             >
               Siglas
             </label>
-            {errors.usuario && (
+            {errors.siglas && (
               <span className="text-red-500 text-xs italic">
-                {errors.usuario.message as string}
+                {errors.siglas.message as string}
               </span>
             )}
             <input
@@ -554,11 +535,10 @@ const FormPiloto = () => {
                 },
                 maxLength: {
                   value: 3,
-                  message: "Las siglas no pueden tener más de 3 letras",
+                  message: "Las siglas no pueden tener más de 3 caracteres",
                 },
               })}
             />
-
             <p className="text-gray-600 text-xs italic">Siglas del piloto</p>
           </div>
         </div>
@@ -571,9 +551,9 @@ const FormPiloto = () => {
             >
               Twitter
             </label>
-            {errors.usuario && (
+            {errors.twitter && (
               <span className="text-red-500 text-xs italic">
-                {errors.usuario.message as string}
+                {errors.twitter.message as string}
               </span>
             )}
             <input
@@ -594,7 +574,6 @@ const FormPiloto = () => {
                 },
               })}
             />
-
             <p className="text-gray-600 text-xs italic">
               Cuenta de twitter del piloto
             </p>
@@ -685,9 +664,9 @@ const FormPiloto = () => {
             >
               Foto
             </label>
-            {errors.usuario && (
+            {errors.foto && (
               <span className="text-red-500 text-xs italic">
-                {errors.usuario.message as string}
+                {errors.foto.message as string}
               </span>
             )}
             <input
@@ -699,7 +678,7 @@ const FormPiloto = () => {
               accept="image/png, image/jpeg"
               {...register("foto", {
                 required: {
-                  value: true,
+                  value: id == undefined,
                   message: "Este campo es obligatorio",
                 },
               })}
@@ -711,7 +690,7 @@ const FormPiloto = () => {
 
         <div className="flex flex-wrap -mx-3 mb-6 w-16">
           {id != undefined ? (
-            <img src={Constantes.IMAGE_BASE_URL + piloto.foto + ".png"} />
+            <img src={Constantes.IMAGE_BASE_URL + piloto.foto} />
           ) : (
             <p></p>
           )}

@@ -8,6 +8,8 @@ import com.f1metag.Piloto.Repositories.PilotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PilotoService {
     @Autowired
@@ -42,4 +44,46 @@ public class PilotoService {
     public ApiResponse getPilotos() {
             return ApiResponse.successRequest("Pilotos obtenidos correctamente", pilotoRepository.findAll()).getBody();
     }
+
+    public ApiResponse updatePiloto(PilotoRequest pilotoRequest,Long id){
+        Optional<Piloto> optional = pilotoRepository.findById(id);
+        if(optional.isPresent()){
+            Piloto piloto = optional.get();
+
+            piloto.setNombre(pilotoRequest.getNombre());
+            piloto.setApellidos(pilotoRequest.getApellidos());
+            piloto.setSiglas(pilotoRequest.getSiglas());
+            piloto.setDorsal(pilotoRequest.getDorsal());
+            piloto.setFoto(pilotoRequest.getFoto());
+            piloto.setTwitter(pilotoRequest.getTwitter());
+            piloto.setPais(pilotoRequest.getPais());
+            piloto.setEquipo(equipoRepository.findById(pilotoRequest.getEquipo_id()).get());
+
+            pilotoRepository.save(piloto);
+            return ApiResponse.successRequest("Piloto editado correctamente", piloto).getBody();
+
+        }
+
+        return ApiResponse.badRequest().getBody();
+
+    }
+
+    public ApiResponse deletePiloto(Long id){
+
+        pilotoRepository.deleteById(id);
+        return ApiResponse.successRequest("Piloto eliminado correctamente", id).getBody();
+
+    }
+
+    public ApiResponse getPilotoById(Long id){
+
+        Optional<Piloto> optional = pilotoRepository.findById(id);
+        if(optional.isPresent()){
+            Piloto piloto = optional.get();
+            return ApiResponse.successRequest("Piloto encontrado", piloto).getBody();
+        }
+        return ApiResponse.errorRequest("El piloto no existe").getBody();
+
+    }
+
 }

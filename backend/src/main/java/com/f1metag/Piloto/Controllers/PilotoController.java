@@ -33,4 +33,35 @@ public class PilotoController {
         }
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse> updatePiloto(@RequestBody PilotoRequest pilotoRequest,
+                                                    @PathVariable("id") Long id)
+    {
+        try{
+            return ResponseEntity.ok(pilotoService.updatePiloto(pilotoRequest,id));
+        }catch (IllegalArgumentException e){
+            return ApiResponse.badRequest();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deletePiloto(@PathVariable("id") Long id){
+        try {
+            return ResponseEntity.ok(pilotoService.deletePiloto(id));
+
+        }catch (IllegalArgumentException e){
+            return ApiResponse.badRequest();
+        }
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse> getPilotoById(@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(pilotoService.getPilotoById(id));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
 }

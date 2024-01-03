@@ -21,11 +21,6 @@ const NewsManagment = () => {
 
     const paginateNoticias = paginate(noticias, currentPage, pageSize);
 
-    const headers = {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-    };
-
     useEffect(() => {
         const getNoticias = async () => {
             setLoading(true);

@@ -39,7 +39,7 @@ const CircuitosGestionPage = () => {
     }, []);
 
     return (
-        <div className=" overflow-x-auto mt-[80px] px-24">
+        <div className=" overflow-x-auto mt-[20px] px-24">
             <Cabecera
                 titulo="Gestión de Circuitos"
                 subtitulo="Aquí puedes gestionar los circuitos"

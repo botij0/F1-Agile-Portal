@@ -28,16 +28,16 @@ public class Voto
     @Column(name = "email", nullable = false)
     private String email;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "votacion_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "opcion_id")
+    @JsonBackReference
+    private Opcion opcion;
+
+    @ManyToOne
+    @JoinColumn(name = "votacion_id")
     @JsonBackReference
     private Votacion votacion;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "opcion_id", nullable = false)
-    @JsonBackReference
-    private Opcion opcion;
+
 
 }

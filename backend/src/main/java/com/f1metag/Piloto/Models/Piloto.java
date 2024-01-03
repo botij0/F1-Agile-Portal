@@ -3,13 +3,15 @@ package com.f1metag.Piloto.Models;
 import com.f1metag.Coche.Models.Coche;
 import com.f1metag.Equipo.Models.Equipo;
 import com.f1metag.Pais.Models.Pais;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.f1metag.Votaciones.Models.Opcion;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="pilotos")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Piloto {
     @Id
     @GeneratedValue
@@ -30,13 +33,14 @@ public class Piloto {
     Pais pais;
     Boolean activo;
 
-
-    @ManyToOne(fetch = FetchType.EAGER)
-            @JsonBackReference
-    Equipo equipo;
+    @ManyToOne
+    @JoinColumn(name = "equipo_id", referencedColumnName = "id")
+    private Equipo equipo;
 
     @OneToOne
     Coche coche;
 
+    @OneToOne
+    Opcion opcion;
 
 }

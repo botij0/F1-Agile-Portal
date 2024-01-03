@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getRequestPaginada, getRequest } from "@/app/(utils)/api";
+import { getRequestPaginada } from "@/app/(utils)/api";
 import { Votacion } from "./components/votacion";
 import Cabecera from "../components/Cabecera";
 
@@ -62,7 +62,6 @@ export default function Votaciones() {
         subtitulo="Bienvenido a la página de votaciones"
       />
       {
-        //tarda un rato en cargar le he metido esto
         loading && (
           <div className="flex items-center justify-center">
             <div role="status" className="p-5">
@@ -90,13 +89,17 @@ export default function Votaciones() {
       {!loading && (
         <div>
           <div>
+    
             {votaciones.map((votacion: any, index: any) => (
               <div key={index} className="hover:hue-rotate-180 mt-2 justify-center flex">
-                <Votacion
-                  titulo={votacion.titulo}
-                  descripcion={votacion.descripcion}
-                  limite={votacion.limite}
-                />
+
+                  <Votacion
+                    id={votacion.id}
+                    titulo={votacion.titulo}
+                    descripcion={votacion.descripcion}
+                    limite={votacion.limite}
+                  />
+
               </div>
             ))}
           </div>

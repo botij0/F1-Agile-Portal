@@ -4,7 +4,10 @@ import com.f1metag.Circuitos.Models.Circuito;
 import com.f1metag.Coche.Models.Coche;
 import com.f1metag.Piloto.Models.Piloto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +23,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name="equipos")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Equipo {
     @Id
     @GeneratedValue
@@ -30,8 +34,7 @@ public class Equipo {
 
 
     @OneToMany(mappedBy = "equipo", fetch = FetchType.EAGER)
-            @JsonManagedReference
-    List<Piloto> pilotos;
+    private List<Piloto> pilotos;
 
     @OneToMany(mappedBy = "equipo")
              @JsonManagedReference

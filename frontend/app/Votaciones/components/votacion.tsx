@@ -1,6 +1,8 @@
 export const Votacion = (props: any) => {
     return (
-        <a href="#" className="grid rounded-2xl overflow-hidden border-solid border-[5px] border-red-700 w-[50%] p-2 bg-[#fef2f2]">
+        <a 
+            href={`/Votaciones/${props.id}`}
+        className="grid rounded-2xl overflow-hidden border-solid border-[5px] border-red-700 w-[50%] p-2 bg-[#fef2f2]">
               <h6 className="font-bold text-xl text-red-700">
                 {props.titulo}
               </h6>

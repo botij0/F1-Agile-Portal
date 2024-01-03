@@ -1,17 +1,13 @@
 package com.f1metag.Votaciones.Models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
@@ -22,12 +18,8 @@ import java.util.Set;
 public class Votacion
 {
     @Id
-    @GeneratedValue
-    long id;
-
-    @Column(name = "permalink", length = Integer.MAX_VALUE)
-    private String permalink;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column(name = "titulo", nullable = false, length = Integer.MAX_VALUE)
     private String titulo;
 
@@ -37,12 +29,20 @@ public class Votacion
     @Column(name = "limite", nullable = false)
     private Instant limite;
 
-    @OneToMany(mappedBy = "votacion", fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<Opcion> opciones;
+    @Builder.Default
+    @OneToMany(mappedBy = "votacion")
+    private List<Opcion> opciones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "votacion", fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<Voto> votos;
+    public long getTotalVotos() {
+        return opciones.stream().mapToLong(Opcion::getTotalVotos).sum();
+    }
+
+    public List<Opcion> getOpciones() {
+        if (this.opciones == null) {
+            this.opciones = new ArrayList<>();
+        }
+        return this.opciones;
+    }
+
 
 }

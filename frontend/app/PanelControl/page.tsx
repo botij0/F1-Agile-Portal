@@ -40,6 +40,18 @@ const page = () => {
             icono: "/team-icon.png",
             url: "/Equipos/Gestion",
         },
+        {
+            id: 6,
+            nombre: "Gestión Pilotos",
+            icono: "/pilot-icon.jpg",
+            url: "/Pilotos/Gestion",
+        },
+         {
+            id: 7,
+            nombre: "Gestión Votaciones",
+            icono: "/poll-icon.jpeg",
+            url: "/Votaciones/Gestion",
+        }
     ];
 
     return (

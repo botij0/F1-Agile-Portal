@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VotacionRepository extends JpaRepository<Votacion, Long>
 {
-    Page<Votacion> findAll(Pageable pageable);
+
 }

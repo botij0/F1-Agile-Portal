@@ -7,7 +7,6 @@ import  Constantes from "@/app/(utils)/constantes";
 import Loading from "@/app/components/Loading";
 import { Modal } from 'flowbite-react';
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 
     const orbitron = Orbitron({ subsets: ['latin'] })
 
@@ -18,8 +17,6 @@ const VotacionesDetallePage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [selected, setSelected] = useState<string>("");
     const [openModal, setOpenModal] = useState(false);
-    const [showResults, setShowResults] = useState(false);
-    const [isOver, setIsOver] = useState(false);
 
     const {
         register,
@@ -28,6 +25,7 @@ const VotacionesDetallePage = () => {
     } = useForm();
 
     const onSubmit = async (data: any) => {
+      
         try {
             const response = await postRequest("votaciones/votar", {
                 votacionId: id,
@@ -36,14 +34,7 @@ const VotacionesDetallePage = () => {
                 email: data.email,
             });
             if (response.data) {
-                if (response.data.success) {
-                   toast.success(response.data.message);
-                   setShowResults(true);
-                     getVotacion(id);   
-                }
-                 else {
-                toast.error(response.data.message);
-            }
+                alert(response.data.message);
                 setOpenModal(false);
             }
         } catch (error) {
@@ -51,25 +42,13 @@ const VotacionesDetallePage = () => {
         }
     }
 
-    function getPocentaje(total: number, votos: number) {
-        return (votos * 100) / total;
-    }
 
-    function calcularLimite(limite: any) {
-        const fechaActual = new Date();
-        const fechaLimite = new Date(limite);
-        return fechaActual < fechaLimite;
-    }
 
     const getVotacion = async (votacionId: string) => {
         setLoading(true);
         try {
             const response = await getRequest(`votaciones/${votacionId}`);
             setVotacion(response.data);
-            if (!calcularLimite(response.data.limite)) {
-                setIsOver(true);
-                setShowResults(true);
-            }
         } catch (error) {
             console.error("Error fetching votacion:", error);
         }
@@ -97,19 +76,16 @@ const VotacionesDetallePage = () => {
                                 <p className="text-sm text-center text-white font-sans font-medium">
                                     {votacion.descripcion}
                                     </p>
-                                
                             </h2>
                         </div>
                     </div>
-                      <div className="mt-4   flex flex-col justify-center items-center">
-                        { isOver && <h3 className="text-xl font-bold my-8 bg-red-500 px-4 py-2.5 rounded-2xl text-white">Votación finalizada</h3> }
-                           { !showResults ? <h3 className="text-xl font-bold my-8">Elige tu opción</h3> : <h3 className="text-xl font-bold my-8">Resultados</h3> }
-
-                            {votacion.opciones?.map((opcion: any) => (
+                    {votacion.opciones && votacion.opciones.length > 0 && (
+                        <div className="mt-4   flex flex-col justify-center items-center">
+                            <h3 className="text-xl font-bold my-8">Elige tu opción</h3>
+                            {votacion.opciones.map((opcion: any) => (
                                 <div key={opcion.id} className="flex items-center w-96">
                                     <div className="bg-gray-100 mb-2 rounded-lg flex px-4">
-                                        <input 
-                                            hidden={showResults}
+                                        <input
                                             type="radio"
                                             id={opcion.id}
                                             name="opcion"
@@ -123,46 +99,16 @@ const VotacionesDetallePage = () => {
                                             <img src={Constantes.IMAGE_BASE_URL + opcion.piloto.foto} onError={(e) => { e.currentTarget.src = 'https://hwchamber.co.uk/wp-content/uploads/2022/04/avatar-placeholder.gif' }}  
                                              className="w-20 h-20 rounded-xl object-cover  bg-white" />
                                                                                          <img className="w-8 absolute right-0 bottom-0" src={Constantes.IMAGE_BASE_URL + opcion.piloto.equipo.logo} onError={(e) => { e.currentTarget.src = 'https://hwchamber.co.uk/wp-content/uploads/2022/04/avatar-placeholder.gif' }} />
-                                            <div>
-                                                <p className="text-lg font-bold">{opcion.piloto.nombre + " " + opcion.piloto.apellidos}</p>
-                                                <p className="text-sm">{opcion.piloto.equipo.nombre}</p>
-                                              { showResults &&   <div>  <div className="bg-red-600 h-2.5 rounded-full" 
-                                                    style={{ width: getPocentaje(votacion.totalVotos, opcion.totalVotos) + "%" }}
-                                                  ></div>
-                                                  <p className="text-sm font-bold">{getPocentaje(votacion.totalVotos, opcion.totalVotos).toFixed(2) + "%"}</p>
-                                                  </div>
-                                                   }
-
-                                            </div>
+                                            <p className="text-lg font-bold">{opcion.piloto.nombre + " " + opcion.piloto.apellidos}</p>
                                         </label>
                                     </div>
                                 </div>
                             ))}
-                            { showResults && <p className="text-sm ">Total de votos registrados: {votacion.totalVotos}</p> }
-                         { selected && !showResults &&   <button onClick={() => setOpenModal(true)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">
+                            <button onClick={() => setOpenModal(true)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">
                                 Votar
-                            </button> }
+                            </button>
                                  <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Body className="bg-white rounded-3xl relative">
-            <button
-                className="absolute right-0 top-0 m-4"
-                onClick={() => setOpenModal(false)}
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-red-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                    />
-                </svg>
-            </button>
+        <Modal.Body className="bg-white rounded-t-3xl">
             <div className="flex flex-col items-center text-black">
             <h1 className="text-2xl font-bold">¡Ya casi has votado!</h1>
           <form className="w-full max-w-lg mt-4" onSubmit={handleSubmit(onSubmit)}>
@@ -185,15 +131,19 @@ const VotacionesDetallePage = () => {
                      
                      </div>
             </div>
-            <button className="bg-red-500 w-full hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4" type="submit">
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4" type="submit">
               Votar
             </button>
             </form>
             </div>
           
         </Modal.Body>
+        <Modal.Footer className="bg-white rounded-b-3xl">
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={() => setOpenModal(false)}>Cerrar</button>
+        </Modal.Footer>
       </Modal>
                             </div>
+                    )}
                 </div>
             )}
         </div>

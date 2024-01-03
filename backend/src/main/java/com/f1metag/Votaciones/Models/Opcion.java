@@ -2,6 +2,7 @@ package com.f1metag.Votaciones.Models;
 
 import com.f1metag.Piloto.Models.Piloto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
@@ -27,29 +27,28 @@ public class Opcion
     @GeneratedValue
     long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "votacion_id", nullable = false)
-    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "votacion_id")
+    @JsonIgnore
     private Votacion votacion;
 
-    @Column(name = "texto", nullable = false, length = Integer.MAX_VALUE)
-    private String texto;
-
-    @Column(name = "imagen_piloto", length = Integer.MAX_VALUE)
-    private String imagenPiloto;
-
-    @Column(name = "imagen_escuderia", length = Integer.MAX_VALUE)
-    private String imagenEscuderia;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "piloto_id", nullable = false)
-    @JsonBackReference
-    private Piloto piloto;
-
-    @OneToMany(mappedBy = "opcion")
+    @OneToMany(mappedBy = "opcion", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Voto> votos;
+
+    @OneToOne
+    @JoinColumn(name = "piloto_id")
+    private Piloto piloto;
+
+    public long getTotalVotos() {
+        return votos.size();
+    }
+
+
+
+
+
+
+
 
 }

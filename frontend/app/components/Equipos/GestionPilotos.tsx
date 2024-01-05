@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { paginate } from "../utils/paginate";
-import Pagination from "./Pagination";
-import { getRequest, deleteRequest } from "../(utils)/api";
+import { paginate } from "../../utils/paginate";
+import Pagination from "../Pagination";
+import { getRequest, deleteRequest } from "../../(utils)/api";
 import FilaPiloto from "./FilaPiloto";
+import { Equipo } from "../../logic/types";
 
 export const GestionPilotos = () => {
   const pageSize = 5;
@@ -26,7 +27,7 @@ export const GestionPilotos = () => {
         const response = await getRequest("pilotos");
         const data = await response.data;
         setPilotos(data.data);
-        //        console.log(data.data);
+        console.log(data.data);
       } catch (error) {
         console.log(error);
       }
@@ -53,7 +54,7 @@ export const GestionPilotos = () => {
       <hr className="border-black w-[100%] mb-5 m-auto" />
 
       <Link
-        href="Pilotos/Crear"
+        href="/Equipos/Pilotos/Crear"
         title="Añadir Piloto"
         className="flex w-7 ml-auto"
       >
@@ -91,9 +92,9 @@ export const GestionPilotos = () => {
                 //</th>
               }
               {
-                //<th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
-                //  Equipo
-                //</th>
+                <th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
+                  Equipo
+                </th>
               }
 
               <th className="text-left font-medium text-white uppercase tracking-wide py-3 px-6">
@@ -116,7 +117,7 @@ export const GestionPilotos = () => {
                   siglas: string;
                   twitter: string;
                   coche: number;
-                  equipo: number;
+                  equipo: Equipo;
                   foto: string;
                 }) => (
                   <FilaPiloto

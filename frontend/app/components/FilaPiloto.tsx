@@ -4,6 +4,13 @@ import Link from "next/link";
 //  Para sacar las imágenes
 //  https://soymotor.com/f1/pilotos
 
+interface Equipo {
+  id: number;
+  nombre: string;
+  logo: string;
+  twitter: string;
+}
+
 interface Piloto {
   id: number;
   nombre: string;
@@ -13,7 +20,7 @@ interface Piloto {
   siglas: string;
   twitter: string;
   coche: number;
-  equipo: number;
+  equipo: Equipo;
   foto: string;
 }
 
@@ -50,11 +57,11 @@ const FilaPiloto: React.FC<Props> = ({ piloto, borrarPiloto }) => {
         //   <div className="text-sm text-gray-500">{piloto.coche}</div>
         // </td>
       }
-      {
-        // <td className="text-left px-6 py-4 whitespace-nowrap ">
-        //  <div className="text-sm text-gray-500">{piloto.equipo}</div>
-        // </td>
-      }
+
+      <td className="text-left px-6 py-4 whitespace-nowrap ">
+        <div className="text-sm text-gray-500">{piloto.equipo.nombre}</div>
+      </td>
+
       <td className="text-left px-6 py-4 whitespace-nowrap ">
         <div className="text-sm text-gray-500 w-12">
           <img src={Constantes.IMAGE_BASE_URL + piloto.foto} />

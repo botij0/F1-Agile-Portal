@@ -5,20 +5,20 @@ import java.util.List;
 
 public class PaisList {
     public static class Country {
-        private String code;
-        private String name;
+        private String id;
+        private String nombre;
 
-        public Country(String code, String name) {
-            this.code = code;
-            this.name = name;
+        public Country(String id, String nombre) {
+            this.id = id;
+            this.nombre = nombre;
         }
 
-        public String getCode() {
-            return this.code;
+        public String getId() {
+            return this.id;
         }
 
-        public String getName() {
-            return this.name;
+        public String getNombre() {
+            return this.nombre;
         }
     }
 

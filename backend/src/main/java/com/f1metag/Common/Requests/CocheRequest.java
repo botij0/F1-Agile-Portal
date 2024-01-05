@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class CocheRequest {
     String nombre;
     Integer codigo;
+    String imagen;
     Float ers_curva_lenta;
     Float ers_curva_media;
     Float ers_curva_rapida;

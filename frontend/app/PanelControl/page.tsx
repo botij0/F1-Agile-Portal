@@ -40,6 +40,12 @@ const page = () => {
             icono: "/team-icon.png",
             url: "/Equipos/Gestion",
         },
+        {
+            id: 6,
+            nombre: "Gestión Coches",
+            icono: "/coche-icon.png",
+            url: "/Equipos/Coches",
+        },
     ];
 
     return (

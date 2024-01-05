@@ -62,6 +62,7 @@ const FormCircuitos = () => {
 
             if (data.success == true) {
                 const circuito = data.data;
+                console.log(circuito);
                 setValue("nombre", circuito.nombre);
                 setValue("pais", circuito.pais);
                 setValue("ciudad", circuito.ciudad);

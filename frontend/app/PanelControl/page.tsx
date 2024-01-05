@@ -46,6 +46,12 @@ const page = () => {
             icono: "/coche-icon.png",
             url: "/Equipos/Coches",
         },
+        {
+            id: 7,
+            nombre: "Gestión Pilotos",
+            icono: "/piloto-icon.png",
+            url: "/Pilotos",
+        },
     ];
 
     return (

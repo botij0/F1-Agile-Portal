@@ -1,4 +1,4 @@
-import Constantes from "../(utils)/constantes";
+import Constantes from "../../(utils)/constantes";
 import Link from "next/link";
 
 //  Para sacar las imágenes
@@ -69,7 +69,10 @@ const FilaPiloto: React.FC<Props> = ({ piloto, borrarPiloto }) => {
       </td>
 
       <td className="text-right px-2 py-4 whitespace-nowrap justify-end">
-        <Link href={`/Pilotos/Editar/${piloto.id}`} title="Editar Piloto">
+        <Link
+          href={`/Equipos/Pilotos/Editar/${piloto.id}`}
+          title="Editar Piloto"
+        >
           <button
             type="button"
             className="mr-3 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"

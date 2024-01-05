@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { paginate } from "../utils/paginate";
-import Pagination from "./Pagination";
-import { getRequest, deleteRequest } from "../(utils)/api";
+import { paginate } from "../../utils/paginate";
+import Pagination from "../Pagination";
+import { getRequest, deleteRequest } from "../../(utils)/api";
 import FilaPiloto from "./FilaPiloto";
-import { Equipo } from "../logic/types";
+import { Equipo } from "../../logic/types";
 
 export const GestionPilotos = () => {
   const pageSize = 5;
@@ -54,7 +54,7 @@ export const GestionPilotos = () => {
       <hr className="border-black w-[100%] mb-5 m-auto" />
 
       <Link
-        href="Pilotos/Crear"
+        href="/Equipos/Pilotos/Crear"
         title="Añadir Piloto"
         className="flex w-7 ml-auto"
       >

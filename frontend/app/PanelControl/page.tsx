@@ -50,7 +50,7 @@ const page = () => {
             id: 7,
             nombre: "Gestión Pilotos",
             icono: "/piloto-icon.png",
-            url: "/Pilotos",
+            url: "/Equipos/Pilotos",
         },
     ];
 

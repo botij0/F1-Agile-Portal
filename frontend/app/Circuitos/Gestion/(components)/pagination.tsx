@@ -6,7 +6,7 @@ function PaginationComponent({
 }) {
     return (
         <div className="w-screen justify-center items-center">
-            <div className="flex justify-center items-center mt-4">
+            <div className="flex justify-center items-center my-4">
                 <div className="flex items-center bg-gray-100 rounded-lg w-fit p-4">
                     <button
                         onClick={handlePrevPage}

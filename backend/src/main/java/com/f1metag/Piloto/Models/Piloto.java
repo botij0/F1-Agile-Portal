@@ -5,11 +5,13 @@ import com.f1metag.Equipo.Models.Equipo;
 import com.f1metag.Pais.Models.Pais;
 import com.f1metag.Votaciones.Models.Opcion;
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -18,8 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="pilotos")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "pilotos")
 public class Piloto {
     @Id
     @GeneratedValue
@@ -33,14 +34,12 @@ public class Piloto {
     Pais pais;
     Boolean activo;
 
-    @ManyToOne
-    @JoinColumn(name = "equipo_id", referencedColumnName = "id")
-    private Equipo equipo;
-
-    @OneToOne
-    Coche coche;
-
     @OneToOne
     Opcion opcion;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "equipo_id", nullable = false)
+    @JsonIgnoreProperties({ "coches", "pilotos" })
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Equipo equipo;
 }

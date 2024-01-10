@@ -5,10 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import UserIcon from "./UserIcon";
+import { usePathname } from "next/navigation";
 
 const NavbarF: React.FC = () => {
     const [menuIcon, setMenuIcon] = useState(false);
     const [nombre, setNombre] = useState("");
+
+    const router = usePathname();
 
     useEffect(() => {
         if (localStorage.getItem("nombre") == null) return;
@@ -59,7 +62,11 @@ const NavbarF: React.FC = () => {
                         >
                             <Link
                                 href={link.href}
-                                className="hover:text-slate-400"
+                                className={
+                                    router == link.href
+                                        ? "text-slate-400 hover:text-slate-400"
+                                        : "hover:text-slate-400"
+                                }
                             >
                                 {link.text}
                             </Link>
@@ -95,7 +102,11 @@ const NavbarF: React.FC = () => {
                                 <li
                                     key={index}
                                     onClick={handleSmallerScreenNavigation}
-                                    className="py-5 hover:text-slate-400 cursor-pointer"
+                                    className={
+                                        router == link.href
+                                            ? "text-slate-400 hover:text-slate-400 py-5 cursor-pointer"
+                                            : "py-5 hover:text-slate-400 cursor-pointer"
+                                    }
                                 >
                                     <Link href={link.href}>{link.text}</Link>
                                 </li>

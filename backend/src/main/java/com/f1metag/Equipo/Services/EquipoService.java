@@ -1,5 +1,6 @@
 package com.f1metag.Equipo.Services;
 
+import com.f1metag.Coche.Repositories.CocheRepository;
 import com.f1metag.Common.Requests.EquipoRequest;
 import com.f1metag.Common.Requests.NoticiaRequest;
 import com.f1metag.Common.Responses.ApiResponse;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 public class EquipoService {
     @Autowired
     EquipoRepository equipoRepository;
+    @Autowired
+    private CocheRepository cocheRepository;
 
 
     public ApiResponse createEquipo(EquipoRequest equipoRequest) {

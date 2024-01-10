@@ -51,7 +51,13 @@ const page = () => {
             nombre: "Gestión Votaciones",
             icono: "/poll-icon.jpeg",
             url: "/Votaciones/Gestion",
-        }
+        },
+        {
+            id:8,
+            nombre: "Gestión Coches",
+            icono: "/coche-icon.png",
+            url: "/Equipos/Coches",
+        },
     ];
 
     return (

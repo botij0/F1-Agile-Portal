@@ -2,6 +2,7 @@
 import Image from "next/image";
 import VotacionesAbiertas from "@/app/components/Votaciones/VotacionesAbiertas";
 import { SeccionUltimasNoticias } from "@/app/components/Noticias/SeccionUltimasNoticias";
+import Cabecera from "./components/Cabecera";
 
 export default function Home() {
     return (
@@ -14,18 +15,20 @@ export default function Home() {
                 layout="responsive"
             />
 
-            <div className="2xl:flex mt-[30px] max-w-[90%] mx-auto">
+            <div className="2xl:flex max-w-[90%] mx-auto mb-10">
                 <div className="mx-auto 2xl:me-5">
-                    <h2 className="font-bold text-center text-3xl text-black mb-5 underline">
-                        Ultimas noticias
-                    </h2>
+                    <Cabecera
+                        titulo="Noticias"
+                        subtitulo="Últimas noticias de la semana"
+                    />
                     {/* <UltimasNoticias /> */}
                     <SeccionUltimasNoticias />
                 </div>
                 <div className="max-w-[900px] mx-auto 2xl:ms-5 mt-5 2xl:mt-0">
-                    <h2 className="font-bold text-center text-3xl text-black mb-5 underline">
-                        Votaciones
-                    </h2>
+                    <Cabecera
+                        titulo="Votaciones"
+                        subtitulo="Principales votaciones de la semana"
+                    />
                     <VotacionesAbiertas />
                 </div>
             </div>

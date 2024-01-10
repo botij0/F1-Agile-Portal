@@ -36,7 +36,6 @@ public class Equipo {
     @OneToMany(mappedBy = "equipo", fetch = FetchType.EAGER)
     private List<Piloto> pilotos;
 
-    @OneToMany(mappedBy = "equipo")
-             @JsonManagedReference
-    List<Coche> coches;
+    //@OneToMany(cascade = CascadeType.ALL)
+    //List<Coche> coches;
 }

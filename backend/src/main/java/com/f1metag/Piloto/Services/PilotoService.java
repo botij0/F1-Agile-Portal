@@ -2,7 +2,11 @@ package com.f1metag.Piloto.Services;
 
 import com.f1metag.Common.Requests.PilotoRequest;
 import com.f1metag.Common.Responses.ApiResponse;
+import com.f1metag.Equipo.Repository.EquipoRepository;
 import com.f1metag.Piloto.Models.Piloto;
+import com.f1metag.Piloto.Repositories.PilotoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -11,12 +15,8 @@ public class PilotoService {
     @Autowired
     PilotoRepository pilotoRepository;
 
-public interface PilotoService {
-    ApiResponse createPiloto(PilotoRequest pilotoRequest);
-    ApiResponse getPilotos();
-    ApiResponse getPiloto(Long id);
-    ApiResponse updatePiloto(PilotoRequest pilotoRequest);
-    ApiResponse deletePiloto(Long id);
+    @Autowired
+    EquipoRepository equipoRepository;
 
     public ApiResponse createPiloto(PilotoRequest pilotoRequest) {
 
@@ -42,7 +42,7 @@ public interface PilotoService {
     }
 
     public ApiResponse getPilotos() {
-            return ApiResponse.successRequest("Pilotos obtenidos correctamente", pilotoRepository.findAll()).getBody();
+        return ApiResponse.successRequest("Pilotos obtenidos correctamente", pilotoRepository.findAll()).getBody();
     }
 
     public ApiResponse updatePiloto(PilotoRequest pilotoRequest,Long id){

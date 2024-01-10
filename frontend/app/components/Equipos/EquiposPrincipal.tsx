@@ -25,9 +25,7 @@ export const EquiposPrincipal = () => {
     console.log(equipos);
 
     return (
-        <div className="w-[80%] mx-auto">
-            <h2 className="text-black text-2xl">Equipos</h2>
-            <hr className="border-black w-[100%] mb-5 m-auto" />
+        <div>
             {
                 //tarda un rato en cargar le he metido esto
                 loading && (

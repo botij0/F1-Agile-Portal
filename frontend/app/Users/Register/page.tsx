@@ -2,10 +2,10 @@
 
 import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { postRequest } from "@/app/(utils)/api";
+import { postRequestTokenless } from "@/app/(utils)/api";
+import axios from "axios";
 
-const registerURL =
-    process.env.REGISTER_URL || "http://localhost:8080/auth/signup";
+const registerURL = "http://localhost:8080/auth/signup";
 
 const PERSON_NAME_REG_EX = /^[a-záéíóúñ.'-]+(?:\s[a-z.'-]+)*$/i;
 const USERNAME_REG_EX = /^[a-z_][a-z0-9_]{1,19}$/i;
@@ -32,7 +32,7 @@ export default function Register() {
                 email: data.email,
                 password: data.password1,
             };
-            postRequest(registerURL, request).then((response) => {
+            axios.post(registerURL, request).then((response) => {
                 if (!response.data.success) {
                     toast.error(response.data.message);
                 } else {

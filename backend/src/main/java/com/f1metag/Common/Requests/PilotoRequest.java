@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PilotoRequest {
+    Long id;
     String nombre;
     String apellidos;
     String siglas;

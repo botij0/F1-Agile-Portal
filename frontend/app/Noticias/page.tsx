@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { Noticia } from "./components/Noticia";
 import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getRequest } from "@/app/(utils)/api";
+import { getRequestPaginada } from "@/app/(utils)/api";
+import Cabecera from "../components/Cabecera";
 
 export default function Noticias() {
     const IMAGEN_BASE_URL =
@@ -27,6 +28,7 @@ export default function Noticias() {
     });
 
     const cambiarPagina = (event: React.ChangeEvent<any>, page: number) => {
+        debugger;
         setCurrentPage(page - 1);
     };
 
@@ -35,7 +37,11 @@ export default function Noticias() {
             setLoading(true);
             console.log(noticias);
             try {
-                const response = await getRequest("noticias/portal");
+                const response = await getRequestPaginada(
+                    "noticias/portal",
+                    currentPage,
+                    noticiasPorPagina
+                );
                 const data = await response.data;
                 setNoticias(data.content);
                 setTotalPages(data.totalPages);
@@ -50,9 +56,10 @@ export default function Noticias() {
 
     return (
         <div className="mt-[20px]  max-w-[90%] mx-auto">
-            <h1 className="font-bold text-center uppercase text-3xl text-black">
-                noticias
-            </h1>
+            <Cabecera
+                titulo="Noticias"
+                subtitulo="Noticias ordenadas por fecha de publicación"
+            />
             <div className="grid grid-cols-2 gap-3">
                 {/*Imagen grande*/}
                 <div className="col-span-1 flex items-center">
@@ -140,7 +147,7 @@ export default function Noticias() {
                     </a>
                 ))}
             </div>
-            <div className="flex items-center justify-center mt-2">
+            <div className="flex items-center justify-center my-4">
                 {totalPages > 1 && (
                     <ThemeProvider theme={theme}>
                         <Pagination

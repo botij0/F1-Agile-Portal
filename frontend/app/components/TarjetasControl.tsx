@@ -15,7 +15,7 @@ const TarjetasControl = ({ tarjeta }: { tarjeta: any }) => {
                 <img
                     src={tarjeta.icono}
                     alt=""
-                    className="w-40 h-40 rounded-lg"
+                    className="w-40 h-40 rounded-lg object-cover"
                 />
                 <div className="flex flex-col items-center gap-2 w-full">
                     <h1 className="text-xl font-bold ">{tarjeta.nombre}</h1>

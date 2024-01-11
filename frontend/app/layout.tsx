@@ -4,6 +4,7 @@ import "./globals.css";
 import NavbarF from "./components/Navbar";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,9 +36,12 @@ export default function RootLayout({
                 <Toaster />
 
                 <NavbarF />
-                <div className="relative overflow-x-auto mt-[80px] text-black">
+                <main className="relative overflow-x-auto text-black mt-[80px] min-h-screen">
                     {children}
-                </div>
+                </main>
+
+                <Footer />
+
                 <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
                 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>

@@ -1,5 +1,6 @@
 import React from "react";
 import TarjetasControl from "@/app/components/TarjetasControl";
+import Cabecera from "../components/Cabecera";
 
 const page = () => {
     type tarjeta = {
@@ -42,23 +43,31 @@ const page = () => {
         },
         {
             id: 6,
+            nombre: "Gestión Pilotos",
+            icono: "/pilot-icon.jpg",
+            url: "/Pilotos/Gestion",
+        },
+         {
+            id: 7,
+            nombre: "Gestión Votaciones",
+            icono: "/poll-icon.jpeg",
+            url: "/Votaciones/Gestion",
+        },
+        {
+            id:8,
             nombre: "Gestión Coches",
             icono: "/coche-icon.png",
             url: "/Equipos/Coches",
-        },
-        {
-            id: 7,
-            nombre: "Gestión Pilotos",
-            icono: "/piloto-icon.png",
-            url: "/Pilotos",
         },
     ];
 
     return (
         <div className="mt-[20px]">
             <div className="w-[80%] mx-auto">
-                <h2 className="text-black text-2xl">Panel de Control</h2>
-                <hr className="border-black w-[100%] mb-5 m-auto" />
+                <Cabecera
+                    titulo="Panel de control"
+                    subtitulo="Gestione los datos de la aplicación"
+                />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 mx-auto mt-5">
                     {tarjetas?.map((tarjeta) => (
                         <TarjetasControl tarjeta={tarjeta} key={tarjeta.id} />

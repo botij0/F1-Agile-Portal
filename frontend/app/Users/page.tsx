@@ -1,13 +1,12 @@
 "use client";
 import React, { useEffect } from "react";
-import UsersManagment from "@/app/components/Users/UsersManagment";
 import { deleteRequest, getRequest } from "../(utils)/api";
 import Cabecera from "../components/Cabecera";
 import Loading from "../components/Loading";
-import PaginatedItems from "../components/Equipos/tablaCoches";
-import Link from "next/link";
 import toast from "react-hot-toast";
 import SimpleTable from "../components/SimpleTable";
+import { createColumnHelper } from "@tanstack/react-table";
+import Link from "next/link";
 
 export default function UsuariosGestion() {
     type User = {
@@ -19,6 +18,9 @@ export default function UsuariosGestion() {
     };
     type Users = User[];
 
+    const urlEditar = "/Users/Editar/";
+
+    const columnHelper = createColumnHelper<User>();
     const columns = [
         {
             header: "Nombre",
@@ -36,6 +38,27 @@ export default function UsuariosGestion() {
             header: "Rol",
             accessorKey: "rol",
         },
+        columnHelper.accessor("id", {
+            cell: (id: any) => (
+                <div className="flex gap-3">
+                    <Link
+                        href={urlEditar + id.getValue()}
+                        className="bg-gray-800 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg"
+                    >
+                        Editar
+                    </Link>
+                    <button
+                        onClick={() => {
+                            handleDelete(id.getValue());
+                        }}
+                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg"
+                    >
+                        Eliminar
+                    </button>
+                </div>
+            ),
+            header: "Acciones",
+        }),
     ];
 
     const [users, setUsers] = React.useState<Users | []>([]);
@@ -82,8 +105,6 @@ export default function UsuariosGestion() {
                 <SimpleTable
                     data={users}
                     columns={columns}
-                    urlEditar="/Users/Editar/"
-                    fnDelete={handleDelete}
                     urlAniadir="/Users/Register"
                     txtAniadir="Crear Usuario"
                 />

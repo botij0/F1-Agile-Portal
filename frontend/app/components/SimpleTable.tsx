@@ -12,17 +12,13 @@ import { useState } from "react";
 interface SimpleTableProps {
     data: any[];
     columns: any[];
-    urlEditar: string;
     urlAniadir: string;
     txtAniadir: string;
-    fnDelete: (id: any) => void;
 }
 
 function SimpleTable({
     data,
     columns,
-    urlEditar,
-    fnDelete,
     urlAniadir,
     txtAniadir,
 }: SimpleTableProps) {
@@ -100,7 +96,6 @@ function SimpleTable({
                                         : null}
                                 </th>
                             ))}
-                            <th className="text-end px-10">Acciones</th>
                         </tr>
                     ))}
                 </thead>
@@ -115,24 +110,6 @@ function SimpleTable({
                                     )}
                                 </td>
                             ))}
-                            <td className="px-6 py-4">
-                                <div className="flex gap-3 justify-end">
-                                    <Link
-                                        href={urlEditar + row.original.id}
-                                        className="bg-gray-800 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg"
-                                    >
-                                        Editar
-                                    </Link>
-                                    <button
-                                        onClick={() => {
-                                            fnDelete(row.original.id);
-                                        }}
-                                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg"
-                                    >
-                                        Eliminar
-                                    </button>
-                                </div>
-                            </td>
                         </tr>
                     ))}
                 </tbody>

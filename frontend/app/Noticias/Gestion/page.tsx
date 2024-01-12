@@ -3,6 +3,8 @@ import { deleteRequest, getRequest } from "@/app/(utils)/api";
 import Cabecera from "@/app/components/Cabecera";
 import Loading from "@/app/components/Loading";
 import SimpleTable from "@/app/components/SimpleTable";
+import { createColumnHelper } from "@tanstack/react-table";
+import Link from "next/link";
 import React from "react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -15,16 +17,47 @@ export default function NoticiasGestionPage() {
     };
     type Noticias = Noticia[];
 
+    const columnHelper = createColumnHelper<Noticia>();
     const columns = [
         {
             header: "Título",
             accessorKey: "titulo",
         },
-        {
+        columnHelper.accessor("texto", {
+            cell: (texto: any) => (
+                <span title={texto.getValue()}>
+                    {texto.getValue().slice(0, 50) + "..."}
+                </span>
+            ),
             header: "Texto",
-            accessorKey: "texto",
-            accessorFn: (texto: any) => texto.texto.slice(0, 50) + "...",
-        },
+        }),
+        columnHelper.accessor("id", {
+            cell: (id: any) => (
+                <div className="flex gap-3">
+                    <Link
+                        href={"/Noticias/Noticia/" + id.getValue()}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                    >
+                        Ver
+                    </Link>
+                    <Link
+                        href={"/Noticias/Editar/" + id.getValue()}
+                        className="bg-gray-800 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg"
+                    >
+                        Editar
+                    </Link>
+                    <button
+                        onClick={() => {
+                            handleDelete(id.getValue());
+                        }}
+                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg"
+                    >
+                        Eliminar
+                    </button>
+                </div>
+            ),
+            header: "Acciones",
+        }),
     ];
 
     const [noticias, setNoticias] = useState<Noticias | []>([]);
@@ -69,10 +102,8 @@ export default function NoticiasGestionPage() {
                 <SimpleTable
                     data={noticias}
                     columns={columns}
-                    fnDelete={handleDelete}
                     txtAniadir="Crear Noticia"
                     urlAniadir="/Noticias/Crear"
-                    urlEditar="/Noticias/Editar/"
                 />
             )}
         </div>

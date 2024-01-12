@@ -1,5 +1,5 @@
 import React from "react";
-import FormPiloto from "../FormPiloto";
+import FormPiloto from "../../../components/Pilotos/FormPiloto";
 
 export default function crearPiloto() {
   return (

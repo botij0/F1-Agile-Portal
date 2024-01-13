@@ -43,7 +43,7 @@ function SimpleTable({
     return (
         <div className="my-5 text-lg">
             <div className="flex justify-between mb-5 bg-gray-300  rounded-xl">
-                <div className="flex items-center">
+                <div className="flex items-center py-2 px-4">
                     <label
                         htmlFor="filtering"
                         className="font-bold mx-4 text-lg"
@@ -60,12 +60,14 @@ function SimpleTable({
                 </div>
 
                 <div className="flex items-center">
-                    <Link
-                        href={urlAniadir}
-                        className="bg-gray-800 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg m-5"
-                    >
-                        {txtAniadir}
-                    </Link>
+                    {urlAniadir == "" ? null : (
+                        <Link
+                            href={urlAniadir}
+                            className="bg-gray-800 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg m-5"
+                        >
+                            {txtAniadir}
+                        </Link>
+                    )}
                 </div>
             </div>
 

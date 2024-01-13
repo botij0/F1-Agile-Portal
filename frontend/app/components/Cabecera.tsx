@@ -2,7 +2,7 @@ const Cabecera = ({
     titulo,
     subtitulo,
 }: {
-    titulo: string;
+    titulo: string | undefined;
     subtitulo: string;
 }) => {
     return (

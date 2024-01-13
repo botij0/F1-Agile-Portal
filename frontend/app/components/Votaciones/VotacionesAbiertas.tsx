@@ -1,62 +1,53 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getRequest } from "@/app/(utils)/api";
+import toast from "react-hot-toast";
+import { Votacion } from "@/app/Votaciones/components/votacion";
 
 interface Votacion {
-    title: string;
-    description: string;
+    id: number;
+    titulo: string;
+    descripcion: string;
+    limite: Date;
 }
 
 export default function VotacionesAbiertas() {
-    //Código provisional para mostrar las votaciones abiertas (estáticas):
-    const votaciones = [
-        {
-            title: "Votación 1",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus odio quam, consequat nec blandit at, dapibus et quam. Nulla ut cursus enim. Aliquam erat volutpat. In hac habitasse platea dictumst.",
-        },
-        {
-            title: "Votación 2",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus odio quam, consequat nec blandit at, dapibus et quam. Nulla ut cursus enim. Aliquam erat volutpat. In hac habitasse platea dictumst.",
-        },
-        {
-            title: "Votación 3",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus odio quam, consequat nec blandit at, dapibus et quam. Nulla ut cursus enim. Aliquam erat volutpat. In hac habitasse platea dictumst.",
-        },
-        {
-            title: "Votación 4",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus odio quam, consequat nec blandit at, dapibus et quam. Nulla ut cursus enim. Aliquam erat volutpat. In hac habitasse platea dictumst.",
-        },
-    ];
-
-    /*
-    ! Código a utilizar cuando se desarrolle el back para las votaciones
+    const [loading, setLoading] = useState(true);
     const [votaciones, setVotaciones] = useState<Votacion[]>([]);
 
+    const getVotaciones = async () => {
+        setLoading(true);
+        try {
+            const response = await getRequest("votaciones/ultimas");
+            const data = await response.data;
+            console.log(data);
+            if (data.success) {
+                setVotaciones(data.data);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error("Error al obtener el circuito");
+        }
+        setLoading(false);
+    };
     useEffect(() => {
-        // Realiza una llamada a la API aquí y actualiza el estado de votaciones con los datos obtenidos
-        // Ejemplo ficticio de llamada a una API:
-        fetch('tu_api/votaciones')
-            .then(response => response.json())
-            .then((data: Votacion[]) => setVotaciones(data));
+        getVotaciones();
     }, []);
-    */
+
     return (
-        <div className="bg-red-700 rounded-2xl mt-5 h-auto">
-            {votaciones.map((votacion, index) => (
-                <div className="" key={index}>
-                    <Link href="/Votaciones">
-                        <div className="hover:text-slate-300 transition duration-300 ease-in-out hover:scale-105">
-                            <h3 className="font-bold text-center text-2xl m-3">
-                                {votacion.title}
-                            </h3>
-                            <p className="text-center px-5">
-                                {votacion.description}
-                            </p>
-                        </div>
-                    </Link>
+        <div className="mt-5 h-auto">
+            {votaciones.map((votacion: any, index: any) => (
+                <div
+                    key={index}
+                    className="mt-2 justify-center flex hover:shadow-xl my-8 rounded-2xl"
+                >
+                    <Votacion
+                        id={votacion.id}
+                        titulo={votacion.titulo}
+                        descripcion={votacion.descripcion}
+                        limite={votacion.limite}
+                    />
                 </div>
             ))}
             <br />

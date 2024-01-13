@@ -36,8 +36,6 @@ export interface Equipo {
   logo: string
   nombre: string
   twitter: string
-  circuitos?: Circuito[]
-  coches?: Coche[]
   pilotos?: Piloto[]
 }
 
@@ -51,5 +49,4 @@ export interface Piloto {
   twitter: string
   pais: string
   activo: boolean
-  coche?: Coche
 }

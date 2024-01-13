@@ -26,7 +26,7 @@ const EquipoCard: React.FC<Props> = ({ equipo }) => {
                     />
                 </div>
                 <div className="px-6 py-4 bg-red-600">
-                    <p className="text-white text-xl text-center">
+                    <p className="text-white text-xl text-center font-bold">
                         {equipo.nombre}
                     </p>
                 </div>

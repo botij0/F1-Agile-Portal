@@ -75,6 +75,16 @@ public class VotacionController
        }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> eliminarVotacion(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(votacionService.deleteVotacion(id));
+
+        }catch (IllegalArgumentException e){
+            return ApiResponse.badRequest();
+        }
+    }
+
 
 
 }

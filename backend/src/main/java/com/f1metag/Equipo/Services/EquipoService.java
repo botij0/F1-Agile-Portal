@@ -9,6 +9,8 @@ import com.f1metag.Equipo.Repository.EquipoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class EquipoService {
     @Autowired
@@ -49,8 +51,12 @@ public class EquipoService {
         return ApiResponse.successRequest("Equipo actualizado correctamente", oldEquipo).getBody();
     }
 
-    public boolean deleteEquipo(Long id){
+    public ApiResponse deleteEquipo(Long id){
+        Optional<Equipo> equipo = equipoRepository.findById(id);
+        if(equipo.isEmpty()){
+            return ApiResponse.errorRequest("Equipo no encontrado").getBody();
+        }
         equipoRepository.deleteById(id);
-        return true;
+        return ApiResponse.successRequest("Equipo eliminado correctamente", null).getBody();
     }
 }

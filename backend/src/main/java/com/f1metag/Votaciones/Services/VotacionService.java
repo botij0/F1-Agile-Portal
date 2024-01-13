@@ -30,4 +30,6 @@ public interface VotacionService
     ApiResponse createVotacion(VotacionRequest votacionRequest);
 
     ApiResponse updateVotacion(VotacionRequest votacionRequest);
+
+    ApiResponse deleteVotacion(Long id);
 }

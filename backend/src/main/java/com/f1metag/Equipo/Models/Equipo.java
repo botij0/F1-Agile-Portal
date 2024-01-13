@@ -4,26 +4,20 @@ import com.f1metag.Circuitos.Models.Circuito;
 import com.f1metag.Coche.Models.Coche;
 import com.f1metag.Piloto.Models.Piloto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name="equipos")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Equipo {
     @Id
     @GeneratedValue
@@ -34,6 +28,7 @@ public class Equipo {
 
 
     @OneToMany(mappedBy = "equipo", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"equipo"})
     private List<Piloto> pilotos;
 
     //@OneToMany(cascade = CascadeType.ALL)

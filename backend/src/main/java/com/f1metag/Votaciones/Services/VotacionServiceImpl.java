@@ -1,5 +1,6 @@
 package com.f1metag.Votaciones.Services;
 
+import com.f1metag.Coche.Models.Coche;
 import com.f1metag.Common.Requests.VotacionRequest;
 import com.f1metag.Common.Requests.VotoRequest;
 import com.f1metag.Common.Responses.ApiResponse;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Optional;
 
 @Service
 public class VotacionServiceImpl implements VotacionService{
@@ -186,7 +188,15 @@ public class VotacionServiceImpl implements VotacionService{
 
         return instant;
     }
-
+    @Override
+    public ApiResponse deleteVotacion(Long id){
+        Optional<Votacion> votacionOptional = votacionRepository.findById(id);
+        if (votacionOptional.isEmpty()) {
+            return ApiResponse.errorRequest("Votación no encontrada").getBody();
+        }
+        votacionRepository.delete(votacionOptional.get());
+        return ApiResponse.successRequest("Votación eliminada correctamente", null).getBody();
+    }
 
 
 

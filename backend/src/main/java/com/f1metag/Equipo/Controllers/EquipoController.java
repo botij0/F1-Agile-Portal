@@ -16,17 +16,17 @@ public class EquipoController {
 
     @GetMapping
     public ResponseEntity<ApiResponse> getEquipos() {
-       try {
-           return ResponseEntity.ok(equipoService.getEquipos());
-       } catch (IllegalArgumentException e) {
-           return ApiResponse.badRequest();
-       }
+        try {
+            return ResponseEntity.ok(equipoService.getEquipos());
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse> guardarEquipo(@RequestBody EquipoRequest equipoRequest) {
         try {
-            if(equipoRequest.getId() == 0)
+            if (equipoRequest.getId() == 0)
                 return ResponseEntity.ok(equipoService.createEquipo(equipoRequest));
             else
                 return ResponseEntity.ok(equipoService.updateEquipo(equipoRequest));
@@ -45,6 +45,11 @@ public class EquipoController {
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteEquipo(@PathVariable("id") Long id){return equipoService.deleteEquipo(id); }
-
+    public ResponseEntity<ApiResponse> deleteEquipo(@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(equipoService.deleteEquipo(id));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
 }

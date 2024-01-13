@@ -25,6 +25,8 @@ public interface VotacionService
 
     Votacion getVotacionById(Long id);
 
+    ApiResponse getUltimasVotaciones();
+
     ApiResponse votar(VotoRequest votoRequest);
 
     ApiResponse createVotacion(VotacionRequest votacionRequest);

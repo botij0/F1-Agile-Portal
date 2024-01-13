@@ -51,6 +51,15 @@ public class VotacionController
         return convertToDto(votacionService.getVotacionById(id));
     }
 
+    @GetMapping("/ultimas")
+    public ResponseEntity<ApiResponse> getUltimasVotaciones() {
+        try {
+            return ResponseEntity.ok(votacionService.getUltimasVotaciones());
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<ApiResponse> createVotacion(@RequestBody VotacionRequest votacionRequest) {
         try {

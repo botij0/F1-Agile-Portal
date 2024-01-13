@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,6 +43,12 @@ public class VotacionServiceImpl implements VotacionService{
     @Override
     public Votacion getVotacionById(Long id) {
         return votacionRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public ApiResponse getUltimasVotaciones(){
+        List<Votacion> lista = votacionRepository.findAll();
+        return ApiResponse.successRequest("Ultimas votaciones obtenidas correctamente", obtenerUltimosElementos(lista,3)).getBody();
     }
 
     @Override
@@ -196,6 +203,16 @@ public class VotacionServiceImpl implements VotacionService{
         }
         votacionRepository.delete(votacionOptional.get());
         return ApiResponse.successRequest("Votación eliminada correctamente", null).getBody();
+    }
+
+    private static List<Votacion> obtenerUltimosElementos(List<Votacion> lista, int cantidad){
+        int size = lista.size();
+        // Asegurarse de no exceder el tamaño total de la lista
+        if(size <= cantidad)
+            return lista;
+
+        int startIndex = Math.max(0, size - cantidad);
+        return lista.subList(startIndex, size);
     }
 
 

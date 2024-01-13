@@ -40,7 +40,7 @@ export default function UsuariosGestion() {
         },
         columnHelper.accessor("id", {
             cell: (id: any) => (
-                <div className="flex gap-3">
+                <div className="flex gap-3 justify-end">
                     <Link
                         href={urlEditar + id.getValue()}
                         className="bg-gray-800 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg"
@@ -57,7 +57,9 @@ export default function UsuariosGestion() {
                     </button>
                 </div>
             ),
-            header: "Acciones",
+            header: () => (
+                <div className="flex justify-end me-16">Acciones</div>
+            ),
         }),
     ];
 
@@ -94,7 +96,7 @@ export default function UsuariosGestion() {
     }, []);
 
     return (
-        <div className="relative overflow-x-auto mt-[20px] container mx-auto">
+        <div className="overflow-x-auto mt-[20px]  px-24">
             <Cabecera
                 titulo="Gestión de Usuarios"
                 subtitulo="Añade, modifica o elimina usuarios."
@@ -102,12 +104,14 @@ export default function UsuariosGestion() {
             {loading ? (
                 <Loading />
             ) : (
-                <SimpleTable
-                    data={users}
-                    columns={columns}
-                    urlAniadir="/Users/Register"
-                    txtAniadir="Crear Usuario"
-                />
+                <div className="overflow-hidden">
+                    <SimpleTable
+                        data={users}
+                        columns={columns}
+                        urlAniadir="/Users/Register"
+                        txtAniadir="Crear Usuario"
+                    />
+                </div>
             )}
         </div>
     );

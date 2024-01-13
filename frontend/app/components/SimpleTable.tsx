@@ -41,7 +41,7 @@ function SimpleTable({
     });
 
     return (
-        <div className="my-5">
+        <div className="my-5 text-lg">
             <div className="flex justify-between mb-5 bg-gray-300  rounded-xl">
                 <div className="flex items-center">
                     <label

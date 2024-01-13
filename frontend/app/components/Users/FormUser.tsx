@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getRequest, putRequest } from "@/app/(utils)/api";
+import Cabecera from "../Cabecera";
 
 const initialUser = { nombre: "", usuario: "", email: "", rol: "" };
 
@@ -64,11 +65,12 @@ const FormUser = () => {
 
     return (
         <div className="container mx-auto my-8">
-            <Toaster />
-            <h2 className="text-black text-2xl">Editar Usuario</h2>
-            <hr className="border-black w-[100%] mb-5 m-auto" />
+            <Cabecera
+                titulo="Editar Usuario"
+                subtitulo="Modifica los datos del usuario seleccionado"
+            />
 
-            <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
+            <form className="w-full max-w-lg mx-auto mt-5" onSubmit={onSubmit}>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
                         <label

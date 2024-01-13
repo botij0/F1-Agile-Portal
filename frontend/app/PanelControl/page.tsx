@@ -44,26 +44,26 @@ const page = () => {
         {
             id: 6,
             nombre: "Gestión Pilotos",
-            icono: "/pilot-icon.jpg",
+            icono: "/piloto-icon.png",
             url: "/Pilotos/Gestion",
         },
-         {
+        {
             id: 7,
             nombre: "Gestión Votaciones",
             icono: "/poll-icon.jpeg",
             url: "/Votaciones/Gestion",
         },
         {
-            id:8,
+            id: 8,
             nombre: "Gestión Coches",
             icono: "/coche-icon.png",
-            url: "/Equipos/Coches",
+            url: "/Coches",
         },
     ];
 
     return (
-        <div className="mt-[20px]">
-            <div className="w-[80%] mx-auto">
+        <div className="overflow-x-auto mt-[20px] px-24">
+            <div className="mx-auto">
                 <Cabecera
                     titulo="Panel de control"
                     subtitulo="Gestione los datos de la aplicación"

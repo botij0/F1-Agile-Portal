@@ -91,7 +91,7 @@ export default function NoticiasGestionPage() {
     }, []);
 
     return (
-        <div className="relative overflow-x-auto mt-[20px] container mx-auto">
+        <div className="overflow-x-auto mt-[20px] px-24">
             <Cabecera
                 titulo="Gestión de Noticias"
                 subtitulo="Añade, modifica o elimina noticias."
@@ -99,12 +99,14 @@ export default function NoticiasGestionPage() {
             {loading ? (
                 <Loading />
             ) : (
-                <SimpleTable
-                    data={noticias}
-                    columns={columns}
-                    txtAniadir="Crear Noticia"
-                    urlAniadir="/Noticias/Crear"
-                />
+                <div className="overflow-hidden">
+                    <SimpleTable
+                        data={noticias}
+                        columns={columns}
+                        txtAniadir="Crear Noticia"
+                        urlAniadir="/Noticias/Crear"
+                    />
+                </div>
             )}
         </div>
     );

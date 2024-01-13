@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid";
 import { useParams } from "next/navigation";
 import { getRequest, postRequest } from "@/app/(utils)/api";
 import Constantes from "@/app/(utils)/constantes";
+import Cabecera from "../Cabecera";
 
 const supabase = createClient(
     "https://pxfvrkflonlookyusxtb.supabase.co",
@@ -16,7 +17,7 @@ const supabase = createClient(
 );
 
 const appearanceInputs =
-    "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white";
+    "appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none";
 
 async function uploadImage(img: any) {
     let file = img;
@@ -91,12 +92,19 @@ const FormNoticia = () => {
 
     return (
         <div className="container mx-auto my-8">
-            <h2 className="text-black text-2xl">
-                {id != undefined ? "Editar Noticia" : "Añadir Noticia"}
-            </h2>
-            <hr className="border-black w-[100%] mb-5 m-auto" />
+            <Cabecera
+                titulo={id != undefined ? "Editar Noticia" : "Añadir Noticia"}
+                subtitulo={
+                    id != undefined
+                        ? "Aquí puedes editar una noticia"
+                        : "Aquí puedes añadir una noticia"
+                }
+            />
 
-            <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
+            <form
+                className="w-full max-w-2xl mx-auto mt-8 bg-gray-100 px-8 py-12 rounded-xl"
+                onSubmit={onSubmit}
+            >
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
                         <label
@@ -152,6 +160,7 @@ const FormNoticia = () => {
                             className={appearanceInputs}
                             id="texto"
                             placeholder="Texto de la noticia"
+                            rows={10}
                             {...register("texto", {
                                 required: {
                                     value: true,

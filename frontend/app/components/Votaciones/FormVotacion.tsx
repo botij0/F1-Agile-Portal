@@ -6,11 +6,14 @@ import { useForm } from "react-hook-form";
 import { useParams } from "next/navigation";
 import { getRequest, postRequest } from "@/app/(utils)/api";
 
-
-const initialVotacion = { titulo: "", descripcion: "", limite: "", opciones: [] };
+const initialVotacion = {
+    titulo: "",
+    descripcion: "",
+    limite: "",
+    opciones: [],
+};
 
 const FormVotacion = () => {
-
     const [votacion, setVotacion] = React.useState(initialVotacion);
     const [pilotos, setPilotos] = React.useState<any[]>([]);
     const [opciones, setOpciones] = React.useState<any[]>([]);
@@ -22,43 +25,41 @@ const FormVotacion = () => {
     } = useForm();
 
     const onSubmit = handleSubmit(async (data: any) => {
-                 postRequest("votaciones", {
-                    id: id != undefined ? id : 0,
-                    titulo: data.titulo,
-                    descripcion: data.descripcion,
-                    limite: data.limite,
-                    idPilotos: opciones,
-                })
-                    .then((data) => {
-                        console.log(data);
-                        window.location.href = "/Votaciones/Gestion";
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+        postRequest("votaciones", {
+            id: id != undefined ? id : 0,
+            titulo: data.titulo,
+            descripcion: data.descripcion,
+            limite: data.limite,
+            idPilotos: opciones,
+        })
+            .then((data) => {
+                console.log(data);
+                window.location.href = "/Votaciones/Gestion";
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     });
 
-  const addOpcion = (pilotoId: number) => {
-    setOpciones((prevElement) => {
-        if (prevElement.includes(pilotoId)) {
-
-            return prevElement.filter((id) => id !== pilotoId);
-        } else {
-
-            return [...prevElement, pilotoId];
-        }
-    });
-};
+    const addOpcion = (pilotoId: number) => {
+        setOpciones((prevElement) => {
+            if (prevElement.includes(pilotoId)) {
+                return prevElement.filter((id) => id !== pilotoId);
+            } else {
+                return [...prevElement, pilotoId];
+            }
+        });
+    };
 
     const getPilotos = async () => {
         try {
             const response = await getRequest("pilotos/data");
-            
+
             setPilotos(response.data);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const params = useParams();
     const id = params.id;
@@ -70,7 +71,9 @@ const FormVotacion = () => {
                 try {
                     const response = await getRequest("votaciones/" + id);
                     const votacion = response.data;
-                    const opciones = votacion.opciones.map((opcion: any) => opcion.piloto.id);
+                    const opciones = votacion.opciones.map(
+                        (opcion: any) => opcion.piloto.id
+                    );
                     const limite = votacion.limite.split("T")[0];
                     setOpciones(opciones);
                     setVotacion(votacion);
@@ -89,9 +92,7 @@ const FormVotacion = () => {
     }
 
     return (
-   
         <div className="container mx-auto my-8">
-        
             <h2 className="text-black text-2xl">
                 {id != undefined ? "Editar Votacion" : "Añadir Votacion"}
             </h2>
@@ -205,7 +206,9 @@ const FormVotacion = () => {
                                     message: "Este campo es obligatorio",
                                 },
                                 min: {
-                                    value: new Date().toISOString().split("T")[0],
+                                    value: new Date()
+                                        .toISOString()
+                                        .split("T")[0],
                                     message:
                                         "La fecha limite no puede ser anterior a hoy",
                                 },
@@ -215,11 +218,10 @@ const FormVotacion = () => {
                         <p className="text-gray-600 text-xs italic">
                             Limite de la Votación
                         </p>
-                             </div>
-                            </div>
-                            <div className="flex flex-wrap -mx-3 mb-6">
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
-                  
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             htmlFor="opciones"
@@ -227,12 +229,13 @@ const FormVotacion = () => {
                             Opciones
                         </label>
                         <p className="text-gray-600 text-xs italic">
-                            Selecciona los pilotos que quieres que aparezcan en la votación
-                            </p>
+                            Selecciona los pilotos que quieres que aparezcan en
+                            la votación
+                        </p>
                         <div className="flex flex-col">
                             {pilotos.map((piloto) => (
                                 <div className="w-full flex ">
-                                      <input
+                                    <input
                                         className="mr-2 leading-tight"
                                         type="checkbox"
                                         checked={opciones.includes(piloto.id)}
@@ -243,22 +246,15 @@ const FormVotacion = () => {
                                         className="  uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                         htmlFor="opciones"
                                     >
-                                  
-                                        {piloto.nombre + " " + piloto.apellidos} - ({piloto.equipo.nombre})
+                                        {piloto.nombre + " " + piloto.apellidos}{" "}
+                                        - ({piloto.equipo.nombre})
                                     </label>
                                 </div>
-                            ))}  
+                            ))}
                         </div>
                     </div>
                 </div>
 
-
-
-
-
-
-
-                 
                 <div className="flex flex-wrap mb-6 items-center ">
                     <div className="w-full px-3 flex justify-center">
                         <button
@@ -268,7 +264,7 @@ const FormVotacion = () => {
                             Guardar
                         </button>
 
-                        <Link href="/Votacion/Gestion">
+                        <Link href="/Votaciones/Gestion">
                             <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
                                 Volver
                             </button>

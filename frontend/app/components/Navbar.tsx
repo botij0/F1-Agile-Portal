@@ -27,6 +27,7 @@ const NavbarF: React.FC = () => {
         { text: "Equipos", href: "/Equipos" },
         { text: "Calendario", href: "/Calendario" },
         { text: "Circuitos", href: "/Circuitos" },
+        { text: "Mi Equipo", href: "/MiEquipo" },
         { text: "Panel de Control", href: "/PanelControl" },
     ];
 

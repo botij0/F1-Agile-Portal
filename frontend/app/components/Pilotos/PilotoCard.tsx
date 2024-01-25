@@ -16,7 +16,10 @@ const PilotoCard: React.FC<Props> = ({ piloto }) => {
     const imagenUrl = Constantes.IMAGE_BASE_URL + piloto.foto;
 
     return (
-        <div className="w-64 rounded h-auto shadow-lg hover:shadow-2xl mx-auto border-2">
+        <div
+            className="w-64 rounded h-auto shadow-lg hover:shadow-2xl mx-auto border-2"
+            key={piloto.id}
+        >
             <a href={"/Pilotos/Detalles/" + piloto.id}>
                 <div className="flex items-center justify-center h-40 ">
                     <img

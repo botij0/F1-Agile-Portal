@@ -1,9 +1,4 @@
-//TODO: Poner todos los titulos de los campos iguales
-// (algunos tienen dos veces el titulo porque se reusa un componente,
-// cuando se realice la refactorizacion se cambia)
-
 "use client";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -15,6 +10,7 @@ import Constantes from "@/app/(utils)/constantes";
 import InputSelectField from "@/app/components/InputSelectField";
 import Cabecera from "../Cabecera";
 import Loading from "../Loading";
+import VolverButton from "../volverBtn";
 
 const supabase = createClient(
     "https://pxfvrkflonlookyusxtb.supabase.co",
@@ -494,11 +490,7 @@ const FormPiloto = () => {
                                 Guardar
                             </button>
 
-                            <Link href="/Pilotos/Gestion">
-                                <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
-                                    Volver
-                                </button>
-                            </Link>
+                            <VolverButton />
                         </div>
                     </div>
                 </form>

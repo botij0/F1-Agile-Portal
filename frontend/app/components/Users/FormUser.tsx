@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getRequest, putRequest } from "@/app/(utils)/api";
 import Cabecera from "../Cabecera";
+import VolverButton from "../volverBtn";
 
 const initialUser = { nombre: "", usuario: "", email: "", rol: "" };
 
@@ -225,12 +225,7 @@ const FormUser = () => {
                         >
                             Guardar
                         </button>
-
-                        <Link href="/Users">
-                            <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
-                                Volver
-                            </button>
-                        </Link>
+                        <VolverButton />
                     </div>
                 </div>
             </form>

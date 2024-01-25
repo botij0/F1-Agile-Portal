@@ -60,28 +60,32 @@ export default function page() {
                             <div className="rounded-lg overflow-hidden border-red-500 border">
                                 <table>
                                     <thead>
-                                        <td className="w-fit p-2 font-bold">
-                                            Nombre del Equipo
-                                        </td>
-                                        <td className="min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
-                                            {equipo?.nombre}
-                                        </td>
+                                        <tr>
+                                            <td className="w-fit p-2 font-bold">
+                                                Nombre del Equipo
+                                            </td>
+                                            <td className="min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                                {equipo?.nombre}
+                                            </td>
+                                        </tr>
                                     </thead>
                                     <thead className="border-red-500 border-t">
-                                        <td className="w-fit p-2 font-bold">
-                                            Twitter
-                                        </td>
-                                        <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
-                                            <Link
-                                                href={
-                                                    "https://twitter.com/" +
-                                                    equipo?.twitter
-                                                }
-                                                className="text-blue-500 underline"
-                                            >
-                                                {"@" + equipo?.twitter}
-                                            </Link>
-                                        </td>
+                                        <tr>
+                                            <td className="w-fit p-2 font-bold">
+                                                Twitter
+                                            </td>
+                                            <td className="  min-w-60 w-60 border-l pl-2  border-red-500 pr-2">
+                                                <Link
+                                                    href={
+                                                        "https://twitter.com/" +
+                                                        equipo?.twitter
+                                                    }
+                                                    className="text-blue-500 underline"
+                                                >
+                                                    {"@" + equipo?.twitter}
+                                                </Link>
+                                            </td>
+                                        </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -94,7 +98,7 @@ export default function page() {
                         />
                         <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-5 mt-8 rounded-xl text-white bg-gray-50 py-8 shadow-xl mb-10">
                             {equipo?.pilotos?.map((piloto) => (
-                                <PilotoCard piloto={piloto} />
+                                <PilotoCard piloto={piloto} key={piloto.id} />
                             ))}
                         </div>
                     </div>

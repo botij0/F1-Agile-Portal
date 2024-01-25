@@ -1,6 +1,4 @@
 "use client";
-
-import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -10,6 +8,7 @@ import { useParams } from "next/navigation";
 import { getRequest, postRequest } from "@/app/(utils)/api";
 import Constantes from "@/app/(utils)/constantes";
 import Cabecera from "../Cabecera";
+import VolverButton from "../volverBtn";
 
 const supabase = createClient(
     "https://pxfvrkflonlookyusxtb.supabase.co",
@@ -236,12 +235,7 @@ const FormNoticia = () => {
                         >
                             Guardar
                         </button>
-
-                        <Link href="/Noticias/Gestion">
-                            <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
-                                Volver
-                            </button>
-                        </Link>
+                        <VolverButton />
                     </div>
                 </div>
             </form>

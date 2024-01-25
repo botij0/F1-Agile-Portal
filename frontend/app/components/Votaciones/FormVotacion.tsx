@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "next/navigation";
 import { getRequest, postRequest } from "@/app/(utils)/api";
+import VolverButton from "../volverBtn";
 
 const initialVotacion = {
     titulo: "",
@@ -264,11 +265,7 @@ const FormVotacion = () => {
                             Guardar
                         </button>
 
-                        <Link href="/Votaciones/Gestion">
-                            <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
-                                Volver
-                            </button>
-                        </Link>
+                        <VolverButton />
                     </div>
                 </div>
             </form>

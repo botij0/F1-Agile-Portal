@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -9,6 +8,8 @@ import { v4 as uuid } from "uuid";
 import { useParams } from "next/navigation";
 import Constantes from "@/app/(utils)/constantes";
 import { getRequest, postRequest } from "@/app/(utils)/api";
+import Cabecera from "../Cabecera";
+import VolverButton from "../volverBtn";
 
 const supabase = createClient(
     "https://pxfvrkflonlookyusxtb.supabase.co",
@@ -92,12 +93,16 @@ const FormEquipo = () => {
 
     return (
         <div className="container mx-auto my-8">
-            <h2 className="text-black text-2xl">
+            {/* <h2 className="text-black text-2xl">
                 {id != undefined ? "Editar Equipo" : "Añadir Equipo"}
             </h2>
-            <hr className="border-black w-[100%] mb-5 m-auto" />
+            <hr className="border-black w-[100%] mb-5 m-auto" /> */}
+            <Cabecera
+                titulo={id != undefined ? "Editar Equipo" : "Añadir Equipo"}
+                subtitulo="Rellene los campos como desee"
+            />
 
-            <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
+            <form className="w-full max-w-lg mx-auto mt-5" onSubmit={onSubmit}>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
                         <label
@@ -231,12 +236,7 @@ const FormEquipo = () => {
                         >
                             Guardar
                         </button>
-
-                        <Link href="/Equipos/Gestion">
-                            <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
-                                Volver
-                            </button>
-                        </Link>
+                        <VolverButton />
                     </div>
                 </div>
             </form>

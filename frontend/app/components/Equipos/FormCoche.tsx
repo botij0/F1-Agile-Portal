@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import cocheSchema from "@/app/schemas/coche";
 import InputTextField from "../InputTextField";
 import Loading from "@/app/components/Loading";
+import VolverButton from "../volverBtn";
 
 const supabase = createClient(
     "https://pxfvrkflonlookyusxtb.supabase.co",
@@ -126,10 +127,6 @@ const FormCoche = () => {
             }
         });
     });
-
-    const handleClickVolver = () => {
-        router.back();
-    };
 
     const getEquipos = async () => {
         try {
@@ -328,14 +325,7 @@ const FormCoche = () => {
                             >
                                 Guardar
                             </button>
-
-                            <button
-                                onClick={handleClickVolver}
-                                className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 
-                                    uppercase text-xs xl:text-base font-bold py-2 px-4 rounded"
-                            >
-                                Volver
-                            </button>
+                            <VolverButton />
                         </div>
                     </div>
                 </form>

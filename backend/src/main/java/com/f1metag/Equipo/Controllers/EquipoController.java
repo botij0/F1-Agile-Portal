@@ -3,6 +3,7 @@ package com.f1metag.Equipo.Controllers;
 import com.f1metag.Common.Requests.EquipoRequest;
 import com.f1metag.Common.Responses.ApiResponse;
 import com.f1metag.Equipo.Services.EquipoService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,15 @@ public class EquipoController {
         try {
             return ResponseEntity.ok(equipoService.getEquipo(id));
         } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse> getMiEquipo(){
+        try{
+            return ResponseEntity.ok(equipoService.getMiEquipo());
+        }catch (IllegalArgumentException e){
             return ApiResponse.badRequest();
         }
     }

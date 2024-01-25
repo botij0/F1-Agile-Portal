@@ -9,6 +9,7 @@ import com.f1metag.Usuario.Models.Usuario;
 import com.f1metag.Usuario.Services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,15 @@ public class UsuarioController {
     @GetMapping("/solicitudes")
     public ApiResponse getUsuariosNoValidados(){
         return ApiResponse.successRequest("Usuarios no validados obtenidos correctamente", usuarioService.getNotValidatedUsers()).getBody();
+    }
+
+    @GetMapping("/miembrossinequipo")
+    public ResponseEntity<ApiResponse> getUsuariosMiembrosSinEquipo(){
+        try {
+            return ResponseEntity.ok(usuarioService.getMiembrosSinEquipo());
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
     }
 
     @PutMapping("/solicitudes/responsable/{id}")

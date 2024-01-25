@@ -7,6 +7,7 @@ import com.f1metag.Common.Responses.ApiResponse;
 import com.f1metag.Equipo.Models.Equipo;
 import com.f1metag.Equipo.Repository.EquipoRepository;
 import com.f1metag.Usuario.Models.Usuario;
+import com.f1metag.Usuario.Repositories.UsuarioRepository;
 import com.f1metag.Usuario.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,8 @@ public class EquipoService {
 
     @Autowired
     UsuarioService usuarioService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
 
     public ApiResponse createEquipo(EquipoRequest equipoRequest) {
@@ -33,7 +36,12 @@ public class EquipoService {
                 .twitter(equipoRequest.getTwitter())
                 .build();
 
-        equipoRepository.save(equipo);
+        Equipo equipoSaved = equipoRepository.save(equipo);
+
+        Usuario usuario = usuarioService.getAuthenticatedUser();
+        usuario.setEquipo(equipoSaved);
+        usuarioRepository.save(usuario);
+
         return ApiResponse.successRequest("Equipo creado correctamente", equipo).getBody();
     }
 

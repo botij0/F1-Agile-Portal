@@ -44,6 +44,11 @@ public class UsuarioService {
         return noValidados;
     }
 
+    public ApiResponse getMiembrosSinEquipo(){
+        return ApiResponse.successRequest("Miembros obtenidos correctamente",
+                usuarioRepository.findByRolAndEquipoIsNull(Rol.MIEMBRO)).getBody();
+    }
+
     public ApiResponse actualizarResponsable(Long id){
 
         Optional<Usuario> optional = usuarioRepository.findById(id);

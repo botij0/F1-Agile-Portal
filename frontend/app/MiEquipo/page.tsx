@@ -22,7 +22,7 @@ const page = () => {
             id: 1,
             nombre: "Gestión Miembros",
             icono: "/user-icon.png",
-            url: "/Users",
+            url: "/MiEquipo/Miembros",
         },
         {
             id: 2,
@@ -73,13 +73,17 @@ const page = () => {
                     subtitulo="Tu equipo de Fórmula 1"
                 />
                 {loading ? (
-                    <Loading />
+                    <div className="mt-5">
+                        <Loading />
+                    </div>
                 ) : equipo == null ? (
-                    <div className="">
-                        <h2>No tiene ningún equipo asignado</h2>
-                        <h3>
+                    <div className="mt-10 bg-gray-100 w-[40%] p-10 rounded-xl mx-auto">
+                        <h2 className="text-xl font-bold">
+                            No tiene ningún equipo asignado
+                        </h2>
+                        <h3 className="text-lg text-gray-400 mb-5 font-bold">
                             Puede esperar a que un responsable de equipo le
-                            acepte en su equipo o crear un nuevo equipo.
+                            acepte en su equipo <br /> o crear un nuevo equipo.
                         </h3>
                         <a href="/Equipos/Crear">
                             <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">

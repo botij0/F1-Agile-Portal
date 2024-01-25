@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getRequest } from "@/app/(utils)/api";
 import toast from "react-hot-toast";
 import { Votacion } from "@/app/Votaciones/components/votacion";
+import Loading from "../Loading";
 
 interface Votacion {
     id: number;
@@ -36,7 +37,8 @@ export default function VotacionesAbiertas() {
     }, []);
 
     return (
-        <div className="mt-5 h-auto">
+        <div className="mt-5">
+            {loading && <Loading />}
             {votaciones.map((votacion: any, index: any) => (
                 <div
                     key={index}

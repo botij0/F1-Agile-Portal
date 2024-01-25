@@ -63,7 +63,7 @@ const FormEquipo = () => {
                     logo: value.path,
                 })
                     .then((data) => {
-                        window.location.href = "/Equipos/Gestion";
+                        window.history.back();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -93,10 +93,6 @@ const FormEquipo = () => {
 
     return (
         <div className="container mx-auto my-8">
-            {/* <h2 className="text-black text-2xl">
-                {id != undefined ? "Editar Equipo" : "Añadir Equipo"}
-            </h2>
-            <hr className="border-black w-[100%] mb-5 m-auto" /> */}
             <Cabecera
                 titulo={id != undefined ? "Editar Equipo" : "Añadir Equipo"}
                 subtitulo="Rellene los campos como desee"

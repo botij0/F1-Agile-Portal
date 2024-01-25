@@ -50,3 +50,11 @@ export interface Piloto {
   pais: string
   activo: boolean
 }
+
+export interface Miembro {
+  id: number
+  nombre: string;
+  email: string;
+  usuario: string;
+  rol: string;
+}

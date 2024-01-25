@@ -6,7 +6,11 @@ import com.f1metag.Common.Requests.NoticiaRequest;
 import com.f1metag.Common.Responses.ApiResponse;
 import com.f1metag.Equipo.Models.Equipo;
 import com.f1metag.Equipo.Repository.EquipoRepository;
+import com.f1metag.Usuario.Models.Usuario;
+import com.f1metag.Usuario.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,6 +21,9 @@ public class EquipoService {
     EquipoRepository equipoRepository;
     @Autowired
     private CocheRepository cocheRepository;
+
+    @Autowired
+    UsuarioService usuarioService;
 
 
     public ApiResponse createEquipo(EquipoRequest equipoRequest) {
@@ -49,6 +56,14 @@ public class EquipoService {
         equipoRepository.save(oldEquipo);
 
         return ApiResponse.successRequest("Equipo actualizado correctamente", oldEquipo).getBody();
+    }
+
+    public ApiResponse getMiEquipo(){
+        Usuario usuario = usuarioService.getAuthenticatedUser();
+        if(usuario.getEquipo() == null)
+            return ApiResponse.errorRequest("El usuario no pertenece a ningún equipo").getBody();
+
+        return ApiResponse.successRequest("Equipo obtenido correctamente", usuario.getEquipo()).getBody();
     }
 
     public ApiResponse deleteEquipo(Long id){

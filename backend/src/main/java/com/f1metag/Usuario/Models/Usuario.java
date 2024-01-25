@@ -1,10 +1,14 @@
 package com.f1metag.Usuario.Models;
 
+import com.f1metag.Equipo.Models.Equipo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +39,12 @@ public class Usuario implements UserDetails {
     String password;
     @Column
     Boolean estado;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "equipo_Id")
+    @JsonIgnoreProperties({ "coches", "pilotos","usuarios" })
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Equipo equipo;
+
     @Enumerated(EnumType.STRING)
     Rol rol;
 

@@ -54,6 +54,14 @@ public class EquipoController {
         }
     }
 
+    @GetMapping("/miembros")
+    public ResponseEntity<ApiResponse> getMiembrosEquipo(){
+        try{
+            return ResponseEntity.ok(equipoService.getMiembrosEquipo());
+        }catch (IllegalArgumentException e){
+            return ApiResponse.badRequest();
+        }
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteEquipo(@PathVariable("id") Long id) {
         try {

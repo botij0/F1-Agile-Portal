@@ -39,7 +39,8 @@ public class Usuario implements UserDetails {
     String password;
     @Column
     Boolean estado;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "equipo_Id")
     @JsonIgnoreProperties({ "coches", "pilotos","usuarios" })
     @OnDelete(action = OnDeleteAction.CASCADE)

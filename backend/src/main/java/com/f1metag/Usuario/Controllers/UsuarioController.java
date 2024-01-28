@@ -75,6 +75,24 @@ public class UsuarioController {
         return ApiResponse.successRequest("Usuario actualizado correctamente", usuarioService.updateUser(userRequest)).getBody();
     }
 
+    @PutMapping("/aniadirmiembro/{id}")
+    public ResponseEntity<ApiResponse> putUsuarioAEquipo(@PathVariable("id") Long id){
+        try {
+            return ResponseEntity.ok(usuarioService.aniadirMiembroEquipo(id));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+
+    }
+    @PutMapping("/eliminarmiembro/{id}")
+    public ResponseEntity<ApiResponse> putEliminarEquipoUsuario(@PathVariable("id") Long id){
+        try {
+            return ResponseEntity.ok(usuarioService.eliminarEquipoUsuario(id));
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public void deleteUsuario(@PathVariable("id") Long id){
         usuarioService.deleteUser(id) ;

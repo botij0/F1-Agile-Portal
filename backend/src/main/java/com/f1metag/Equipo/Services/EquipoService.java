@@ -14,14 +14,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class EquipoService {
     @Autowired
     EquipoRepository equipoRepository;
-    @Autowired
-    private CocheRepository cocheRepository;
 
     @Autowired
     UsuarioService usuarioService;
@@ -72,6 +71,17 @@ public class EquipoService {
             return ApiResponse.errorRequest("El usuario no pertenece a ningún equipo").getBody();
 
         return ApiResponse.successRequest("Equipo obtenido correctamente", usuario.getEquipo()).getBody();
+    }
+
+    public ApiResponse getMiembrosEquipo(){
+        Usuario usuario = usuarioService.getAuthenticatedUser();
+        if(usuario.getEquipo() == null)
+            return ApiResponse.errorRequest("El usuario no pertenece a ningún equipo").getBody();
+
+        List<Usuario> usuarios = usuario.getEquipo().getUsuarios();
+        usuarios.remove(usuario);
+
+        return ApiResponse.successRequest("Miembros del equipo obtenidos correctamente", usuarios).getBody();
     }
 
     public ApiResponse deleteEquipo(Long id){

@@ -94,6 +94,28 @@ public class UsuarioService {
         return oldUser;
     }
 
+    public ApiResponse aniadirMiembroEquipo(Long id){
+        Usuario usuarioAuten = getAuthenticatedUser();
+        if(usuarioAuten.getEquipo() == null)
+            return ApiResponse.errorRequest("El usuario no pertenece a ningún equipo").getBody();
+
+        Usuario miembroAAniadir = getUsuario(id);
+        miembroAAniadir.setEquipo(usuarioAuten.getEquipo());
+        usuarioRepository.save(miembroAAniadir);
+
+        return ApiResponse.successRequest("Equipo actualizado correctamente", miembroAAniadir).getBody();
+    }
+
+    public ApiResponse eliminarEquipoUsuario(Long id){
+
+        Usuario miembroAEliminarEquipo = getUsuario(id);
+        miembroAEliminarEquipo.setEquipo(null);
+        usuarioRepository.save(miembroAEliminarEquipo);
+
+        return ApiResponse.successRequest("Miembro actualizado correctamente", miembroAEliminarEquipo).getBody();
+    }
+
+
     public void deleteUser (long id){
         usuarioRepository.deleteById(id);
     }

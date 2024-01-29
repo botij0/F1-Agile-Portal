@@ -5,7 +5,10 @@ import com.f1metag.Common.Responses.ApiResponse;
 import com.f1metag.Equipo.Repository.EquipoRepository;
 import com.f1metag.Piloto.Models.Piloto;
 import com.f1metag.Piloto.Repositories.PilotoRepository;
+import com.f1metag.Usuario.Models.Usuario;
+import com.f1metag.Usuario.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,6 +20,9 @@ public class PilotoService {
 
     @Autowired
     EquipoRepository equipoRepository;
+
+    @Autowired
+    UsuarioService usuarioService;
 
     public ApiResponse createPiloto(PilotoRequest pilotoRequest) {
 
@@ -84,6 +90,14 @@ public class PilotoService {
         }
         return ApiResponse.errorRequest("El piloto no existe").getBody();
 
+    }
+
+    public ApiResponse getPilotosEquipo(){
+        Usuario usuarioAuten = usuarioService.getAuthenticatedUser();
+        if(usuarioAuten.getEquipo() == null)
+            return ApiResponse.errorRequest("El usuario no pertenece a ningún equipo").getBody();
+
+        return ApiResponse.successRequest("Pilotos Obtenidos correctamente!", usuarioAuten.getEquipo().getPilotos()).getBody();
     }
 
 }

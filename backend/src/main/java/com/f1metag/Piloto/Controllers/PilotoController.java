@@ -64,4 +64,13 @@ public class PilotoController {
             return ApiResponse.badRequest();
         }
     }
+
+    @GetMapping("/equipo")
+    public ResponseEntity<ApiResponse> getPilotosEquipo(){
+        try {
+            return ResponseEntity.ok(pilotoService.getPilotosEquipo());
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
 }

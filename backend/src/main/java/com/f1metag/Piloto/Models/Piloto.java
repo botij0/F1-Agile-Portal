@@ -39,7 +39,7 @@ public class Piloto {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "equipo_id", nullable = false)
-    @JsonIgnoreProperties({ "coches", "pilotos" })
+    @JsonIgnoreProperties({ "coches", "pilotos", "usuarios" })
     @OnDelete(action = OnDeleteAction.CASCADE)
     Equipo equipo;
 }

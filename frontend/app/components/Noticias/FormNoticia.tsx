@@ -2,39 +2,15 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { createClient } from "@supabase/supabase-js";
-import { v4 as uuid } from "uuid";
 import { useParams } from "next/navigation";
 import { getRequest, postRequest } from "@/app/(utils)/api";
 import Constantes from "@/app/(utils)/constantes";
 import Cabecera from "../Cabecera";
 import VolverButton from "../volverBtn";
-
-const supabase = createClient(
-    "https://pxfvrkflonlookyusxtb.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4ZnZya2Zsb25sb29reXVzeHRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODYyNTUsImV4cCI6MjAxMzY2MjI1NX0.I3v1fYevo3rzWOT8KvkIVDrZ0LbyvABN6YaynXIYE4I"
-);
+import { uploadImage } from "@/app/utils/processImages";
 
 const appearanceInputs =
     "appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none";
-
-async function uploadImage(img: any) {
-    let file = img;
-
-    if (file == undefined) {
-        return { path: imgNoticia };
-    } else {
-        const { data, error } = await supabase.storage
-            .from("Images")
-            .upload("" + uuid(), file);
-
-        if (data) {
-            return data;
-        } else {
-            return -1;
-        }
-    }
-}
 
 const initialNoticia = { titulo: "", texto: "", imagen: "" };
 let imgNoticia = "";
@@ -51,7 +27,7 @@ const FormNoticia = () => {
 
     const onSubmit = handleSubmit((data: any) => {
         imgNoticia = noticias.imagen;
-        let img_Name = uploadImage(data.imagen[0]);
+        let img_Name = uploadImage(data.imagen[0], imgNoticia);
 
         img_Name.then((value) => {
             if (value != -1) {

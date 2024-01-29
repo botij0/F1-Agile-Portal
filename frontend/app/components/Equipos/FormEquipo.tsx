@@ -3,38 +3,14 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { createClient } from "@supabase/supabase-js";
-import { v4 as uuid } from "uuid";
 import { useParams } from "next/navigation";
 import Constantes from "@/app/(utils)/constantes";
 import { getRequest, postRequest } from "@/app/(utils)/api";
 import Cabecera from "../Cabecera";
 import VolverButton from "../volverBtn";
-
-const supabase = createClient(
-    "https://pxfvrkflonlookyusxtb.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4ZnZya2Zsb25sb29reXVzeHRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODYyNTUsImV4cCI6MjAxMzY2MjI1NX0.I3v1fYevo3rzWOT8KvkIVDrZ0LbyvABN6YaynXIYE4I"
-);
+import { uploadImage } from "@/app/utils/processImages";
 
 const TWITTER_REG_EX = /^[a-zA-Z0-9\s]*$/i;
-
-async function uploadImage(img: any) {
-    let file = img;
-
-    if (file == undefined) {
-        return { path: logoEquipo };
-    } else {
-        const { data, error } = await supabase.storage
-            .from("Images")
-            .upload("" + uuid(), file);
-
-        if (data) {
-            return data;
-        } else {
-            return -1;
-        }
-    }
-}
 
 const initialEquipo = { nombre: "", twitter: "", logo: "" };
 let logoEquipo = "";
@@ -51,7 +27,7 @@ const FormEquipo = () => {
 
     const onSubmit = handleSubmit((data: any) => {
         logoEquipo = equipo.logo;
-        let img_Name = uploadImage(data.logo[0]);
+        let img_Name = uploadImage(data.logo[0], logoEquipo);
 
         img_Name.then((value) => {
             if (value != -1) {

@@ -28,7 +28,7 @@ const page = () => {
             id: 2,
             nombre: "Gestión Pilotos",
             icono: "/piloto-icon.png",
-            url: "/Pilotos/Gestion",
+            url: "/MiEquipo/Pilotos",
         },
         {
             id: 3,

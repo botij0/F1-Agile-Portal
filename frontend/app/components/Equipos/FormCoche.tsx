@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { createClient } from "@supabase/supabase-js";
 import { v4 as uuid } from "uuid";
 import { useParams, useRouter } from "next/navigation";
 import Constantes from "@/app/(utils)/constantes";
@@ -16,11 +15,7 @@ import cocheSchema from "@/app/schemas/coche";
 import InputTextField from "../InputTextField";
 import Loading from "@/app/components/Loading";
 import VolverButton from "../volverBtn";
-
-const supabase = createClient(
-    "https://pxfvrkflonlookyusxtb.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4ZnZya2Zsb25sb29reXVzeHRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODYyNTUsImV4cCI6MjAxMzY2MjI1NX0.I3v1fYevo3rzWOT8KvkIVDrZ0LbyvABN6YaynXIYE4I"
-);
+import { uploadImage } from "@/app/utils/processImages";
 
 type CocheFormValues = z.infer<typeof cocheSchema>;
 
@@ -54,25 +49,6 @@ const FormCoche = () => {
     const params = useParams();
     const id = params.id;
 
-    async function uploadImage(img: any) {
-        let file = img;
-        console.log(file);
-
-        if (file == undefined) {
-            return { path: editingImagen };
-        } else {
-            const { data, error } = await supabase.storage
-                .from("Images")
-                .upload("" + uuid(), file);
-
-            if (data) {
-                return data;
-            } else {
-                return -1;
-            }
-        }
-    }
-
     const getCoche = async (id: string) => {
         try {
             const response = await getRequest("coches/" + id);
@@ -100,8 +76,7 @@ const FormCoche = () => {
     };
 
     const onSubmit = handleSubmit((data: any) => {
-        let img_Name = uploadImage(data.imagen[0]);
-
+        let img_Name = uploadImage(data.imagen[0], editingImagen);
         const method = isEditing ? putRequest : postRequest;
         const url = isEditing ? "coches/" + params.id : "coches";
 

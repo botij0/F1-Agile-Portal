@@ -1,39 +1,16 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getRequest, postRequest, putRequest } from "@/app/(utils)/api";
-import { createClient } from "@supabase/supabase-js";
-import { v4 as uuid } from "uuid";
 import Constantes from "@/app/(utils)/constantes";
 import InputSelectField from "@/app/components/InputSelectField";
 import Cabecera from "../Cabecera";
 import Loading from "../Loading";
 import VolverButton from "../volverBtn";
-
-const supabase = createClient(
-    "https://pxfvrkflonlookyusxtb.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4ZnZya2Zsb25sb29reXVzeHRiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwODYyNTUsImV4cCI6MjAxMzY2MjI1NX0.I3v1fYevo3rzWOT8KvkIVDrZ0LbyvABN6YaynXIYE4I"
-);
-
-async function uploadImage(img: any) {
-    let file = img;
-
-    if (file == undefined) {
-        return { path: imgPiloto };
-    } else {
-        const { data, error } = await supabase.storage
-            .from("Images")
-            .upload("" + uuid(), file);
-
-        if (data) {
-            return data;
-        } else {
-            return -1;
-        }
-    }
-}
+import { uploadImage } from "@/app/utils/processImages";
+import { get } from "lodash";
 
 const initialPiloto = {
     nombre: "",
@@ -51,7 +28,8 @@ const FormPiloto = () => {
     const [piloto, setPiloto] = React.useState(initialPiloto);
     const [loading, setLoading] = useState(false);
     const [paises, setPaises] = useState<any[]>([]);
-    const [equipos, setEquipos] = useState([]);
+    const [equipos, setEquipos] = useState<any[]>([]);
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -59,7 +37,9 @@ const FormPiloto = () => {
         setValue,
     } = useForm();
     const params = useParams();
+    const path = usePathname();
     const id = params.id;
+    const responsable = params.responsable;
 
     const getPaises = async () => {
         try {
@@ -97,6 +77,26 @@ const FormPiloto = () => {
         }
     };
 
+    const getMiEquipo = async () => {
+        try {
+            setLoading(true);
+            const response = await getRequest("equipos/me");
+            const data = await response.data;
+            if (data.success == true) {
+                const responseJson = data;
+                const equipo = responseJson.data;
+                const equipos = [equipo];
+
+                setEquipos(equipos);
+                setLoading(false);
+            } else {
+                toast.error("Error al cargar los equipos");
+            }
+        } catch (error) {
+            toast.error("Error al cargar los equipos");
+        }
+    };
+
     const getPiloto = async () => {
         try {
             const response = await getRequest("pilotos/" + id);
@@ -118,7 +118,7 @@ const FormPiloto = () => {
 
     const onSubmit = handleSubmit((data: any) => {
         imgPiloto = piloto.foto;
-        let img_Name = uploadImage(data.foto[0]);
+        let img_Name = uploadImage(data.foto[0], imgPiloto);
         img_Name.then((value) => {
             if (value != -1) {
                 console.log(value);
@@ -138,7 +138,7 @@ const FormPiloto = () => {
                             toast.success(data.data.message, {
                                 duration: 4000,
                             });
-                            window.location.href = "/Pilotos/Gestion";
+                            router.back();
                         })
                         .catch((error) => {
                             console.log(error);
@@ -161,7 +161,7 @@ const FormPiloto = () => {
                             toast.success(data.data.message, {
                                 duration: 4000,
                             });
-                            window.location.href = "/Equipos/Pilotos";
+                            router.back();
                         })
                         .catch((error) => {
                             console.log(error);
@@ -174,10 +174,13 @@ const FormPiloto = () => {
 
     useEffect(() => {
         getPaises();
-        if (id != undefined) {
-            getEquipos().then(() => getPiloto());
+        if (path.includes("MiEquipo")) {
+            getMiEquipo();
         } else {
             getEquipos();
+        }
+        if (id != undefined) {
+            getPiloto();
         }
     }, []);
 

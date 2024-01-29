@@ -1,30 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Equipo } from "@/app/logic/types";
-import { createColumnHelper } from "@tanstack/react-table";
-import Constantes from "@/app/(utils)/constantes";
-import Link from "next/link";
 import { deleteRequest, getRequest } from "@/app/(utils)/api";
-import toast from "react-hot-toast";
+import Constantes from "@/app/(utils)/constantes";
 import Cabecera from "@/app/components/Cabecera";
 import Loading from "@/app/components/Loading";
 import SimpleTable from "@/app/components/SimpleTable";
+import { Piloto } from "@/app/logic/types";
+import { createColumnHelper } from "@tanstack/react-table";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-export default function DefaultTable() {
-    type Piloto = {
-        id: number;
-        nombre: string;
-        apellidos: string;
-        dorsal: number;
-        pais: string;
-        siglas: string;
-        twitter: string;
-        coche: number;
-        equipo: Equipo;
-        foto: string;
-    };
-    type Pilotos = Piloto[];
-
+const page = () => {
     const columnHelper = createColumnHelper<Piloto>();
     const columns = [
         columnHelper.accessor("foto", {
@@ -84,7 +70,7 @@ export default function DefaultTable() {
                         Ver
                     </Link>
                     <a
-                        href={"/Pilotos/Gestion/Editar/" + id.getValue()}
+                        href={"/MiEquipo/Pilotos/Editar/" + id.getValue()}
                         className="bg-gray-800 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg"
                     >
                         Editar
@@ -104,13 +90,15 @@ export default function DefaultTable() {
             ),
         }),
     ];
+
+    type Pilotos = Piloto[];
     const [pilotos, setPilotos] = useState<Pilotos | []>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     const getPilotos = async () => {
         setLoading(true);
         try {
-            const response = await getRequest("pilotos");
+            const response = await getRequest("pilotos/equipo");
             const data = await response.data;
             setPilotos(data.data);
             console.log(data.data);
@@ -140,7 +128,7 @@ export default function DefaultTable() {
     return (
         <div className=" overflow-x-auto mt-[20px] px-24">
             <Cabecera
-                titulo="Gestión de Pilotos"
+                titulo="Pilotos del equipo"
                 subtitulo="Aquí puedes gestionar los circuitos"
             />
             {loading ? (
@@ -150,11 +138,13 @@ export default function DefaultTable() {
                     <SimpleTable
                         data={pilotos}
                         columns={columns}
-                        urlAniadir="/Pilotos/Gestion/Crear"
+                        urlAniadir="/MiEquipo/Pilotos/Crear"
                         txtAniadir="Crear Piloto"
                     />
                 </div>
             )}
         </div>
     );
-}
+};
+
+export default page;

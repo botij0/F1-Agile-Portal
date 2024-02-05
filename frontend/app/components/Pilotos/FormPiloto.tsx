@@ -39,7 +39,6 @@ const FormPiloto = () => {
     const params = useParams();
     const path = usePathname();
     const id = params.id;
-    const responsable = params.responsable;
 
     const getPaises = async () => {
         try {

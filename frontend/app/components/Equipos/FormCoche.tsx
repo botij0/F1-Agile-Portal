@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from "uuid";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import Constantes from "@/app/(utils)/constantes";
 import { getRequest, postRequest, putRequest } from "@/app/(utils)/api";
 import toast from "react-hot-toast";
@@ -40,13 +40,14 @@ const FormCoche = () => {
         },
     });
 
-    const [equipos, setEquipos] = useState([]);
+    const [equipos, setEquipos] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editingImagen, setEditingImagen] = useState("");
 
     const router = useRouter();
     const params = useParams();
+    const path = usePathname();
     const id = params.id;
 
     const getCoche = async (id: string) => {
@@ -122,14 +123,36 @@ const FormCoche = () => {
         }
     };
 
+    const getMiEquipo = async () => {
+        try {
+            setLoading(true);
+            const response = await getRequest("equipos/me");
+            const data = await response.data;
+            if (data.success == true) {
+                const responseJson = data;
+                const equipo = responseJson.data;
+                const equipos = [equipo];
+
+                setEquipos(equipos);
+                setLoading(false);
+            } else {
+                toast.error("Error al cargar los equipos");
+            }
+        } catch (error) {
+            toast.error("Error al cargar los equipos");
+        }
+    };
+
     useEffect(() => {
-        if (params.id) {
-            setIsEditing(true);
-            getEquipos().then(() => {
-                getCoche(params.id as string);
-            });
+        if (path.includes("MiEquipo")) {
+            getMiEquipo();
         } else {
             getEquipos();
+        }
+
+        if (params.id) {
+            setIsEditing(true);
+            getCoche(params.id as string);
         }
     }, [params.id]);
 

@@ -34,7 +34,7 @@ const page = () => {
             id: 3,
             nombre: "Gestión Coches",
             icono: "/coche-icon.png",
-            url: "/Coches",
+            url: "/MiEquipo/Coches",
         },
         {
             id: 4,

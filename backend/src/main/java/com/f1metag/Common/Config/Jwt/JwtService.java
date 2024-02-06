@@ -102,8 +102,18 @@ public class JwtService {
     * El método isTokenExpired() es el encargado de verificar si el token está expirado, basándose en la fecha de expiración del token y la fecha actual.
      */
 
-    private boolean isTokenExpired(String token) {
-        return getExpirationDateFromToken(token).before(new Date());
+    public boolean isTokenExpired(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(SECRET_KEY)
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            Date expirationDate = claims.getExpiration();
+            return expirationDate.before(new Date());
+        } catch (Exception e) {
+            return true; // En caso de cualquier error, consideramos que el token ha expirado
+        }
     }
 
 

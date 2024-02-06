@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import EquipoCard from "@/app/components/Equipos/EquipoCard";
-import { getRequest, putRequest } from "@/app/(utils)/api";
+import { getRequestTokenless, putRequest } from "@/app/(utils)/api";
 
 export const EquiposPrincipal = () => {
     const [equipos, setEquipos] = useState<any[] | null>(null);
@@ -12,7 +12,7 @@ export const EquiposPrincipal = () => {
         const getEquipos = async () => {
             setLoading(true);
             try {
-                const response = await getRequest("equipos");
+                const response = await getRequestTokenless("equipos");
                 const data = await response.data;
                 setEquipos(data.data);
             } catch (error) {

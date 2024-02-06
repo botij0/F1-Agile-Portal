@@ -5,6 +5,7 @@ import NavbarF from "./components/Navbar";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer";
+import VerificarToken from "./components/VerificarToken";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
             </head>
             <body suppressHydrationWarning={true}>
                 <Toaster />
+                {/* <VerificarToken /> */}
 
                 <NavbarF />
                 <main className="relative overflow-x-auto text-black mt-[80px] min-h-screen">

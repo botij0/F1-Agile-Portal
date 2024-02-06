@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Constantes from "@/app/(utils)/constantes";
-import { getRequest } from "@/app/(utils)/api";
+import { getRequestTokenless } from "@/app/(utils)/api";
 import { useParams } from "next/navigation";
 
 export default function Noticias() {
@@ -17,7 +17,9 @@ export default function Noticias() {
         useEffect(() => {
             (async () => {
                 try {
-                    const response = await getRequest("noticias/" + id);
+                    const response = await getRequestTokenless(
+                        "noticias/" + id
+                    );
 
                     setTitular(response.data.titulo);
                     setCuerpo(response.data.texto);

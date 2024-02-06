@@ -39,6 +39,13 @@ public class SecurityConfig {
                         authRequest
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/api/v1/votaciones/**").permitAll()
+                                .requestMatchers("/api/v1/noticias/ultimas").permitAll()
+                                .requestMatchers("/api/v1/noticias/portal").permitAll()
+                                .requestMatchers("/api/v1/noticias/{id}").permitAll()
+                                .requestMatchers("/api/v1/equipos").permitAll()
+                                .requestMatchers("/api/v1/equipos/{id}").permitAll()
+                                .requestMatchers("/api/v1/calendario").permitAll()
+                                .requestMatchers("/api/v1/pilotos/{id}").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

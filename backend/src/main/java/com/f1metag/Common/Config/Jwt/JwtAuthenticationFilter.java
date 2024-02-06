@@ -30,14 +30,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String token = getTokenFromRequest(request);
         final String username;
 
-        if (token == null) {
-            if (request.getRequestURI().startsWith("/auth/")) {
+        if (token == null  || jwtService.isTokenExpired(token)) {
+            /*if (request.getRequestURI().startsWith("/auth/")) {
                 filterChain.doFilter(request, response);
                 return;
             }
 
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("No puede acceder a este recurso sin estar autenticado.");
+            return;*/
+            filterChain.doFilter(request,response);
             return;
         }
 

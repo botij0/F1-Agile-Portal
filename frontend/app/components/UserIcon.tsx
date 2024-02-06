@@ -15,9 +15,13 @@ const UserIcon = () => {
         if (token == null) return;
 
         const getName = async () => {
-            const response = await getRequest("usuarios/me");
-            localStorage.setItem("nombre", response.data.data.nombre);
-            setNombre(response.data.data.nombre);
+            try {
+                const response = await getRequest("usuarios/me");
+                localStorage.setItem("nombre", response.data.data.nombre);
+                setNombre(response.data.data.nombre);
+            } catch (error) {
+                console.log(error);
+            }
         };
         getName();
     }, []);

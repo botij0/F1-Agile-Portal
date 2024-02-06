@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getRequest } from "@/app/(utils)/api";
+import { getRequestTokenless } from "@/app/(utils)/api";
 import toast from "react-hot-toast";
 import { Votacion } from "@/app/Votaciones/components/votacion";
 import Loading from "../Loading";
@@ -19,7 +19,7 @@ export default function VotacionesAbiertas() {
     const getVotaciones = async () => {
         setLoading(true);
         try {
-            const response = await getRequest("votaciones/ultimas");
+            const response = await getRequestTokenless("votaciones/ultimas");
             const data = await response.data;
             console.log(data);
             if (data.success) {

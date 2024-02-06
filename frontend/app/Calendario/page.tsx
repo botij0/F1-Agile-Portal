@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import { getRequest } from "../(utils)/api";
+import { getRequestTokenless } from "../(utils)/api";
 import { ItemCalendario } from "./components/ItemCalendario";
 
 const CalendarioPage = () => {
@@ -19,7 +19,7 @@ const CalendarioPage = () => {
         const getCalendario = async () => {
             setLoading(true);
             try {
-                const response = await getRequest("calendario");
+                const response = await getRequestTokenless("calendario");
                 const data = await response.data;
                 setcalendario(data);
                 console.log(data);

@@ -18,6 +18,7 @@ public class AuthController {
     private final AuthService authService;
 
 
+
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -45,5 +46,10 @@ public class AuthController {
                      .message(e.getMessage())
                      .build());
        }
+    }
+
+    @GetMapping("/verificarToken")
+    public ResponseEntity<Boolean> verificarToken(@RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(authService.validarToken(token));
     }
 }

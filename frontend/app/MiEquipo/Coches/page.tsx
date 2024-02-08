@@ -128,7 +128,7 @@ const CochesGestionPage = () => {
     }, []);
 
     return (
-        <div className=" overflow-x-auto mt-[20px] px-24">
+        <div className=" overflow-x-auto px-24">
             <Cabecera
                 titulo="Coches del Equipo"
                 subtitulo="Aquí puedes gestionar los coches del equipo"

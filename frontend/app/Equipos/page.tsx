@@ -3,7 +3,7 @@ import Cabecera from "../components/Cabecera";
 
 export default function Equipos() {
     return (
-        <div className="mt-[20px] w-[80%] mx-auto">
+        <div className="w-[80%] mx-auto">
             <Cabecera
                 titulo="Equipos"
                 subtitulo="Escuderías que compiten en la Fórmula 1"

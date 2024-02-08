@@ -35,12 +35,15 @@ export default function Login() {
     }, [isAuthenticated]);
 
     return (
-        <div className="mt-[20px] px-24">
+        <div className="px-24  xl:px-96">
             <Cabecera
                 titulo="Iniciar Sesión"
                 subtitulo="Inicia sesión para acceder a la plataforma"
             />
-            <form className="mx-auto max-w-xs mt-5" onSubmit={onSubmit}>
+            <form
+                className="max-w-lg mx-auto mt-10 bg-gray-50 p-10 rounded-xl"
+                onSubmit={onSubmit}
+            >
                 <div className="mb-6">
                     <label className="block mb-2 text-sm font-medium text-gray-900">
                         Nombre de usuario
@@ -53,7 +56,7 @@ export default function Login() {
                     <input
                         type="username"
                         id="username"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
+                        className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
                        focus:border-red-500 block w-full p-2.5 "
                         placeholder="name@example.com"
                         {...register("username", {
@@ -81,8 +84,8 @@ export default function Login() {
                     <input
                         type="password"
                         id="password"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
-                       focus:border-red-500 block w-full p-2.5 "
+                        className="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        block w-full p-2.5 "
                         placeholder="********"
                         {...register("password", {
                             required: {
@@ -107,7 +110,7 @@ export default function Login() {
                         <input
                             id="remember"
                             type="checkbox"
-                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-red-300 accent-red-700"
+                            className="w-4 h-4 border border-gray-300 rounded  focus:ring-3 accent-red-700"
                         />
                     </div>
                     <label className="ml-2 text-sm font-medium text-gray-900">
@@ -115,14 +118,14 @@ export default function Login() {
                     </label>
                     <Link
                         href="/Users/Register"
-                        className="text-sm font-medium text-sky-600 hover:text-sky-700 ms-10"
+                        className="text-sm font-bold text-sky-600 hover:text-sky-700 ms-10"
                     >
                         ¿No tienes cuenta?
                     </Link>
                 </div>
                 <button
                     type="submit"
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg"
+                    className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg"
                 >
                     Iniciar sesión
                 </button>

@@ -42,7 +42,7 @@ export default function page() {
     }, []);
 
     return (
-        <div className="overflow-x-auto mt-[20px] px-24">
+        <div className="overflow-x-auto px-24">
             {loading ? (
                 <Loading />
             ) : (

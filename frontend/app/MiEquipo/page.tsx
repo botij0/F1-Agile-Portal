@@ -52,7 +52,7 @@ const page = () => {
     }, [user]);
 
     return (
-        <div className="overflow-x-auto mt-[20px] px-24">
+        <div className="overflow-x-auto px-24">
             <div className="mx-auto">
                 <Cabecera
                     titulo="Mi Equipo"

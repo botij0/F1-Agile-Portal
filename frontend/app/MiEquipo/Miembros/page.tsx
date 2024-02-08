@@ -147,7 +147,7 @@ const page = () => {
     }, []);
 
     return (
-        <div className="mt-[20px]  px-24">
+        <div className=" px-24">
             {loading ? (
                 <Loading />
             ) : (

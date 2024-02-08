@@ -92,7 +92,7 @@ export default function NoticiasGestionPage() {
     }, []);
 
     return (
-        <div className="overflow-x-auto mt-[20px] px-24">
+        <div className="overflow-x-auto px-24">
             <Cabecera
                 titulo="Gestión de Noticias"
                 subtitulo="Añade, modifica o elimina noticias."

@@ -4,6 +4,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { postRequestTokenless } from "@/app/(utils)/api";
 import axios from "axios";
+import Cabecera from "@/app/components/Cabecera";
+import Link from "next/link";
 
 const registerURL = "http://localhost:8080/auth/signup";
 
@@ -14,7 +16,7 @@ const EMAIL_REG_EX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,40}$/i;
 
 const labelConfig = "block mb-2 text-sm font-medium text-white-900";
 const fieldsConfig =
-    "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5";
+    "border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5";
 
 export default function Register() {
     const {
@@ -47,10 +49,15 @@ export default function Register() {
     });
 
     return (
-        <div className="mt-[20px] text-black">
-            <h2 className="text-black text-2xl w-[50%] m-auto">Crear Cuenta</h2>
-            <hr className="border-black w-[50%] mb-5 m-auto" />
-            <form className="mx-auto max-w-xs" onSubmit={onSubmit}>
+        <div className=" text-black px-24  xl:px-96">
+            <Cabecera
+                titulo="Crear Cuenta"
+                subtitulo="Crea una cuenta para acceder a la plataforma (No podrá acceder a la plataforma hasta que el administrador apruebe su cuenta)"
+            />
+            <form
+                className="max-w-lg mx-auto mt-10 bg-gray-50 p-10 rounded-xl"
+                onSubmit={onSubmit}
+            >
                 <div className="mb-6">
                     <label className={labelConfig}>
                         Nombre de visualización
@@ -201,12 +208,19 @@ export default function Register() {
                         })}
                     />
                 </div>
+
                 <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg mr-5"
                     type="submit"
                 >
                     Registrarse
                 </button>
+                <Link
+                    href="/Users/Login"
+                    className="text-sm text-sky-600 hover:text-sky-700 ms-10 font-bold"
+                >
+                    ¿Ya tienes una cuenta?
+                </Link>
             </form>
         </div>
     );

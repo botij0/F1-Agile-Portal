@@ -163,9 +163,12 @@ const FormCoche = () => {
             {loading ? (
                 <Loading />
             ) : (
-                <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
-                    <div className="grid grid-cols-2 gap-10 mb-6">
-                        <div className="w-full px-3">
+                <form
+                    className="max-w-xl mx-auto mt-10 bg-gray-50 p-10 rounded-xl"
+                    onSubmit={onSubmit}
+                >
+                    <div className="grid sm:grid-cols-2 gap-10 mb-6">
+                        <div className="w-full">
                             <InputTextField
                                 label="Nombre"
                                 register={register}
@@ -179,7 +182,7 @@ const FormCoche = () => {
                             </p>
                         </div>
 
-                        <div className="w-full px-3">
+                        <div className="w-full">
                             <InputSelectField
                                 label="Equipo"
                                 register={register}
@@ -193,8 +196,8 @@ const FormCoche = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-10 mb-6">
-                        <div className="w-full px-3">
+                    <div className="grid sm:grid-cols-2 gap-10 mb-6">
+                        <div className="w-full">
                             <InputTextField
                                 label="Código"
                                 register={register}
@@ -209,7 +212,7 @@ const FormCoche = () => {
                             </p>
                         </div>
 
-                        <div className="w-full px-3">
+                        <div className="w-full">
                             <InputTextField
                                 label="Consumo"
                                 register={register}
@@ -225,8 +228,8 @@ const FormCoche = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-3 gap-10 mb-2">
-                        <div className="w-full px-3">
+                    <div className="grid sm:grid-cols-3 gap-10 mb-2">
+                        <div className="w-full">
                             <InputTextField
                                 label="erscurvaLenta"
                                 register={register}
@@ -237,7 +240,7 @@ const FormCoche = () => {
                             />
                         </div>
 
-                        <div className="w-full px-3">
+                        <div className="w-full">
                             <InputTextField
                                 label="erscurvaMedia"
                                 register={register}
@@ -322,7 +325,7 @@ const FormCoche = () => {
                     <div className="flex flex-wrap mb-6 items-center ">
                         <div className="w-full px-3 flex justify-center">
                             <button
-                                className="bg-red-500 hover:bg-red-700 mr-5 text-white font-bold py-2 px-4 rounded"
+                                className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg mr-5"
                                 type="submit"
                             >
                                 Guardar

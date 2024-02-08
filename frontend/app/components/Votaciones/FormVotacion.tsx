@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useParams } from "next/navigation";
 import { getRequest, postRequest } from "@/app/(utils)/api";
 import VolverButton from "../volverBtn";
+import Cabecera from "../Cabecera";
 
 const initialVotacion = {
     titulo: "",
@@ -94,14 +95,21 @@ const FormVotacion = () => {
 
     return (
         <div className="container mx-auto my-8">
-            <h2 className="text-black text-2xl">
-                {id != undefined ? "Editar Votacion" : "Añadir Votacion"}
-            </h2>
-            <hr className="border-black w-[100%] mb-5 m-auto" />
+            <Cabecera
+                titulo={id != undefined ? "Editar Votacion" : "Añadir Votacion"}
+                subtitulo={
+                    id != undefined
+                        ? "Edita la votación que desees"
+                        : "Añade una nueva votación"
+                }
+            />
 
-            <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full px-3">
+            <form
+                className="max-w-lg mx-auto mt-10 bg-gray-50 p-10 rounded-xl"
+                onSubmit={onSubmit}
+            >
+                <div className="flex flex-wrap mb-6">
+                    <div className="w-full">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             htmlFor="titulo"
@@ -116,7 +124,7 @@ const FormVotacion = () => {
                         )}
 
                         <input
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                            className="appearance-none block w-full text-gray-700 border border-gray-200 rounded 
                                     py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
                             id="titulo"
                             type="text"
@@ -140,8 +148,8 @@ const FormVotacion = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full px-3">
+                <div className="flex flex-wrap mb-6">
+                    <div className="w-full">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             htmlFor="descripcion"
@@ -156,7 +164,7 @@ const FormVotacion = () => {
                         )}
 
                         <textarea
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                            className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded 
                                     py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white"
                             id="descripcion"
                             placeholder="Descripcion de la Votación"
@@ -179,8 +187,8 @@ const FormVotacion = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <div className="flex flex-wrap mb-6">
+                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             htmlFor="limite"
@@ -195,7 +203,7 @@ const FormVotacion = () => {
                         )}
 
                         <input
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                            className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded 
                                     py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="limite"
                             type="date"
@@ -221,8 +229,8 @@ const FormVotacion = () => {
                         </p>
                     </div>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full px-3">
+                <div className="flex flex-wrap mb-6">
+                    <div className="w-full">
                         <label
                             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             htmlFor="opciones"
@@ -259,7 +267,7 @@ const FormVotacion = () => {
                 <div className="flex flex-wrap mb-6 items-center ">
                     <div className="w-full px-3 flex justify-center">
                         <button
-                            className="bg-red-500 hover:bg-red-700 mr-5 text-white font-bold py-2 px-4 rounded"
+                            className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg mr-5"
                             type="submit"
                         >
                             Guardar

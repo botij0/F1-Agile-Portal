@@ -11,7 +11,7 @@ const InputButton = ({
         <button
             disabled={loading}
             type="submit"
-            className="bg-gray-800  text-white px-4 py-2 rounded-md hover:bg-gray-950"
+            className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg"
         >
             {label}
         </button>

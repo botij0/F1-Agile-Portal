@@ -3,7 +3,7 @@ import React from "react";
 
 const page = () => {
     return (
-        <div className="relative overflow-x-auto mt-[20px]">
+        <div className="relative overflow-x-auto">
             <FormNoticia />
         </div>
     );

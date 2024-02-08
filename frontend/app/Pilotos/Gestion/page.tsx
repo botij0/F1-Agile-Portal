@@ -139,7 +139,7 @@ export default function DefaultTable() {
     }, []);
 
     return (
-        <div className=" overflow-x-auto mt-[20px] px-24">
+        <div className=" overflow-x-auto px-24">
             <Cabecera
                 titulo="Gestión de Pilotos"
                 subtitulo="Aquí puedes gestionar los circuitos"

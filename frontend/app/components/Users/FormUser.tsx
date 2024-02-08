@@ -70,7 +70,10 @@ const FormUser = () => {
                 subtitulo="Modifica los datos del usuario seleccionado"
             />
 
-            <form className="w-full max-w-lg mx-auto mt-5" onSubmit={onSubmit}>
+            <form
+                className="max-w-lg mx-auto mt-10 bg-gray-50 p-10 rounded-xl"
+                onSubmit={onSubmit}
+            >
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
                         <label
@@ -87,7 +90,7 @@ const FormUser = () => {
                         )}
 
                         <input
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                            className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
                             id="nombre"
                             type="text"
@@ -124,7 +127,7 @@ const FormUser = () => {
                             </span>
                         )}
                         <input
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                            className="appearance-none block w-full text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
                             id="usuario"
                             type="text"
@@ -161,7 +164,7 @@ const FormUser = () => {
                             </span>
                         )}
                         <input
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                            className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
                             id="email"
                             type="email"
@@ -192,7 +195,7 @@ const FormUser = () => {
                             Rol
                         </label>
                         <select
-                            className=" block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                            className=" block w-full  text-gray-700 border border-gray-200 rounded 
                                     p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
                             id="rol"
                             {...register("rol", {
@@ -220,7 +223,7 @@ const FormUser = () => {
                 <div className="flex flex-wrap mb-6 items-center ">
                     <div className="w-full px-3 flex justify-center">
                         <button
-                            className="bg-red-500 hover:bg-red-700 mr-5 text-white font-bold py-2 px-4 rounded"
+                            className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg mr-5"
                             type="submit"
                         >
                             Guardar

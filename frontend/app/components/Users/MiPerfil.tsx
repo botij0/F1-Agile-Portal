@@ -82,7 +82,10 @@ const MiPerfil = () => {
             />
 
             {user && (
-                <form className="max-w-md mx-auto mt-10" onSubmit={onSubmit}>
+                <form
+                    className="max-w-lg mx-auto mt-10 bg-gray-50 p-10 rounded-xl"
+                    onSubmit={onSubmit}
+                >
                     {errors.nombre && (
                         <span className="text-red-500 text-xs italic ms-20">
                             {errors.nombre.message as string}
@@ -226,16 +229,16 @@ const MiPerfil = () => {
                         </button>
                     </div>
 
-                    <div className="flex flex-wrap mt-20 items-center ">
+                    <div className="flex flex-wrap mt-14 items-center ">
                         <div className="w-full px-3 flex justify-center">
                             <button
-                                className="bg-red-500 hover:bg-red-700 mr-5 text-white font-bold py-2 px-4 rounded"
+                                className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg mr-5"
                                 type="submit"
                             >
                                 Guardar
                             </button>
                             <Link href="/">
-                                <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-4 rounded">
+                                <button className="border-2 border-gray-400 text-red-500 hover:text-red-700 hover:border-slate-600 uppercase text-xs xl:text-base font-bold py-2 px-6 rounded-lg">
                                     Volver
                                 </button>
                             </Link>

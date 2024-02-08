@@ -48,8 +48,8 @@ public class AuthController {
        }
     }
 
-    @GetMapping("/verificarToken")
-    public ResponseEntity<Boolean> verificarToken(@RequestHeader("Authorization") String token){
-        return ResponseEntity.ok(authService.validarToken(token));
+    @PostMapping("/verificarToken")
+    public ResponseEntity<AuthResponse> verificarToken(@RequestHeader("Authorization") String auth, @RequestBody Long id){
+        return ResponseEntity.ok(authService.validarToken(auth, id));
     }
 }

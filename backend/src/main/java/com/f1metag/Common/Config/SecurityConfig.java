@@ -4,6 +4,7 @@ import com.f1metag.Common.Config.Jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,11 +38,21 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authRequest ->
                         authRequest
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/noticias/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/noticias/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/noticias/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/votaciones/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/votaciones").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/usuarios/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/usuarios/solicitudes/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/circuitos/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/circuitos/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/circuitos/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE).authenticated()
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/api/v1/votaciones/**").permitAll()
-                                .requestMatchers("/api/v1/noticias/ultimas").permitAll()
-                                .requestMatchers("/api/v1/noticias/portal").permitAll()
-                                .requestMatchers("/api/v1/noticias/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/v1/noticias/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/v1/circuitos/**").permitAll()
                                 .requestMatchers("/api/v1/equipos").permitAll()
                                 .requestMatchers("/api/v1/equipos/{id}").permitAll()
                                 .requestMatchers("/api/v1/calendario").permitAll()

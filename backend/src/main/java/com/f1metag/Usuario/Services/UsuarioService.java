@@ -46,7 +46,7 @@ public class UsuarioService {
 
     public ApiResponse getMiembrosSinEquipo(){
         return ApiResponse.successRequest("Miembros obtenidos correctamente",
-                usuarioRepository.findByRolAndEquipoIsNull(Rol.MIEMBRO)).getBody();
+                usuarioRepository.findByRolAndEquipoIsNull(Rol.RESPONSABLE)).getBody();
     }
 
     public ApiResponse actualizarResponsable(Long id){
@@ -55,9 +55,7 @@ public class UsuarioService {
         if(optional.isPresent()) {
             Usuario usuario = optional.get();
             usuario.setEstado(true);
-            //usuario.setRol(Rol.RESPONSABLE);
-            //El rol de responsable no se puede almacenar en BBDD ahora mismo, ponemos MIEMBRO
-            usuario.setRol(Rol.MIEMBRO);
+            usuario.setRol(Rol.RESPONSABLE);
             usuarioRepository.save(usuario);
             return ApiResponse.successRequest("Responsable actualizado correctamente en la base de datos", usuario).getBody();
         }

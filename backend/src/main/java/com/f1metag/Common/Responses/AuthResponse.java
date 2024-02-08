@@ -1,5 +1,6 @@
 package com.f1metag.Common.Responses;
 
+import com.f1metag.Usuario.Models.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ public class AuthResponse {
     Boolean success;
     String message;
     String token;
+    Usuario usuario;
 
     public static ResponseEntity<AuthResponse> badCredentials() {
         return ResponseEntity.status(200).body(AuthResponse.builder()
@@ -22,11 +24,12 @@ public class AuthResponse {
                 .build());
     }
 
-    public static ResponseEntity<AuthResponse> successLogin(String token) {
+    public static ResponseEntity<AuthResponse> successLogin(String token, Usuario usuario) {
         return ResponseEntity.ok(AuthResponse.builder()
                 .success(true)
                 .message("Inicio de sesión exitoso")
                 .token(token)
+                .usuario(usuario)
                 .build());
     }
 

@@ -41,9 +41,9 @@ function SimpleTable({
     });
 
     return (
-        <div className="my-5 text-lg">
-            <div className="flex justify-between mb-5 bg-gray-300  rounded-xl">
-                <div className="flex items-center py-2 px-4">
+        <div className="my-5 text-lg overflow-auto">
+            <div className="lg:flex justify-between mb-5 bg-gray-300  rounded-xl">
+                <div className="lg:flex items-center py-2 px-4">
                     <label
                         htmlFor="filtering"
                         className="font-bold mx-4 text-lg"
@@ -59,7 +59,7 @@ function SimpleTable({
                     />
                 </div>
 
-                <div className="flex items-center">
+                <div className="lg:flex items-center lg:pb-0 lg:mt-0 pb-4 mt-2">
                     {urlAniadir == "" ? null : (
                         <Link
                             href={urlAniadir}
@@ -116,8 +116,8 @@ function SimpleTable({
                     ))}
                 </tbody>
             </table>
-            <nav className="flex justify-between items-center mt-5">
-                <div>
+            <nav className="lg:flex justify-between items-center mt-5 overflow-x-auto">
+                <div className="mb-5">
                     <select
                         value={table.getState().pagination.pageSize}
                         onChange={(e) => {
@@ -132,7 +132,7 @@ function SimpleTable({
                         ))}
                     </select>
                 </div>
-                <div className="bg-gray-200 py-1.5 px-3 rounded-md border border-gray-400">
+                <div className="bg-gray-200 py-1.5 px-3 rounded-md border border-gray-400 mb-5">
                     <span className="me-5 font-bold">Ir a la página:</span>
                     <input
                         type="number"
@@ -146,7 +146,7 @@ function SimpleTable({
                         className="border border-gray-400 p-1 rounded w-16"
                     />
                 </div>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-4 gap-2 mb-5">
                     <button
                         className="bg-gray-200 px-5 py-2 rounded-md hover:bg-gray-300 border border-gray-400"
                         onClick={() => table.setPageIndex(0)}

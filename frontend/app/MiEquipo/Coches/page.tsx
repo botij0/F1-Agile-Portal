@@ -5,10 +5,11 @@ import Loading from "@/app/components/Loading";
 import Cabecera from "@/app/components/Cabecera";
 import { deleteRequest, getRequest } from "@/app/(utils)/api";
 import { createColumnHelper } from "@tanstack/react-table";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import SimpleTable from "@/app/components/SimpleTable";
 import Constantes from "@/app/(utils)/constantes";
+import VolverButton from "@/app/components/volverBtn";
 const CochesGestionPage = () => {
     type Coche = {
         id: number;
@@ -95,6 +96,7 @@ const CochesGestionPage = () => {
 
     const [coches, setCoches] = useState<Coches | []>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
 
     const handleDelete = async (id: number) => {
         if (confirm("¿Estás seguro de que quieres eliminar este coche?")) {
@@ -102,7 +104,8 @@ const CochesGestionPage = () => {
 
             if (response.data.success) {
                 toast.success(response.data.message, { duration: 4000 });
-                window.location.href = "/Equipos/Coches";
+                router.push("/MiEquipo/Coches");
+                getCoches();
             } else {
                 toast.error(response.data.message);
             }
@@ -130,6 +133,9 @@ const CochesGestionPage = () => {
                 titulo="Coches del Equipo"
                 subtitulo="Aquí puedes gestionar los coches del equipo"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

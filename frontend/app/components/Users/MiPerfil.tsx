@@ -4,9 +4,11 @@ import { useForm } from "react-hook-form";
 import { MdModeEdit, MdBlock } from "react-icons/md";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
-import { getRequest, putRequest } from "@/app/(utils)/api";
+import { putRequest } from "@/app/(utils)/api";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/Auth.Context";
+import Cabecera from "../Cabecera";
 
-const initialUser = { id: 0, nombre: "", username: "", email: "", rol: "" };
 const appearanceInputs =
     "appearance-none block w-full disabled:bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none bg-white";
 
@@ -19,13 +21,14 @@ interface camposHabilitados {
 const EMAIL_REG_EX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,40}$/i;
 
 const MiPerfil = () => {
-    const [usuario, setUsuario] = useState(initialUser);
     const [camposHabilitados, setCamposHabilitados] =
         useState<camposHabilitados>({
             nombre: false,
             username: false,
             email: false,
         });
+    const router = useRouter();
+    const { isAuthenticated, user, loading } = useAuth();
 
     const {
         register,
@@ -45,18 +48,18 @@ const MiPerfil = () => {
     const onSubmit = handleSubmit((data: any) => {
         try {
             const request = {
-                id: usuario.id,
+                id: user?.id,
                 nombre: data.nombre,
                 username: data.username,
                 email: data.email,
-                rol: usuario.rol,
+                rol: user?.rol,
             };
             putRequest("usuarios", request).then((response) => {
                 if (!response.data.success) {
                     toast.error(response.data.message);
                 } else {
                     toast.success(response.data.message, { duration: 4000 });
-                    window.location.href = "/";
+                    router.push("/");
                 }
             });
         } catch (err) {
@@ -65,30 +68,20 @@ const MiPerfil = () => {
     });
 
     useEffect(() => {
-        const getUsuario = async () => {
-            try {
-                const response = await getRequest("usuarios/me");
-                const data = await response.data.data;
-                setUsuario(data);
-                setValue("nombre", data.nombre);
-                setValue("username", data.username);
-                setValue("email", data.email);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getUsuario();
-    }, []);
+        setValue("nombre", user?.nombre);
+        setValue("username", user?.username);
+        setValue("email", user?.email);
+        setValue("rol", user?.rol);
+    }, [loading]);
 
     return (
-        <>
-            <Toaster />
-            <div className="container mx-auto my-8">
-                <h2 className="text-black text-2xl">Mi Perfil</h2>
-                <hr className="border-black w-[100%] mb-5 m-auto" />
-            </div>
+        <div className=" mx-auto px-24">
+            <Cabecera
+                titulo="Mi Perfil"
+                subtitulo="Aquí puedes gestionar tu perfil"
+            />
 
-            {usuario && (
+            {user && (
                 <form className="max-w-md mx-auto mt-10" onSubmit={onSubmit}>
                     {errors.nombre && (
                         <span className="text-red-500 text-xs italic ms-20">
@@ -216,17 +209,13 @@ const MiPerfil = () => {
                             Rol:
                         </label>
 
-                        <select
+                        <input
                             id="rol"
+                            type="text"
                             className={appearanceInputs}
-                            value={usuario.rol}
                             disabled
                             {...register("rol", {})}
-                        >
-                            <option value="ADMIN">ADMIN</option>
-                            <option value="USUARIO">USUARIO</option>
-                            <option value="MIEMBRO">MIEMBRO</option>
-                        </select>
+                        ></input>
 
                         <button
                             type="button"
@@ -254,7 +243,7 @@ const MiPerfil = () => {
                     </div>
                 </form>
             )}
-        </>
+        </div>
     );
 };
 export default MiPerfil;

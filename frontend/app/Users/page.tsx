@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import SimpleTable from "../components/SimpleTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
+import VolverButton from "@/app/components/volverBtn";
 
 export default function UsuariosGestion() {
     type User = {
@@ -101,6 +102,9 @@ export default function UsuariosGestion() {
                 titulo="Gestión de Usuarios"
                 subtitulo="Añade, modifica o elimina usuarios."
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

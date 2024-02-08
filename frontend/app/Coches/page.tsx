@@ -9,6 +9,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import SimpleTable from "@/app/components/SimpleTable";
 import Constantes from "@/app/(utils)/constantes";
+import VolverButton from "@/app/components/volverBtn";
 const CochesGestionPage = () => {
     type Coche = {
         id: number;
@@ -130,6 +131,9 @@ const CochesGestionPage = () => {
                 titulo="Gestión de Coches"
                 subtitulo="Aquí puedes gestionar los coches"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

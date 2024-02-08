@@ -3,6 +3,7 @@ import { getRequest, putRequest } from "@/app/(utils)/api";
 import Cabecera from "@/app/components/Cabecera";
 import Loading from "@/app/components/Loading";
 import SimpleTable from "@/app/components/SimpleTable";
+import VolverButton from "@/app/components/volverBtn";
 import { Miembro } from "@/app/logic/types";
 import { createColumnHelper } from "@tanstack/react-table";
 import React, { useEffect } from "react";
@@ -146,7 +147,7 @@ const page = () => {
     }, []);
 
     return (
-        <div className="overflow-x-auto mt-[20px]  px-24">
+        <div className="mt-[20px]  px-24">
             {loading ? (
                 <Loading />
             ) : (
@@ -156,6 +157,9 @@ const page = () => {
                             titulo="Miembros sin Equipo"
                             subtitulo="Añade miembros al equipo."
                         />
+                        <div className="mt-5">
+                            <VolverButton />
+                        </div>
                         <SimpleTable
                             data={miembrosSinEquipo}
                             columns={columnsMiembrosSinEquipo}

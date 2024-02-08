@@ -89,3 +89,28 @@ export function deleteRequestTokenless(path: string) {
         },
     });
 }
+
+export function registerRequest(data: any) {
+    return axios.post("http://localhost:8080/auth/signup", data, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+}
+
+export function loginRequest(data: any) {
+    return axios.post("http://localhost:8080/auth/login", data, {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+}
+
+export function verifyTokenRequest(token: any, data: any) {
+    return axios.post("http://localhost:8080/auth/verificarToken", data, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+        },
+    });
+}

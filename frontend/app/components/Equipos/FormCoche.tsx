@@ -32,10 +32,10 @@ const FormCoche = () => {
             nombre: "",
             equipo: "",
             codigo: "",
-            consumo: "",
-            erscurvaMedia: "",
-            erscurvaRapida: "",
-            erscurvaLenta: "",
+            consumo: 0,
+            erscurvaMedia: 0,
+            erscurvaRapida: 0,
+            erscurvaLenta: 0,
             imagen: "",
         },
     });
@@ -77,29 +77,31 @@ const FormCoche = () => {
     };
 
     const onSubmit = handleSubmit((data: any) => {
+        console.log(data.imagen);
         let img_Name = uploadImage(data.imagen[0], editingImagen);
         const method = isEditing ? putRequest : postRequest;
         const url = isEditing ? "coches/" + params.id : "coches";
 
         img_Name.then((value) => {
             if (value != -1) {
-                method(url, {
-                    id: id != undefined ? id : 0,
-                    nombre: data.nombre,
-                    equipo_id: data.equipo,
-                    codigo: data.codigo,
-                    consumo: data.consumo,
-                    ers_curva_media: data.erscurvaMedia,
-                    ers_curva_rapida: data.erscurvaRapida,
-                    ers_curva_lenta: data.erscurvaLenta,
-                    imagen: value.path,
-                })
-                    .then((data) => {
+                try {
+                    method(url, {
+                        id: id != undefined ? id : 0,
+                        nombre: data.nombre,
+                        equipo_id: data.equipo,
+                        codigo: data.codigo,
+                        consumo: data.consumo,
+                        ers_curva_media: data.erscurvaMedia,
+                        ers_curva_rapida: data.erscurvaRapida,
+                        ers_curva_lenta: data.erscurvaLenta,
+                        imagen: value.path,
+                    }).then((data) => {
+                        toast.success(data.data.message);
                         router.back();
-                    })
-                    .catch((error) => {
-                        console.log(error);
                     });
+                } catch (error) {
+                    toast.error("Error al guardar el coche");
+                }
             }
         });
     });
@@ -291,7 +293,9 @@ const FormCoche = () => {
                                 {...register("imagen", {
                                     required: {
                                         value:
-                                            editingImagen == "" ? true : false,
+                                            editingImagen.length == 0
+                                                ? true
+                                                : false,
                                         message: "Este campo es obligatorio",
                                     },
                                 })}

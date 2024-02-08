@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
+import VolverButton from "@/app/components/volverBtn";
 
 export default function Equipos() {
     type Votacion = {
@@ -104,6 +105,9 @@ export default function Equipos() {
                 titulo="Gestión de Votaciones"
                 subtitulo="Aquí puedes gestionar las votaciones"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

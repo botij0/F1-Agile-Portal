@@ -3,6 +3,7 @@ import { deleteRequest, getRequest } from "@/app/(utils)/api";
 import Cabecera from "@/app/components/Cabecera";
 import Loading from "@/app/components/Loading";
 import SimpleTable from "@/app/components/SimpleTable";
+import VolverButton from "@/app/components/volverBtn";
 import { createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 import React from "react";
@@ -96,6 +97,9 @@ export default function NoticiasGestionPage() {
                 titulo="Gestión de Noticias"
                 subtitulo="Añade, modifica o elimina noticias."
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

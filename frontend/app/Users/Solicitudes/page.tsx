@@ -3,6 +3,7 @@ import { deleteRequest, getRequest, putRequest } from "@/app/(utils)/api";
 import Cabecera from "@/app/components/Cabecera";
 import Loading from "@/app/components/Loading";
 import SimpleTable from "@/app/components/SimpleTable";
+import VolverButton from "@/app/components/volverBtn";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 
@@ -106,6 +107,9 @@ export default function Solicitudes() {
                 titulo="Gestión de Solicitudes"
                 subtitulo="Aquí puedes gestionar las solicitudes de los usuarios"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

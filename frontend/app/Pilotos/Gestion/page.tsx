@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import Cabecera from "@/app/components/Cabecera";
 import Loading from "@/app/components/Loading";
 import SimpleTable from "@/app/components/SimpleTable";
+import VolverButton from "@/app/components/volverBtn";
 
 export default function DefaultTable() {
     type Piloto = {
@@ -143,6 +144,9 @@ export default function DefaultTable() {
                 titulo="Gestión de Pilotos"
                 subtitulo="Aquí puedes gestionar los circuitos"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

@@ -4,37 +4,24 @@ import React from "react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
-import { getRequest } from "@/app/(utils)/api";
+import { useAuth } from "../context/Auth.Context";
 
 const UserIcon = () => {
-    const [nombre, setNombre] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+    const [nombre, setNombre] = useState<String | undefined>("");
+
+    const { logout, isAuthenticated, user, loading } = useAuth();
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token == null) return;
-
-        const getName = async () => {
-            try {
-                const response = await getRequest("usuarios/me");
-                localStorage.setItem("nombre", response.data.data.nombre);
-                setNombre(response.data.data.nombre);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getName();
-    }, []);
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("nombre");
-        setNombre("");
-    };
+        setIsOpen(false);
+        if (isAuthenticated) {
+            setNombre(user?.nombre);
+        }
+    }, [user]);
 
     return (
         <>
-            {nombre != "" ? (
+            {isAuthenticated ? (
                 <div className="hidden md:flex relative">
                     <button
                         className="flex bg-red-700 items-center space-x-4
@@ -45,7 +32,7 @@ const UserIcon = () => {
                             <div>{nombre}</div>
                         </div>
                         <svg
-                            className="w-9 h-9 pr-2"
+                            className="w-10 h-10 pr-2"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor"
@@ -61,19 +48,26 @@ const UserIcon = () => {
                         )}
                     </button>
                     {isOpen && (
-                        <div className="absolute py-2 w-[100%] bg-red-700 shadow-xl border-2 border-t-0 rounded-b-2xl mt-[18%]">
+                        <div className=" absolute py-0.5 w-[100%] bg-red-700 shadow-xl border-2 rounded-2xl top-16">
                             <ul>
                                 <Link href="/Users/Perfil">
-                                    <li className="px-4 py-2 hover:bg-red-800 hover:text-slate-400">
+                                    <li
+                                        className="px-4 py-2 hover:bg-red-800 hover:text-slate-400 rounded-2xl"
+                                        onClick={() =>
+                                            setIsOpen((prev) => !prev)
+                                        }
+                                    >
                                         Perfil
                                     </li>
                                 </Link>
 
-                                <Link
-                                    onClick={handleLogout}
-                                    href="/Users/Login"
-                                >
-                                    <li className="px-4 py-2 hover:bg-red-800 hover:text-slate-400">
+                                <Link onClick={logout} href="/Users/Login">
+                                    <li
+                                        className="px-4 py-2 hover:bg-red-800 hover:text-slate-400 rounded-2xl"
+                                        onClick={() =>
+                                            setIsOpen((prev) => !prev)
+                                        }
+                                    >
                                         Cerrar Sesion
                                     </li>
                                 </Link>

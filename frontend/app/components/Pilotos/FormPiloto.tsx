@@ -131,7 +131,7 @@ const FormPiloto = () => {
                         siglas: data.siglas.toUpperCase(),
                         twitter: data.twitter,
                         foto: value.path,
-                        equipo_id: data.equipo, //HARDCODEADO HASTA TENER ROLES Y PONER EL EQUIPO DEL RESPONSABLE
+                        equipo_id: data.equipo,
                     })
                         .then((data) => {
                             toast.success(data.data.message, {

@@ -4,9 +4,11 @@ import Constantes from "@/app/(utils)/constantes";
 import Cabecera from "@/app/components/Cabecera";
 import Loading from "@/app/components/Loading";
 import SimpleTable from "@/app/components/SimpleTable";
+import VolverButton from "@/app/components/volverBtn";
 import { Piloto } from "@/app/logic/types";
 import { createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -94,6 +96,7 @@ const page = () => {
     type Pilotos = Piloto[];
     const [pilotos, setPilotos] = useState<Pilotos | []>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
 
     const getPilotos = async () => {
         setLoading(true);
@@ -114,7 +117,8 @@ const page = () => {
 
             if (response.data.success) {
                 toast.success(response.data.message, { duration: 4000 });
-                window.location.href = "/Pilotos/Gestion";
+                router.push("/MiEquipo/Pilotos");
+                getPilotos();
             } else {
                 toast.error(response.data.message);
             }
@@ -131,6 +135,9 @@ const page = () => {
                 titulo="Pilotos del equipo"
                 subtitulo="Aquí puedes gestionar los circuitos"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

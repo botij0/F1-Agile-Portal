@@ -27,7 +27,12 @@ const InputSelectField = ({
 
             <select
                 disabled={loading}
-                {...register(name)}
+                {...register(name, {
+                    required: {
+                        value: true,
+                        message: "Este campo es obligatorio",
+                    },
+                })}
                 id={name}
                 className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
                                     focus:border-red-500 block w-full p-2.5 "

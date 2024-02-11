@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getRequest } from "@/app/(utils)/api";
+import { getRequestTokenless } from "@/app/(utils)/api";
 
 export const SeccionUltimasNoticias = () => {
     const IMAGEN_BASE_URL =
@@ -15,7 +15,7 @@ export const SeccionUltimasNoticias = () => {
         const getNoticias = async () => {
             setLoading(true);
             try {
-                const response = await getRequest("noticias/ultimas");
+                const response = await getRequestTokenless("noticias/ultimas");
                 const data = await response.data;
                 setNoticias(data);
             } catch (error) {

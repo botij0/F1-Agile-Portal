@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from "uuid";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import Constantes from "@/app/(utils)/constantes";
 import { getRequest, postRequest, putRequest } from "@/app/(utils)/api";
 import toast from "react-hot-toast";
@@ -32,21 +32,22 @@ const FormCoche = () => {
             nombre: "",
             equipo: "",
             codigo: "",
-            consumo: "",
-            erscurvaMedia: "",
-            erscurvaRapida: "",
-            erscurvaLenta: "",
+            consumo: 0,
+            erscurvaMedia: 0,
+            erscurvaRapida: 0,
+            erscurvaLenta: 0,
             imagen: "",
         },
     });
 
-    const [equipos, setEquipos] = useState([]);
+    const [equipos, setEquipos] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editingImagen, setEditingImagen] = useState("");
 
     const router = useRouter();
     const params = useParams();
+    const path = usePathname();
     const id = params.id;
 
     const getCoche = async (id: string) => {
@@ -76,29 +77,31 @@ const FormCoche = () => {
     };
 
     const onSubmit = handleSubmit((data: any) => {
+        console.log(data.imagen);
         let img_Name = uploadImage(data.imagen[0], editingImagen);
         const method = isEditing ? putRequest : postRequest;
         const url = isEditing ? "coches/" + params.id : "coches";
 
         img_Name.then((value) => {
             if (value != -1) {
-                method(url, {
-                    id: id != undefined ? id : 0,
-                    nombre: data.nombre,
-                    equipo_id: data.equipo,
-                    codigo: data.codigo,
-                    consumo: data.consumo,
-                    ers_curva_media: data.erscurvaMedia,
-                    ers_curva_rapida: data.erscurvaRapida,
-                    ers_curva_lenta: data.erscurvaLenta,
-                    imagen: value.path,
-                })
-                    .then((data) => {
+                try {
+                    method(url, {
+                        id: id != undefined ? id : 0,
+                        nombre: data.nombre,
+                        equipo_id: data.equipo,
+                        codigo: data.codigo,
+                        consumo: data.consumo,
+                        ers_curva_media: data.erscurvaMedia,
+                        ers_curva_rapida: data.erscurvaRapida,
+                        ers_curva_lenta: data.erscurvaLenta,
+                        imagen: value.path,
+                    }).then((data) => {
+                        toast.success(data.data.message);
                         router.back();
-                    })
-                    .catch((error) => {
-                        console.log(error);
                     });
+                } catch (error) {
+                    toast.error("Error al guardar el coche");
+                }
             }
         });
     });
@@ -122,14 +125,36 @@ const FormCoche = () => {
         }
     };
 
+    const getMiEquipo = async () => {
+        try {
+            setLoading(true);
+            const response = await getRequest("equipos/me");
+            const data = await response.data;
+            if (data.success == true) {
+                const responseJson = data;
+                const equipo = responseJson.data;
+                const equipos = [equipo];
+
+                setEquipos(equipos);
+                setLoading(false);
+            } else {
+                toast.error("Error al cargar los equipos");
+            }
+        } catch (error) {
+            toast.error("Error al cargar los equipos");
+        }
+    };
+
     useEffect(() => {
-        if (params.id) {
-            setIsEditing(true);
-            getEquipos().then(() => {
-                getCoche(params.id as string);
-            });
+        if (path.includes("MiEquipo")) {
+            getMiEquipo();
         } else {
             getEquipos();
+        }
+
+        if (params.id) {
+            setIsEditing(true);
+            getCoche(params.id as string);
         }
     }, [params.id]);
 
@@ -138,9 +163,12 @@ const FormCoche = () => {
             {loading ? (
                 <Loading />
             ) : (
-                <form className="w-full max-w-lg mx-auto" onSubmit={onSubmit}>
-                    <div className="grid grid-cols-2 gap-10 mb-6">
-                        <div className="w-full px-3">
+                <form
+                    className="max-w-xl mx-auto mt-10 bg-gray-50 p-10 rounded-xl"
+                    onSubmit={onSubmit}
+                >
+                    <div className="grid sm:grid-cols-2 gap-10 mb-6">
+                        <div className="w-full">
                             <InputTextField
                                 label="Nombre"
                                 register={register}
@@ -154,7 +182,7 @@ const FormCoche = () => {
                             </p>
                         </div>
 
-                        <div className="w-full px-3">
+                        <div className="w-full">
                             <InputSelectField
                                 label="Equipo"
                                 register={register}
@@ -168,8 +196,8 @@ const FormCoche = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-10 mb-6">
-                        <div className="w-full px-3">
+                    <div className="grid sm:grid-cols-2 gap-10 mb-6">
+                        <div className="w-full">
                             <InputTextField
                                 label="Código"
                                 register={register}
@@ -184,7 +212,7 @@ const FormCoche = () => {
                             </p>
                         </div>
 
-                        <div className="w-full px-3">
+                        <div className="w-full">
                             <InputTextField
                                 label="Consumo"
                                 register={register}
@@ -200,8 +228,8 @@ const FormCoche = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-3 gap-10 mb-2">
-                        <div className="w-full px-3">
+                    <div className="grid sm:grid-cols-3 gap-10 mb-2">
+                        <div className="w-full">
                             <InputTextField
                                 label="erscurvaLenta"
                                 register={register}
@@ -212,7 +240,7 @@ const FormCoche = () => {
                             />
                         </div>
 
-                        <div className="w-full px-3">
+                        <div className="w-full">
                             <InputTextField
                                 label="erscurvaMedia"
                                 register={register}
@@ -268,7 +296,9 @@ const FormCoche = () => {
                                 {...register("imagen", {
                                     required: {
                                         value:
-                                            editingImagen == "" ? true : false,
+                                            editingImagen.length == 0
+                                                ? true
+                                                : false,
                                         message: "Este campo es obligatorio",
                                     },
                                 })}
@@ -295,7 +325,7 @@ const FormCoche = () => {
                     <div className="flex flex-wrap mb-6 items-center ">
                         <div className="w-full px-3 flex justify-center">
                             <button
-                                className="bg-red-500 hover:bg-red-700 mr-5 text-white font-bold py-2 px-4 rounded"
+                                className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg mr-5"
                                 type="submit"
                             >
                                 Guardar

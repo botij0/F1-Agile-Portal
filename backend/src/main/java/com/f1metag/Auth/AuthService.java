@@ -7,12 +7,15 @@ import com.f1metag.Common.Responses.AuthResponse;
 import com.f1metag.Usuario.Models.Rol;
 import com.f1metag.Usuario.Models.Usuario;
 import com.f1metag.Usuario.Repositories.UsuarioRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -72,15 +75,29 @@ public class AuthService {
 
         if (usuario.getEstado()){
             String token = jwtService.getToken(usuario);
-            return AuthResponse.successLogin(token).getBody();
+            return AuthResponse.successLogin(token, usuario).getBody();
         }else{
             throw new IllegalArgumentException("El Usuario aún no ha sido validado por el Administrador");
         }
 
     }
 
+    public AuthResponse validarToken(String auth, Long id){
+        String token = getTokenFromRequest(auth);
+        if(jwtService.isTokenExpired(token))
+        {
+            return AuthResponse.badRequest("Token expirado").getBody();
+        }
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow();
+        return AuthResponse.successLogin(token,usuario).getBody();
+    }
 
+    private String getTokenFromRequest(String request) {
 
-
+        if(StringUtils.hasText(request) && request.startsWith("Bearer ")) {
+            return request.substring(7);
+        }
+        return request;
+    }
 
 }

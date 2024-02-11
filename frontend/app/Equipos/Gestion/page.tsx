@@ -1,6 +1,5 @@
 "use client";
 import Cabecera from "@/app/components/Cabecera";
-import TeamsMng from "@/app/components/Equipos/TeamsMng";
 import Link from "next/link";
 import Loading from "@/app/components/Loading";
 import { useEffect, useState } from "react";
@@ -9,6 +8,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import Constantes from "@/app/(utils)/constantes";
 import { deleteRequest, getRequest } from "@/app/(utils)/api";
 import toast from "react-hot-toast";
+import VolverButton from "@/app/components/volverBtn";
 
 export default function Equipos() {
     type Equipo = {
@@ -103,12 +103,15 @@ export default function Equipos() {
     }, []);
 
     return (
-        <div className="overflow-x-auto mt-[20px] px-24">
+        <div className="overflow-x-auto px-24">
             {/* <TeamsMng /> */}
             <Cabecera
                 titulo="Gestión de equipos"
                 subtitulo="Añade, modifique o elimine equipos"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

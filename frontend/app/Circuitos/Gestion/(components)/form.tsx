@@ -198,12 +198,12 @@ const FormCircuitos = () => {
                 {loading ? (
                     <Loading />
                 ) : (
-                    <div className="mt-5 bg-gray-50 p-5 rounded-lg">
-                        <div className="w-96 flex flex-col gap-4">
+                    <div className="mt-5 w-[50%] mx-auto bg-gray-50 p-5 rounded-lg">
+                        <div className="w-96 flex flex-col gap-4 mx-auto">
                             <div>
-                                <div className="w-full px-3">
+                                <div className="w-full mb-2">
                                     <label
-                                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                        className="block mb-1 text-sm font-medium text-gray-900"
                                         htmlFor="titulo"
                                     >
                                         Imagen
@@ -320,20 +320,20 @@ const FormCircuitos = () => {
                                 errors={errors}
                                 loading={loading}
                             />
-                        </div>
-                        <div className="flex justify-start mt-5">
-                            <InputButton
-                                label={
-                                    loading
-                                        ? isEditing
-                                            ? "Guardando..."
-                                            : "Creando..."
-                                        : isEditing
-                                        ? "Guardar cambios"
-                                        : "Crear circuito"
-                                }
-                                loading={loading}
-                            />
+                            <div className="flex mt-5">
+                                <InputButton
+                                    label={
+                                        loading
+                                            ? isEditing
+                                                ? "Guardando..."
+                                                : "Creando..."
+                                            : isEditing
+                                            ? "Guardar cambios"
+                                            : "Crear circuito"
+                                    }
+                                    loading={loading}
+                                />
+                            </div>
                         </div>
                     </div>
                 )}

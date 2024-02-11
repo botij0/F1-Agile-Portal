@@ -1,8 +1,7 @@
 "use client";
 
-import { getRequest } from "@/app/(utils)/api";
+import { getRequestTokenless } from "@/app/(utils)/api";
 import Constantes from "@/app/(utils)/constantes";
-import DetallesEquipo from "@/app/components/Equipos/DetallesEquipo";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -23,7 +22,9 @@ export default function page() {
         setLoading(true);
         if (validId) {
             try {
-                const response = await getRequest("equipos/" + validId);
+                const response = await getRequestTokenless(
+                    "equipos/" + validId
+                );
                 if (response.data.success) {
                     setEquipo(response.data.data);
                 } else {
@@ -41,7 +42,7 @@ export default function page() {
     }, []);
 
     return (
-        <div className="overflow-x-auto mt-[20px] px-24">
+        <div className="overflow-x-auto px-24">
             {loading ? (
                 <Loading />
             ) : (

@@ -4,7 +4,7 @@ import FormCircuitos from "../(components)/form";
 
 const CrearCircuitoPage = () => {
     return (
-        <div className="relative overflow-x-auto mt-[80px]">
+        <div className="relative overflow-x-auto">
             <FormCircuitos />
         </div>
     );

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Loading extends Component {
     render() {
         return (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center my-10">
                 <div role="status">
                     <svg
                         aria-hidden="true"

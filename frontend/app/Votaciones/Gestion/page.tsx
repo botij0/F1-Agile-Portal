@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
+import VolverButton from "@/app/components/volverBtn";
 
 export default function Equipos() {
     type Votacion = {
@@ -99,11 +100,14 @@ export default function Equipos() {
     }, []);
 
     return (
-        <div className="overflow-x-auto mt-[20px] px-24">
+        <div className="overflow-x-auto px-24">
             <Cabecera
                 titulo="Gestión de Votaciones"
                 subtitulo="Aquí puedes gestionar las votaciones"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

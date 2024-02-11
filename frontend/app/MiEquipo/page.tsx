@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import TarjetasControl from "@/app/components/TarjetasControl";
-import Cabecera from "../components/Cabecera";
-import Constantes from "../(utils)/constantes";
+import Cabecera from "@/app/components/Cabecera";
+import Constantes from "@/app/(utils)/constantes";
 import Link from "next/link";
 import { Equipo } from "@/app/logic/types";
-import { getRequest } from "../(utils)/api";
-import toast from "react-hot-toast";
-import Loading from "../components/Loading";
+import Loading from "@/app/components/Loading";
+import withAuth from "@/app/components/withAuth";
+import { useAuth } from "@/app/context/Auth.Context";
 
 const page = () => {
     type tarjeta = {
@@ -34,7 +34,7 @@ const page = () => {
             id: 3,
             nombre: "Gestión Coches",
             icono: "/coche-icon.png",
-            url: "/Coches",
+            url: "/MiEquipo/Coches",
         },
         {
             id: 4,
@@ -44,38 +44,22 @@ const page = () => {
         },
     ];
 
-    const [equipo, setEquipo] = useState<Equipo | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-
-    const getMiEquipo = async () => {
-        setLoading(true);
-
-        try {
-            const response = await getRequest("equipos/me");
-            if (response.data.success) {
-                setEquipo(response.data.data);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        setLoading(false);
-    };
+    const [equipo, setEquipo] = useState<Equipo | undefined>(undefined);
+    const { user, loading } = useAuth();
 
     useEffect(() => {
-        getMiEquipo();
-    }, []);
+        setEquipo(user?.equipo);
+    }, [user]);
 
     return (
-        <div className="overflow-x-auto mt-[20px] px-24">
+        <div className="overflow-x-auto px-24">
             <div className="mx-auto">
                 <Cabecera
                     titulo="Mi Equipo"
                     subtitulo="Tu equipo de Fórmula 1"
                 />
                 {loading ? (
-                    <div className="mt-5">
-                        <Loading />
-                    </div>
+                    <Loading />
                 ) : equipo == null ? (
                     <div className="mt-10 bg-gray-100 w-[40%] p-10 rounded-xl mx-auto">
                         <h2 className="text-xl font-bold">
@@ -160,4 +144,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default withAuth(page);

@@ -1,8 +1,9 @@
 "use client";
-
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useAuth } from "@/app/context/Auth.Context";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Cabecera from "@/app/components/Cabecera";
 import Link from "next/link";
 
 export default function Login() {
@@ -12,38 +13,37 @@ export default function Login() {
         formState: { errors },
     } = useForm();
 
+    const { signin, isAuthenticated } = useAuth();
+    const router = useRouter();
+
     const onSubmit = handleSubmit((data: any) => {
         try {
             const request = {
                 username: data.username,
                 password: data.password,
             };
-            axios
-                .post("http://localhost:8080/auth/login", request)
-                .then((response) => {
-                    if (!response.data.success) {
-                        toast.error(response.data.message);
-                    } else {
-                        toast.success(response.data.message, {
-                            duration: 4000,
-                        });
-                        localStorage.setItem("token", response.data.token);
-                        window.location.href = "/";
-                    }
-                });
+            signin(request);
         } catch (err) {
             console.log(err);
         }
     });
 
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.push("/");
+        }
+    }, [isAuthenticated]);
+
     return (
-        <div className="mt-[20px]">
-            <Toaster />
-            <h2 className="text-black text-2xl w-[50%] m-auto">
-                Iniciar Sesión
-            </h2>
-            <hr className="border-black w-[50%] mb-5 m-auto" />
-            <form className="mx-auto max-w-xs" onSubmit={onSubmit}>
+        <div className="px-24  xl:px-96">
+            <Cabecera
+                titulo="Iniciar Sesión"
+                subtitulo="Inicia sesión para acceder a la plataforma"
+            />
+            <form
+                className="max-w-lg mx-auto mt-10 bg-gray-50 p-10 rounded-xl"
+                onSubmit={onSubmit}
+            >
                 <div className="mb-6">
                     <label className="block mb-2 text-sm font-medium text-gray-900">
                         Nombre de usuario
@@ -56,7 +56,7 @@ export default function Login() {
                     <input
                         type="username"
                         id="username"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
+                        className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
                        focus:border-red-500 block w-full p-2.5 "
                         placeholder="name@example.com"
                         {...register("username", {
@@ -84,8 +84,8 @@ export default function Login() {
                     <input
                         type="password"
                         id="password"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
-                       focus:border-red-500 block w-full p-2.5 "
+                        className="border border-gray-300 text-gray-900 text-sm rounded-lg 
+                        block w-full p-2.5 "
                         placeholder="********"
                         {...register("password", {
                             required: {
@@ -110,18 +110,22 @@ export default function Login() {
                         <input
                             id="remember"
                             type="checkbox"
-                            value=""
-                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-red-300 accent-red-700"
+                            className="w-4 h-4 border border-gray-300 rounded  focus:ring-3 accent-red-700"
                         />
                     </div>
                     <label className="ml-2 text-sm font-medium text-gray-900">
                         Recuérdame
                     </label>
+                    <Link
+                        href="/Users/Register"
+                        className="text-sm font-bold text-sky-600 hover:text-sky-700 ms-10"
+                    >
+                        ¿No tienes cuenta?
+                    </Link>
                 </div>
                 <button
                     type="submit"
-                    className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium 
-          rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
+                    className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg"
                 >
                     Iniciar sesión
                 </button>

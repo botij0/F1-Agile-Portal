@@ -6,6 +6,9 @@ import com.f1metag.Common.Requests.CocheRequest;
 import com.f1metag.Common.Responses.ApiResponse;
 import com.f1metag.Equipo.Models.Equipo;
 import com.f1metag.Equipo.Repository.EquipoRepository;
+import com.f1metag.Usuario.Controllers.UsuarioController;
+import com.f1metag.Usuario.Models.Usuario;
+import com.f1metag.Usuario.Services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,9 @@ public class CocheService {
     CocheRepository cocheRepository;
     @Autowired
     EquipoRepository equipoRepository;
+
+    @Autowired
+    UsuarioService usuarioService;
 
     public ApiResponse getAllCoches(){
         return ApiResponse.successRequest("Coches obtenidos correctamente", cocheRepository.findAll()).getBody();
@@ -96,5 +102,13 @@ public class CocheService {
         }
         cocheRepository.delete(cocheOptional.get());
         return ApiResponse.successRequest("Coche eliminado correctamente", null).getBody();
+    }
+
+    public ApiResponse getCochesMiEquipo(){
+        Usuario usuarioAuten = usuarioService.getAuthenticatedUser();
+        if(usuarioAuten.getEquipo() == null)
+            return ApiResponse.errorRequest("El usuario no pertenece a ningún equipo").getBody();
+
+        return ApiResponse.successRequest("Coches Obtenidos correctamente!", usuarioAuten.getEquipo().getCoches()).getBody();
     }
 }

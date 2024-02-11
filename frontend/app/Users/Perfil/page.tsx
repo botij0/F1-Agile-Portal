@@ -3,7 +3,7 @@ import MiPerfil from "@/app/components/Users/MiPerfil";
 
 export default function DefaultTable() {
     return (
-        <div className="relative overflow-x-auto mt-[20px]">
+        <div className="relative overflow-x-auto">
             <MiPerfil />
         </div>
     );

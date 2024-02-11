@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Constantes from "@/app/(utils)/constantes";
 
 const TarjetasControl = ({ tarjeta }: { tarjeta: any }) => {
     return (

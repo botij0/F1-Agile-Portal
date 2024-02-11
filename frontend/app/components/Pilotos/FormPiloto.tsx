@@ -39,7 +39,6 @@ const FormPiloto = () => {
     const params = useParams();
     const path = usePathname();
     const id = params.id;
-    const responsable = params.responsable;
 
     const getPaises = async () => {
         try {
@@ -132,7 +131,7 @@ const FormPiloto = () => {
                         siglas: data.siglas.toUpperCase(),
                         twitter: data.twitter,
                         foto: value.path,
-                        equipo_id: data.equipo, //HARDCODEADO HASTA TENER ROLES Y PONER EL EQUIPO DEL RESPONSABLE
+                        equipo_id: data.equipo,
                     })
                         .then((data) => {
                             toast.success(data.data.message, {
@@ -194,13 +193,13 @@ const FormPiloto = () => {
                 <Loading />
             ) : (
                 <form
-                    className="w-full max-w-lg mx-auto mt-5"
+                    className="max-w-xl mx-auto mt-10 bg-gray-50 p-2 md:p-10 rounded-xl"
                     onSubmit={onSubmit}
                 >
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
+                    <div className="grid grid-cols-3 gap-10 mb-6">
+                        <div className="col-span-1">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block mb-2 text-sm font-medium text-gray-900"
                                 htmlFor="nombre"
                             >
                                 Nombre
@@ -213,7 +212,7 @@ const FormPiloto = () => {
                             )}
 
                             <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                className="appearance-none block w-full text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
                                 id="nombre"
                                 type="text"
@@ -235,12 +234,9 @@ const FormPiloto = () => {
                                 Nombre del piloto
                             </p>
                         </div>
-                    </div>
-
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
+                        <div className="col-span-2">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block mb-2 text-sm font-medium text-gray-900"
                                 htmlFor="apellidos"
                             >
                                 Apellidos
@@ -251,7 +247,7 @@ const FormPiloto = () => {
                                 </span>
                             )}
                             <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                className="appearance-none block w-full text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
                                 id="apellidos"
                                 type="text"
@@ -275,10 +271,10 @@ const FormPiloto = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
+                    <div className="grid grid-cols-5 gap-5 mb-6">
+                        <div className="col-span-1 ">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block mb-2 text-sm font-medium text-gray-900"
                                 htmlFor="dorsal"
                             >
                                 Dorsal
@@ -289,13 +285,13 @@ const FormPiloto = () => {
                                 </span>
                             )}
                             <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
                                 id="dorsal"
                                 type="number"
                                 min="0"
                                 max="999"
-                                placeholder="Dorsal"
+                                placeholder="999"
                                 {...register("dorsal", {
                                     required: {
                                         value: true,
@@ -312,35 +308,10 @@ const FormPiloto = () => {
                                 Dorsal del piloto
                             </p>
                         </div>
-                    </div>
 
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
+                        <div className="col-span-1">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                htmlFor="pais"
-                            >
-                                País
-                            </label>
-                            <InputSelectField
-                                label="País"
-                                register={register}
-                                name="pais"
-                                errors={errors}
-                                loading={loading}
-                                options={paises}
-                            />
-
-                            <p className="text-gray-600 text-xs italic">
-                                País de nacimiento del piloto
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
-                            <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block mb-2 text-sm font-medium text-gray-900"
                                 htmlFor="siglas"
                             >
                                 Siglas
@@ -351,7 +322,7 @@ const FormPiloto = () => {
                                 </span>
                             )}
                             <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                className="appearance-none block w-full text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white uppercase"
                                 id="siglas"
                                 type="text"
@@ -373,12 +344,27 @@ const FormPiloto = () => {
                                 Siglas del piloto
                             </p>
                         </div>
+
+                        <div className="col-span-3 px-3">
+                            <InputSelectField
+                                label="País"
+                                register={register}
+                                name="pais"
+                                errors={errors}
+                                loading={loading}
+                                options={paises}
+                            />
+
+                            <p className="text-gray-600 text-xs italic">
+                                País de nacimiento del piloto
+                            </p>
+                        </div>
                     </div>
 
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3">
+                    <div className="grid grid-cols-2 gap-10 mb-6">
+                        <div className="w-full">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block mb-2 text-sm font-medium text-gray-900"
                                 htmlFor="twitter"
                             >
                                 Twitter
@@ -389,7 +375,7 @@ const FormPiloto = () => {
                                 </span>
                             )}
                             <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
+                                className="appearance-none block w-full text-gray-700 border border-gray-200 rounded 
                                      p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
                                 id="twitter"
                                 type="text"
@@ -410,16 +396,8 @@ const FormPiloto = () => {
                                 Cuenta de twitter del piloto
                             </p>
                         </div>
-                    </div>
 
-                    <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full px-3">
-                            <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                htmlFor="equipo"
-                            >
-                                Equipo del piloto
-                            </label>
                             {errors.usuario && (
                                 <span className="text-red-500 text-xs italic">
                                     {errors.usuario.message as string}
@@ -443,7 +421,7 @@ const FormPiloto = () => {
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full px-3">
                             <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                className="block mb-2 text-sm font-medium text-gray-900"
                                 htmlFor="foto"
                             >
                                 Foto
@@ -454,8 +432,10 @@ const FormPiloto = () => {
                                 </span>
                             )}
                             <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded 
-                                     p-2.5 mb-1 leading-tight focus:outline-none focus:bg-white"
+                                className="cursor-pointer file:cursor-pointer text-gray-700 w-full text-sm border border-gray-200 shadow-sm rounded-lg focus:z-10 
+                                focus:border-red-500 focus:ring-red-500 disabled:opacity-50 disabled:pointer-events-none 
+                                file:border-0 file:me-4 file:py-2 file:px-4 file:text-gray-600 file:italic 
+                                file:bg-gray-200 file:hover:bg-gray-300 hover:bg-gray-200"
                                 id="foto"
                                 type="file"
                                 placeholder=""
@@ -487,7 +467,7 @@ const FormPiloto = () => {
                     <div className="flex flex-wrap mb-6 items-center ">
                         <div className="w-full px-3 flex justify-center">
                             <button
-                                className="bg-red-500 hover:bg-red-700 mr-5 text-white font-bold py-2 px-4 rounded"
+                                className="bg-red-600 hover:bg-red-700 text-white font-bold  py-2 px-6 rounded-lg mr-5"
                                 type="submit"
                             >
                                 Guardar

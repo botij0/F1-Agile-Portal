@@ -37,6 +37,15 @@ public class CocheController {
         }
     }
 
+    @GetMapping("/equipo/me")
+    public ResponseEntity<ApiResponse> getCochesMiEquipo() {
+        try {
+            return ResponseEntity.ok(cocheService.getCochesMiEquipo());
+        } catch (IllegalArgumentException e) {
+            return ApiResponse.badRequest();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<ApiResponse> createCoche(@RequestBody CocheRequest cocheRequest) {
 

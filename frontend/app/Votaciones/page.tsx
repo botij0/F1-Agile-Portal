@@ -56,7 +56,7 @@ export default function Votaciones() {
     }, [currentPage]);
 
     return (
-        <div className="mt-[20px]  max-w-[90%] mx-auto">
+        <div className="max-w-[90%] mx-auto">
             <Cabecera
                 titulo="Votaciones"
                 subtitulo="Bienvenido a la página de votaciones"

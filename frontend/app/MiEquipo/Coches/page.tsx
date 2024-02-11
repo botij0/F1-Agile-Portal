@@ -5,7 +5,7 @@ import Loading from "@/app/components/Loading";
 import Cabecera from "@/app/components/Cabecera";
 import { deleteRequest, getRequest } from "@/app/(utils)/api";
 import { createColumnHelper } from "@tanstack/react-table";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import SimpleTable from "@/app/components/SimpleTable";
 import Constantes from "@/app/(utils)/constantes";
@@ -72,12 +72,12 @@ const CochesGestionPage = () => {
         columnHelper.accessor("id", {
             cell: (id: any) => (
                 <div className="flex gap-3 justify-end">
-                    <Link
-                        href={"/Coches/Editar/" + id.getValue()}
+                    <a
+                        href={"/MiEquipo/Coches/Editar/" + id.getValue()}
                         className="bg-gray-800 hover:bg-gray-950 text-white font-bold py-2 px-4 rounded-lg"
                     >
                         Editar
-                    </Link>
+                    </a>
                     <button
                         onClick={() => {
                             handleDelete(id.getValue());
@@ -96,6 +96,7 @@ const CochesGestionPage = () => {
 
     const [coches, setCoches] = useState<Coches | []>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
 
     const handleDelete = async (id: number) => {
         if (confirm("¿Estás seguro de que quieres eliminar este coche?")) {
@@ -103,7 +104,8 @@ const CochesGestionPage = () => {
 
             if (response.data.success) {
                 toast.success(response.data.message, { duration: 4000 });
-                window.location.href = "/Equipos/Coches";
+                router.push("/MiEquipo/Coches");
+                getCoches();
             } else {
                 toast.error(response.data.message);
             }
@@ -113,7 +115,7 @@ const CochesGestionPage = () => {
     const getCoches = async () => {
         setLoading(true);
         try {
-            const response = await getRequest("coches");
+            const response = await getRequest("coches/equipo/me");
             setCoches(response.data.data);
         } catch (error) {
             console.log(error);
@@ -128,8 +130,8 @@ const CochesGestionPage = () => {
     return (
         <div className=" overflow-x-auto px-24">
             <Cabecera
-                titulo="Gestión de Coches"
-                subtitulo="Aquí puedes gestionar los coches"
+                titulo="Coches del Equipo"
+                subtitulo="Aquí puedes gestionar los coches del equipo"
             />
             <div className="mt-5">
                 <VolverButton />
@@ -141,7 +143,7 @@ const CochesGestionPage = () => {
                     <SimpleTable
                         data={coches}
                         columns={columns}
-                        urlAniadir="/Coches/Crear"
+                        urlAniadir="/MiEquipo/Coches/Crear"
                         txtAniadir="Crear Coche"
                     />
                 </div>

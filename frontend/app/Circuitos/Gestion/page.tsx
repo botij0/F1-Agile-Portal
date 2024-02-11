@@ -9,6 +9,7 @@ import Constantes from "@/app/(utils)/constantes";
 import SimpleTable from "@/app/components/SimpleTable";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import VolverButton from "@/app/components/volverBtn";
 const CircuitosGestionPage = () => {
     type Circuito = {
         id: number;
@@ -134,11 +135,14 @@ const CircuitosGestionPage = () => {
     }, []);
 
     return (
-        <div className=" overflow-x-auto mt-[20px] px-24">
+        <div className=" overflow-x-auto px-24">
             <Cabecera
                 titulo="Gestión de Circuitos"
                 subtitulo="Aquí puedes gestionar los circuitos"
             />
+            <div className="mt-5">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (

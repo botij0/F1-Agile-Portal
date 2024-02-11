@@ -58,3 +58,14 @@ export interface Miembro {
   usuario: string;
   rol: string;
 }
+
+export interface Usuario {
+  id: number
+  nombre: string
+  email: string
+  username: string
+  rol: string
+  enabled: boolean
+  estado: boolean,
+  equipo: Equipo
+}

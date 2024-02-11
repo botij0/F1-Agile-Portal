@@ -43,13 +43,10 @@ export class EnergyRecoverySystem {
     private readonly _coche: ICoche
     /** Max capacity of the ERS in kWh */
     private readonly _maxCapacity: number
-    /** Current capacity of the ERS in kWh */
-    private _currentCapacity: number // TODO: Por confirmar si es necesario
 
     public constructor(coche: ICoche) {
         this._coche = coche
         this._maxCapacity = 1.2
-        this._currentCapacity = 0
     }
 
     /**

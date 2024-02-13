@@ -1,6 +1,7 @@
 package com.f1metag.Usuario.Services;
 
 import com.f1metag.Common.Responses.ApiResponse;
+import com.f1metag.Equipo.Repository.EquipoRepository;
 import com.f1metag.Usuario.Models.Rol;
 import com.f1metag.Common.Requests.UserRequest;
 import com.f1metag.Common.Responses.ApiResponse;
@@ -19,6 +20,9 @@ import java.util.Optional;
 public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    EquipoRepository equipoRepository;
 
 
     public ArrayList<Usuario> getAllUsers(){
@@ -87,6 +91,12 @@ public class UsuarioService {
         oldUser.setUsername(userRequest.getUsername());
         oldUser.setEmail(userRequest.getEmail());
         oldUser.setRol(userRequest.getRol());
+        if(userRequest.getIdEquipo() == null){
+            oldUser.setEquipo(null);
+        }else{
+            oldUser.setEquipo(equipoRepository.findById(userRequest.getIdEquipo()).orElseThrow());
+        }
+
         usuarioRepository.save(oldUser);
 
         return oldUser;

@@ -16,6 +16,8 @@ const page = () => {
         icono: string;
         url: string;
     };
+    const [equipo, setEquipo] = useState<Equipo | undefined>(undefined);
+    const { user, loading } = useAuth();
 
     const tarjetas: tarjeta[] = [
         {
@@ -40,12 +42,9 @@ const page = () => {
             id: 4,
             nombre: "Simuladores",
             icono: "/simulator-icon.png",
-            url: "/Coches",
+            url: "/Equipos/Simulacion/" + equipo?.id,
         },
     ];
-
-    const [equipo, setEquipo] = useState<Equipo | undefined>(undefined);
-    const { user, loading } = useAuth();
 
     useEffect(() => {
         setEquipo(user?.equipo);

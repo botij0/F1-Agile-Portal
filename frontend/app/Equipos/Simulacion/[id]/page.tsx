@@ -1,13 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Cabecera from "../components/Cabecera";
-import InputSelectField from "../components/InputSelectField";
-import InputButton from "../components/InputButton";
-import Loading from "../components/Loading";
+import Cabecera from "@/app/components/Cabecera";
+import InputSelectField from "@/app/components/InputSelectField";
+import InputButton from "@/app/components/InputButton";
+import Loading from "@/app/components/Loading";
 import { useForm } from "react-hook-form";
 import { getRequest } from "@/app/(utils)/api";
 import toast from "react-hot-toast";
+import { useParams } from "next/navigation";
 import { comsumoCombustible, Conduccion, EnergyRecoverySystem } from "./logic";
+import VolverButton from "@/app/components/volverBtn";
+import withAuth from "@/app/components/withAuth";
 
 function getConduccionByIndex(index: string): Conduccion | undefined {
     switch (index) {
@@ -23,26 +26,33 @@ function getConduccionByIndex(index: string): Conduccion | undefined {
 }
 
 function filterData(data: any): {
-    idCoche?: number,
-    idCircuito?: number,
-    conduccion?: Conduccion
+    idCoche?: number;
+    idCircuito?: number;
+    conduccion?: Conduccion;
 } {
     return {
         idCoche: data.coche !== "" ? Number.parseInt(data.coche) : undefined,
-        idCircuito: data.circuito !== "" ? Number.parseInt(data.circuito) : undefined,
-        conduccion: getConduccionByIndex(data.tipoConduccion)
-    }
+        idCircuito:
+            data.circuito !== "" ? Number.parseInt(data.circuito) : undefined,
+        conduccion: getConduccionByIndex(data.tipoConduccion),
+    };
 }
 
-export default function Simulacion() {
+const Simulacion = () => {
     const [loading, setLoading] = useState(false);
     const [coches, setCoches] = useState<any[]>([]);
     const [circuitos, setCircuitos] = useState<any[]>([]);
 
-    const [combustiblePorVuelta, setCombustiblePorVuelta] = useState<string>('');
-    const [combustibleTotal, setCombustibleTotal] = useState<string>('');
-    const [gananciaERSPorVuelta, setGananciaERSPorVuelta] = useState<string>('');
-    const [vueltasParaCargarERS, setVueltasParaCargarERS] = useState<string>('');
+    const params = useParams();
+    const idEquipo = params.id;
+
+    const [combustiblePorVuelta, setCombustiblePorVuelta] =
+        useState<string>("");
+    const [combustibleTotal, setCombustibleTotal] = useState<string>("");
+    const [gananciaERSPorVuelta, setGananciaERSPorVuelta] =
+        useState<string>("");
+    const [vueltasParaCargarERS, setVueltasParaCargarERS] =
+        useState<string>("");
 
     const {
         register,
@@ -54,7 +64,7 @@ export default function Simulacion() {
     const getCoches = async () => {
         try {
             setLoading(true);
-            const response = await getRequest("coches");
+            const response = await getRequest("coches/equipo/" + idEquipo);
             const data = await response.data;
             if (data.success == true) {
                 const responseJson = data;
@@ -98,39 +108,56 @@ export default function Simulacion() {
         const { idCoche, idCircuito, conduccion } = filterData(data);
 
         const coche = coches.find((coche) => coche.id === idCoche);
-        const circuito = circuitos.find((circuito) => circuito.id === idCircuito);
+        const circuito = circuitos.find(
+            (circuito) => circuito.id === idCircuito
+        );
 
         if (!coche || !circuito) {
             toast.error("No se ha seleccionado un coche o un circuito");
             return;
         }
 
-        setCombustiblePorVuelta(comsumoCombustible(circuito.longitud, coche.consumo).toFixed(4));
-        setCombustibleTotal(comsumoCombustible(circuito.longitud, coche.consumo, circuito.numeroVueltas).toFixed(4));
+        setCombustiblePorVuelta(
+            comsumoCombustible(circuito.longitud, coche.consumo).toFixed(4)
+        );
+        setCombustibleTotal(
+            comsumoCombustible(
+                circuito.longitud,
+                coche.consumo,
+                circuito.numeroVueltas
+            ).toFixed(4)
+        );
 
         if (conduccion === undefined) {
             setGananciaERSPorVuelta("");
             setVueltasParaCargarERS("");
         } else {
             const ers = new EnergyRecoverySystem(coche);
-            setGananciaERSPorVuelta(ers.gainValForCircuito(circuito, conduccion).toFixed(4));
-            setVueltasParaCargarERS(ers.numVueltasToRecharge(circuito, conduccion).toFixed(4));
+            setGananciaERSPorVuelta(
+                ers.gainValForCircuito(circuito, conduccion).toFixed(4)
+            );
+            setVueltasParaCargarERS(
+                ers.numVueltasToRecharge(circuito, conduccion).toFixed(4)
+            );
         }
-    })
+    });
 
     return loading ? (
         <Loading />
     ) : (
-        <div className="max-w-[90%] mx-auto">
+        <div className="px-24 mx-auto">
             <div>
                 <Cabecera
                     titulo="Herramientas de simulación"
                     subtitulo="Seleccione un coche y un circuito"
                 />
             </div>
-            <form onSubmit={onSubmit}>
+            <form
+                onSubmit={onSubmit}
+                className="max-w-3xl mx-auto bg-gray-50 p-10 mt-10 rounded-xl"
+            >
                 <div className="my-4">
-                    <div className="my-1">
+                    <div className="my-1 sm:w-[50%]">
                         <InputSelectField
                             label="Coche"
                             register={register}
@@ -140,7 +167,7 @@ export default function Simulacion() {
                             options={coches}
                         />
                     </div>
-                    <div className="my-1">
+                    <div className="my-1 sm:w-[50%]">
                         <InputSelectField
                             label="Circuito"
                             register={register}
@@ -152,7 +179,7 @@ export default function Simulacion() {
                     </div>
                 </div>
                 <hr></hr>
-                <div style={{ display: "flex" }}>
+                <div className="grid md:grid-cols-3 gap-10">
                     <div>
                         <div>
                             <h1 className="text-xl  mt-5 font-bold">
@@ -190,17 +217,17 @@ export default function Simulacion() {
                         </div>
                     </div>
 
-                    <div className="ml-20">
+                    <div className="col-span-2">
                         <div>
                             <h1 className="text-xl  mt-5 font-bold">
                                 Cálculo de ERS (Energy Recovery System)
                             </h1>
                             <p className="text-xs text-gray-500 my-1">
-                                Sistema de recuperación de energía en frenadas que
-                                se almacena en una batería.
+                                Sistema de recuperación de energía en frenadas
+                                que se almacena en una batería.
                             </p>
                             <div>
-                                <div className="my-3">
+                                <div className="">
                                     <label className="block mb-1 text-sm font-medium text-gray-900">
                                         Tipo de conducción
                                     </label>
@@ -231,29 +258,30 @@ export default function Simulacion() {
                                     </select>
                                 </div>
 
-                                <div style={{ display: "flex" }}>
-                                    <div className="my-3">
+                                <div className="grid grid-cols-2 gap-5">
+                                    <div className="col-span-1 my-3">
                                         <label className="block mb-1 text-sm font-medium text-gray-900">
-                                            Ganancia del sistema por vuelta (kWh):
+                                            Ganancia del sistema por vuelta
+                                            (kWh):
                                         </label>
                                         <input
                                             disabled={true}
                                             type="number"
                                             className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
-                                    focus:border-red-500 block p-2.5 w-72"
+                                    focus:border-red-500 block p-2.5 w-28"
                                             value={gananciaERSPorVuelta}
                                         />
                                     </div>
-                                    <div className="my-3 ml-8">
+                                    <div className="my-3 col-span-1">
                                         <label className="block mb-1 text-sm font-medium text-gray-900">
-                                            Número de vueltas necesarias para cargar
-                                            la batería:
+                                            Número de vueltas necesarias para
+                                            cargar la batería:
                                         </label>
                                         <input
                                             disabled={true}
                                             type="number"
                                             className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500
-                                    focus:border-red-500 block p-2.5 w-96"
+                                    focus:border-red-500 block p-2.5 w-28"
                                             value={vueltasParaCargarERS}
                                         />
                                     </div>
@@ -262,10 +290,16 @@ export default function Simulacion() {
                         </div>
                     </div>
                 </div>
-                <div className="my-5">
-                    <InputButton label="Calcular" loading={loading} />
+                <div className="my-5 flex">
+                    <div className="me-5">
+                        <InputButton label="Calcular" loading={loading} />
+                    </div>
+                    <div>
+                        <VolverButton />
+                    </div>
                 </div>
             </form>
         </div>
     );
-}
+};
+export default withAuth(Simulacion);

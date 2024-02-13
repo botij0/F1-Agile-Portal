@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { v4 as uuid } from "uuid";
 import { useParams, useRouter, usePathname } from "next/navigation";
 import Constantes from "@/app/(utils)/constantes";
 import { getRequest, postRequest, putRequest } from "@/app/(utils)/api";

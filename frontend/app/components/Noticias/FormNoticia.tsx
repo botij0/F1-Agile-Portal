@@ -28,7 +28,8 @@ const FormNoticia = () => {
     const onSubmit = handleSubmit((data: any) => {
         imgNoticia = noticias.imagen;
         let img_Name = uploadImage(data.imagen[0], imgNoticia);
-
+        console.log(imgNoticia);
+        console.log(data.imagen[0]);
         img_Name.then((value) => {
             if (value != -1) {
                 postRequest("noticias", {
@@ -75,6 +76,9 @@ const FormNoticia = () => {
                         : "Aquí puedes añadir una noticia"
                 }
             />
+            <div className="mt-3">
+                <VolverButton />
+            </div>
 
             <form
                 className="w-full max-w-2xl mx-auto mt-8 bg-gray-100 px-8 py-12 rounded-xl"
@@ -211,7 +215,6 @@ const FormNoticia = () => {
                         >
                             Guardar
                         </button>
-                        <VolverButton />
                     </div>
                 </div>
             </form>

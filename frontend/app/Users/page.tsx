@@ -39,6 +39,10 @@ export default function UsuariosGestion() {
             header: "Rol",
             accessorKey: "rol",
         },
+        {
+            header: "Equipo",
+            accessorKey: "equipo.nombre",
+        },
         columnHelper.accessor("id", {
             cell: (id: any) => (
                 <div className="flex gap-3 justify-end">

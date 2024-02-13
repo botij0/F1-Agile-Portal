@@ -133,13 +133,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 setUser(res.data.usuario);
                 setIsAuthenticated(true);
 
-                console.log(res.data.usuario.rol);
-
                 res.data.usuario.rol === "ADMIN"
                     ? setIsAdmin(true)
                     : setIsAdmin(false);
 
-                console.log(isAdmin);
                 setLoading(false);
             } catch (err) {
                 setUser(null);

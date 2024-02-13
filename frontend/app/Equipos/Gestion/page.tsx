@@ -35,10 +35,18 @@ export default function Equipos() {
             header: "Nombre del Equipo",
             accessorKey: "nombre",
         },
-        {
+        columnHelper.accessor("twitter", {
+            cell: (twitter: any) => (
+                <Link
+                    href={"https://twitter.com/" + twitter.getValue()}
+                    target="_blank"
+                    className=" text-sky-500 hover:text-sky-700"
+                >
+                    {"@" + twitter.getValue()}
+                </Link>
+            ),
             header: "Twitter",
-            accessorKey: "twitter",
-        },
+        }),
         columnHelper.accessor("id", {
             cell: (id: any) => (
                 <div className="flex gap-3 justify-end">
@@ -47,6 +55,12 @@ export default function Equipos() {
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
                     >
                         Ver
+                    </Link>
+                    <Link
+                        href={"/Equipos/Simulacion/" + id.getValue()}
+                        className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-lg"
+                    >
+                        Simulaciones
                     </Link>
                     <Link
                         href={"/Equipos/Editar/" + id.getValue()}
@@ -104,7 +118,6 @@ export default function Equipos() {
 
     return (
         <div className="overflow-x-auto px-24">
-            {/* <TeamsMng /> */}
             <Cabecera
                 titulo="Gestión de equipos"
                 subtitulo="Añade, modifique o elimine equipos"

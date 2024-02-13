@@ -189,6 +189,9 @@ const FormPiloto = () => {
                 titulo={id != undefined ? "Editar Piloto" : "Añadir Piloto"}
                 subtitulo="Rellene los campos como desee"
             />
+            <div className="mt-3">
+                <VolverButton />
+            </div>
             {loading ? (
                 <Loading />
             ) : (
@@ -472,8 +475,6 @@ const FormPiloto = () => {
                             >
                                 Guardar
                             </button>
-
-                            <VolverButton />
                         </div>
                     </div>
                 </form>

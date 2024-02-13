@@ -67,10 +67,18 @@ export default function DefaultTable() {
             header: "Siglas",
             accessorKey: "siglas",
         },
-        {
+        columnHelper.accessor("twitter", {
+            cell: (twitter: any) => (
+                <Link
+                    href={"https://twitter.com/" + twitter.getValue()}
+                    target="_blank"
+                    className=" text-sky-500 hover:text-sky-700"
+                >
+                    {"@" + twitter.getValue()}
+                </Link>
+            ),
             header: "Twitter",
-            accessorKey: "twitter",
-        },
+        }),
         {
             header: "Equipo",
             accessorKey: "equipo.nombre",

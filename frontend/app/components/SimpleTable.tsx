@@ -7,7 +7,7 @@ import {
     getFilteredRowModel,
 } from "@tanstack/react-table";
 import Link from "next/link";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 
 interface SimpleTableProps {
     data: any[];
@@ -39,6 +39,10 @@ function SimpleTable({
         onSortingChange: setSorting,
         onGlobalFilterChange: setFiltering,
     });
+
+    useEffect(() => {
+        table.setPageSize(5);
+    }, []);
 
     return (
         <div className="my-5 text-lg overflow-auto">
@@ -125,7 +129,7 @@ function SimpleTable({
                         }}
                         className="border p-1.5 rounded border-gray-400 bg-gray-200 font-bold"
                     >
-                        {[10, 20, 30, 40, 50].map((pageSize) => (
+                        {[5, 10, 20, 30, 40, 50].map((pageSize) => (
                             <option key={pageSize} value={pageSize}>
                                 Ver {pageSize}
                             </option>

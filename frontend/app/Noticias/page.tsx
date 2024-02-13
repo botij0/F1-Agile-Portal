@@ -55,6 +55,7 @@ export default function Noticias() {
     }, [currentPage]);
 
     return (
+        
         <div className="mt-[20px]  max-w-[90%] mx-auto">
             <Cabecera
                 titulo="Noticias"
@@ -93,7 +94,7 @@ export default function Noticias() {
                                 >
                                     {noticias.length > 0
                                         ? noticias[0].titulo
-                                        : "First slide label"}
+                                        : ""}
                                 </h5>
                             </div>
                         </a>

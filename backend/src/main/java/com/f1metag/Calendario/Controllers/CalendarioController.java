@@ -44,7 +44,7 @@ public class CalendarioController
                 String mes = carreras.get(i).getFecha().format(mesFormatter).toUpperCase();
                 String fechaFormateada =carreras.get(i).getFecha().format(diaFormatter)+"-"+carreras.get(i+2).getFecha().format(diaFormatter)+" "+mes;
                 Optional<Circuito> circuito = calendarioService.getCircuito(carreras.get(i).getCircuito().getId());
-                calendario.add(new ElementoCalendario(fechaFormateada,circuito.get().getPaisNombre(), circuito.get().getCiudad()));
+                calendario.add(new ElementoCalendario(fechaFormateada,circuito.get().getPaisNombre(), circuito.get().getCiudad(),circuito.get().getId()));
             }
             else
             {
@@ -52,7 +52,7 @@ public class CalendarioController
                 String mes2 = carreras.get(i+2).getFecha().format(mesFormatter).toUpperCase();
                 String fechaFormateada =carreras.get(i).getFecha().format(diaFormatter)+" "+mes1+" - "+carreras.get(i+2).getFecha().format(diaFormatter)+" "+mes2;
                 Optional<Circuito> circuito = calendarioService.getCircuito(carreras.get(i).getCircuito().getId());
-                calendario.add(new ElementoCalendario(fechaFormateada,circuito.get().getPaisNombre(), circuito.get().getCiudad()));
+                calendario.add(new ElementoCalendario(fechaFormateada,circuito.get().getPaisNombre(), circuito.get().getCiudad(),circuito.get().getId()));
             }
         }
 

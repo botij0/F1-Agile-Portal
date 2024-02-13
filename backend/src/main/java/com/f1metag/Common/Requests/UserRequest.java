@@ -17,4 +17,5 @@ public class UserRequest {
     String username;
     String email;
     Rol rol;
+    Long idEquipo;
 }

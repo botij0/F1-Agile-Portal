@@ -55,9 +55,8 @@ const FormVotacion = () => {
 
     const getPilotos = async () => {
         try {
-            const response = await getRequest("pilotos/data");
-
-            setPilotos(response.data);
+            const response = await getRequest("pilotos");
+            setPilotos(response.data.data);
         } catch (error) {
             console.log(error);
         }

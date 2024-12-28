@@ -1,4 +1,4 @@
 # F1-Met-AG-
-Trabajo de la unidad 2 de la asignatura Metodologías Ágiles para el Desarrollo.
+Work of the unit 2 of the subject Agile Methodologies for Development.
 
-Se trata de un portal de F1 con diferentes secciones y tipos de usuarios.
+It is an F1 portal with different sections and types of users.

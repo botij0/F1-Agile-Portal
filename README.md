@@ -10,7 +10,8 @@ Formula 1 Web Portal for fans and professional teams. Includes news, management 
    - [Backend](#backend)
 
 3. [Implementation](#implementation)
-   - [Requirements](#requirements)
+   - [Users](#users)
+   - [Features](#features)
    - [Architecture](#architecture)
 4. [User Manual](#user-manual)
    - [Public Access](#public-access)
@@ -63,10 +64,34 @@ The easiest way to run it is to open the `/backend` project using JetBrains `Int
 
 ## Implementation
 
-### Requirements
+The web application consists of a rather complex F1 portal. This section explains the users and features it presents and the architecture used to carry out the development of the project.
+
+
+### Users
+
+The web application has three types of users:
+- **Public**: does not require authentication. It can access limited sections and exclusively in read mode. The only resource that is not in read mode are the votes in which you can participate.
+- **Team Manager**: requires authentication. He/she has access to exclusive sections such as Team and Pilots. Although it still has some limitations such as users or news.
+- **Admin**: Has full access to the application. You can add, edit or delete the content you want.
+
+### Features
+The web application allows the following actions:
+- **User Management**: Registration, login, and customized profiles.
+- **Team and Driver Information**: Searchable databases with details on teams and drivers.
+- **Car and Track Management**: Detailed information on car and track specifications, as well as performance simulations.
+- **Voting and Opinions**: Functionalities to vote in different categories and share opinions.
+- **News**: News section updateable by team managers and administrators.
+
+For all of them, the admin can manage them by editing, creating or deleting them. In some cases, the team manager can also perform these options.
 
 ### Architecture
 
+The application has a three-layer architecture as shown in the image:
+
+![image](https://github.com/user-attachments/assets/56fcc8c3-1aa9-4973-8d74-a9ff2476d2bd)
+
+- **Frontend**: NextJS with TailwindCSS has been used for styling. Some of the libraries that were used were: `TanStack Table`, `React-Hot-Toast`, `React-Hook-Form` y `Axios`.
+- **Backend**: Spring Boot has been used in its entirety. Some key dependencies are: `Modelmapper`, `Spring Boot Starter Data JPA`, `Spring Boot Starter Web`, `Spring Boot Starter Security`, `Spring Security Web` y `JJWT`
 
 ## User Manual
 

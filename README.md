@@ -35,7 +35,10 @@ El esquema `E/R` de la BBDD es:
 
 ![E/R schema](https://github.com/user-attachments/assets/e1238929-3134-415c-a152-97b17b1425d0)
 
-🔴**WARNING**🔴 se debe añadir tanto al `frontend` como al `backend` la **url** del nuevo proyecto así como el **token** creado.
+🔴**WARNING**🔴 se debe añadir tanto al `frontend` como al `backend` la **url** del nuevo proyecto así como el **token** creado. 
+
+- En el front se debe sustituir ciertos valores en el archivo `app/(utils)/constantes.tsx`.
+- En el back se debe sustituir ciertos valores en el archivo `src/main/resources/application.properties`
 
 ### Frontend
 

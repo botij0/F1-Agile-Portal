@@ -17,25 +17,25 @@ Formula 1 Web Portal for fans and professional teams. Includes news, management 
    - [Private User](#private-user)
    - [Admin](#admin)
 
-## 1 - Execution
+## Execution
 
-### 1.1 - Frontend
+### Frontend
 
-### 1.2 - Backend
+### Backend
 
-### 1.3 - BDD
+### BDD
 
-## 2 - Implementation
+## Implementation
 
-### 2.1 - Requirements
+### Requirements
 
-### 2.2 - Architecture
+### Architecture
 
 
-## 3 - User Manual
+## User Manual
 
-### 3.1 - Public Access
+### Public Access
 
-### 3.2 - Private user
+### Private user
 
-### 3.3 - Admin
+### Admin

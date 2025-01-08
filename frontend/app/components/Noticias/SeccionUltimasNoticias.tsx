@@ -3,16 +3,13 @@
 import { useEffect, useState } from "react";
 import { getRequestTokenless } from "@/app/(utils)/api";
 import { SkeletonSeccionUltimasNoticias } from "@/app/components/Noticias/SkeletonSeccionUltimasNoticias";
+import Constantes from "@/app/(utils)/constantes";
 import {
   Carousel,
   initTE,
 } from "tw-elements";
 
 export const SeccionUltimasNoticias = () => {
-  const IMAGEN_BASE_URL =
-    "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/";
-  const LOGO_URL =
-    "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/0d8b4747-e641-4763-a7b4-f7ed168e37b7";
   const [noticias, setNoticias] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -91,13 +88,12 @@ export const SeccionUltimasNoticias = () => {
               style={{ backfaceVisibility: "hidden" }}
             >
               <a
-                href={`/Noticias/Noticia/${
-                  noticias.length > 0 ? noticias[0].id : 0
-                }`}
+                href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[0].id : 0
+                  }`}
               >
                 <img
                   src={
-                    `${IMAGEN_BASE_URL}${noticias[0]?.imagen}`
+                    `${Constantes.IMAGE_BASE_URL + { noticias[0]?.imagen }`
                   }
                   className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
                   alt="..."
@@ -122,13 +118,12 @@ export const SeccionUltimasNoticias = () => {
               style={{ backfaceVisibility: "hidden" }}
             >
               <a
-                href={`/Noticias/Noticia/${
-                  noticias.length > 0 ? noticias[1].id : 0
-                }`}
+                href={`/ Noticias / Noticia / ${noticias.length > 0 ? noticias[1].id : 0
+                  }`}
               >
                 <img
                   src={
-                    `${IMAGEN_BASE_URL}${noticias[1]?.imagen}`
+                    `${Constantes.IMAGE_BASE_URL + { noticias[1]?.imagen }`
                   }
                   className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
                   alt="..."
@@ -153,13 +148,12 @@ export const SeccionUltimasNoticias = () => {
               style={{ backfaceVisibility: "hidden" }}
             >
               <a
-                href={`/Noticias/Noticia/${
-                  noticias.length > 0 ? noticias[2].id : 0
-                }`}
+                href={`/ Noticias / Noticia / ${noticias.length > 0 ? noticias[2].id : 0
+                  }`}
               >
                 <img
                   src={
-                    `${IMAGEN_BASE_URL}${noticias[2]?.imagen}`
+                    `${Constantes.IMAGE_BASE_URL + { noticias[2]?.imagen }`
                   }
                   className="block w-full h-[524px] rounded-3xl overflow-hidden hover:opacity-80"
                   alt="..."

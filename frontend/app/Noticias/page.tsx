@@ -6,12 +6,9 @@ import { Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getRequestPaginada } from "@/app/(utils)/api";
 import Cabecera from "../components/Cabecera";
+import Constantes from "../(utils)/constantes";
 
 export default function Noticias() {
-    const IMAGEN_BASE_URL =
-        "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/";
-    const LOGO_URL =
-        "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/0d8b4747-e641-4763-a7b4-f7ed168e37b7";
     const [noticias, setNoticias] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [totalPages, setTotalPages] = useState(0);
@@ -55,7 +52,7 @@ export default function Noticias() {
     }, [currentPage]);
 
     return (
-        
+
         <div className="mt-[20px]  max-w-[90%] mx-auto">
             <Cabecera
                 titulo="Noticias"
@@ -71,15 +68,14 @@ export default function Noticias() {
                         style={{ backfaceVisibility: "hidden" }}
                     >
                         <a
-                            href={`/Noticias/Noticia/${
-                                noticias.length > 0 ? noticias[0].id : 0
-                            }`}
+                            href={`/Noticias/Noticia/${noticias.length > 0 ? noticias[0].id : 0
+                                }`}
                         >
                             <img
                                 src={
                                     noticias.length > 0
-                                        ? `${IMAGEN_BASE_URL}${noticias[0].imagen}`
-                                        : LOGO_URL
+                                        ? `${Constantes.IMAGE_BASE_URL}${noticias[0].imagen}`
+                                        : Constantes.LOGO_URL
                                 }
                                 className="block w-full h-[524px] rounded-3xl overflow-hidden border-solid border-8 border-red-700"
                                 alt="..."
@@ -113,8 +109,8 @@ export default function Noticias() {
                                         <Noticia
                                             url={
                                                 noticias.length > 0
-                                                    ? `${IMAGEN_BASE_URL}${noticia.imagen}`
-                                                    : LOGO_URL
+                                                    ? `${Constantes.IMAGE_BASE_URL}${noticia.imagen}`
+                                                    : Constantes.LOGO_URL
                                             }
                                             titulo={
                                                 noticias.length > 0
@@ -135,8 +131,8 @@ export default function Noticias() {
                             <Noticia
                                 url={
                                     noticias.length > 0
-                                        ? `${IMAGEN_BASE_URL}${noticia.imagen}`
-                                        : LOGO_URL
+                                        ? `${Constantes.IMAGE_BASE_URL}${noticia.imagen}`
+                                        : Constantes.LOGO_URL
                                 }
                                 titulo={
                                     noticias.length > 0

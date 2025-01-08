@@ -8,10 +8,6 @@ import { Votacion } from "./components/votacion";
 import Cabecera from "../components/Cabecera";
 
 export default function Votaciones() {
-    const IMAGEN_BASE_URL =
-        "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/";
-    const LOGO_URL =
-        "https://pxfvrkflonlookyusxtb.supabase.co/storage/v1/object/public/Images/0d8b4747-e641-4763-a7b4-f7ed168e37b7";
     const [votaciones, setVotaciones] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [totalPages, setTotalPages] = useState(0);

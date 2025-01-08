@@ -6,9 +6,7 @@ import Link from "next/link";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { deleteRequest } from "@/app/(utils)/api";
-
-const IMAGE_BASE_URL =
-    "https://pxfvrkflonlookyusxtb.supabase.in/storage/v1/object/public/Images/";
+import Constantes from "@/app/(utils)/constantes";
 
 interface Circuitos {
     id: number;
@@ -157,7 +155,7 @@ function TableComponent({
                             >
                                 <td className="px-6 py-4 whitespace-nowrap h-32">
                                     <img
-                                        src={IMAGE_BASE_URL + circuito.trazado}
+                                        src={Constantes.IMAGE_BASE_URL + circuito.trazado}
                                         alt="Trazado"
                                         className="w-40 rounded-lg h-32 object-cover"
                                         onError={(e) => {

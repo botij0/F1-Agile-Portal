@@ -5,7 +5,7 @@ Formula 1 Web Portal for fans and professional teams. Includes news, management 
 
 ## Contents
 1. [Execution](#execution)
-   - [BBDD](#bbdd)
+   - [Database](#database)
    - [Frontend](#frontend)
    - [Backend](#backend)
 
@@ -28,7 +28,7 @@ The following explains how to run the project successfully.
 
 It should be noted that the project used a [Supabase](https://supabase.com/) DB that is currently unavailable, so it is necessary to previously set up a project in [Supabase](https://supabase.com/) for everything to work correctly.
 
-### BBDD
+### Databse
 
 As mentioned above, the database is hosted at [Supabase](https://supabase.com/). To do this you need to create a free account and create an access token and create the database as well as the corresponding tables. 
 
